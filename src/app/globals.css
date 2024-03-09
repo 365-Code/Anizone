@@ -1,33 +1,206 @@
+/* https://www.behance.net/gallery/173338529/Anistream-(Anime-Streaming-Website-Design)?tracking_source=search_projects|anime+website+streaming&l=7 */
+@import "~@flaticon/flaticon-uicons/css/all/all";
+/* CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --primary-text: #ffffff;
+  --secondary-text: #230149;
+  --primary-color: #4f0055;
+  --secondary-color: #6200cf;
+  --body-color: #230149;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-optical-sizing: auto;
+  font-style: normal;
+  transition: all;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply bg-[#230149] min-[1000px]:px-40;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.fixed-nav {
+  @apply fixed w-full top-0 left-0 px-60 z-50;
 }
+
+body::-webkit-scrollbar {
+  @apply w-0 h-0;
+}
+/* 
+main{
+  @apply bg-[#230149];
+} */
+
+section {
+  @apply relative gbg;
+}
+
+.fi{
+  @apply flex flex-col;
+}
+
+.my-container {
+  @apply px-4 sm:px-12 md:px-20 relative;
+}
+
+.nav-link-selected::before {
+  content: "";
+  @apply w-full absolute -bottom-2 left-0 h-[3px] bg-[#230149];
+}
+
+.nav-link-selected::before {
+  @apply relative;
+}
+
+.nav-link::before {
+  content: "";
+  @apply w-full absolute -bottom-2 left-0 h-[0] bg-[#230149] transition-all;
+}
+
+.nav-link {
+  @apply relative;
+}
+
+.nav-link:hover.nav-link::before {
+  @apply h-[3px];
+}
+
+.anime-card {
+  @apply max-w-[625px] h-[320px] flex relative bg-black/40 backdrop-blur-sm sm:rounded-none rounded-br-3xl bg-shadow 
+  min-w-[380px]
+  md:min-w-[625px]
+  md:min-h-fit
+  ;
+}
+
+.anime-tag {
+  @apply p-2 z-10 bg-white text-black absolute -top-3 -left-3 font-semibold rounded-br-[60px] rounded-lg w-[250px];
+}
+
+.anime-card-detail {
+  @apply sm:flex-1 relative text-white pt-10 pb-6 pl-6 flex flex-col justify-between;
+}
+
+.anime-card-img {
+  @apply sm:block hidden sm:basis-[38%];
+  /* -webkit-clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%); */
+  clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.half-anime-card {
+  @apply h-[320px] flex relative bg-[#000000]/50 backdrop-blur-sm w-[380px] min-w-[380px] rounded-br-3xl bg-shadow;
+}
+
+.half-anime-card-detail {
+  @apply relative text-white py-10 pb-6 pl-6 flex flex-col justify-between;
+}
+
+.play-now-card {
+  @apply max-w-[720px] h-[380px] flex relative bg-black/40 backdrop-blur-sm sm:rounded-none rounded-br-3xl bg-shadow
+  md:min-w-[720px]
+  ;
+}
+.play-now-card-detail {
+  @apply sm:flex-1 relative text-white pt-10 pb-8 pl-8 flex flex-col justify-between;
+}
+.play-now-card-img {
+  @apply sm:block hidden sm:basis-[38%];
+  /* -webkit-clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%); */
+  clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.st-anime-card {
+  @apply h-fit;
+}
+
+.st-anime-card-image {
+  box-shadow: 25px 20px 100px 0px #000000;
+  /* @apply w-[220px] h-[320px] text-xs; */
+  @apply w-[200px] h-[320px] text-xs;
+}
+
+.st-anime-card-detail {
+  /* @apply rounded-r-xl w-[260px] text-[0.58rem] bg-[#230149] text-white py-2 px-4; */
+  @apply rounded-r-xl w-[230px] text-[0.60rem] bg-[#230149] text-white py-2 px-4 h-full;
+}
+
+/* .st-anime-card-detail h3 {
+  @apply text-[0.55rem];
+} */
+
+.bg-shadow {
+  @apply shadow-2xl shadow-black/50;
+}
+
+#search-box {
+  @apply flex-1 h-fit max-w-fit rounded-xl text-white gradient-bg overflow-hidden;
+}
+
+.gradient-bg {
+  /* @apply bg-gradient-to-r via-[#4500ff]/90 to-[#230149]/50 from-[#6200cf]/50; */
+
+  /* background: rgb(79,0,85);
+background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.7) 50%, rgba(35,1,73,0.9) 100%); */
+
+  /* background: rgb(79,0,85);
+background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924027814251) 50%, rgba(35,1,73,0.9) 100%); */
+
+  background: rgb(79, 0, 85);
+  background: linear-gradient(
+    90deg,
+    rgba(79, 0, 85, 0.8) 0%,
+    rgba(98, 0, 207, 0.49576327112876406) 50%,
+    rgba(35, 1, 73, 1) 100%
+  );
+}
+
+.filter-btn {
+  @apply hover:text-white hover:bg-cyan-400;
+}
+
+#genre a {
+  @apply hover:text-white hover:bg-[#6200cf] px-2 py-1 rounded-lg transition-all;
+}
+
+.btn {
+  @apply p-4 min-w-fit rounded-xl;
+}
+
+.btn-primary {
+  @apply bg-[#6200cf] hover:bg-[#6200cf]/90 btn w-[200px];
+}
+
+.btn-secondary {
+  @apply bg-[#ffffff] hover:bg-[#ffffff]/90 btn w-[200px] text-black;
+}
+
+.gbg::before {
+  content: "";
+  @apply absolute top-0 left-0 w-full h-full flex flex-col -z-10;
+}
+
+.gbg::before::before {
+  content: "";
+  @apply basis-1/2 bg-[#1d0840] w-full h-full;
+}
+.gbg::before::after {
+  content: "";
+  @apply basis-1/2 gradient-bg py-10 h-full w-full;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  @apply w-0 h-0;
+}
+
+/* <div className="absolute top-0 left-0 w-full h-full flex flex-col -z-10">
+    <div className="basis-1/2 bg-[#230149]"></div>
+    <div className="basis-1/2 gradient-bg py-10"></div>
+  </div> */
