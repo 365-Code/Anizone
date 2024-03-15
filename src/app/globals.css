@@ -10,7 +10,9 @@
   --secondary-text: #230149;
   --primary-color: #4f0055;
   --secondary-color: #6200cf;
-  --body-color: #230149;
+  /* --body-color: #230149; */
+  /* --body-color: #4f0055; */
+  --body-color: #2c004b;
 }
 
 
@@ -25,6 +27,10 @@
 
 body {
   @apply bg-[#230149] min-[1000px]:px-40;
+}
+
+body{
+  @apply flex flex-col min-h-screen;
 }
 
 .fixed-nav {
@@ -53,7 +59,8 @@ section {
 
 .nav-link-selected::before {
   content: "";
-  @apply w-full absolute -bottom-2 left-0 h-[3px] bg-[#230149];
+  /* @apply w-full absolute -bottom-2 left-0 h-[3px] bg-[#230149]; */
+  @apply w-full absolute -bottom-2 left-0 h-[3px] bg-current;
 }
 
 .nav-link-selected::before {
@@ -62,7 +69,8 @@ section {
 
 .nav-link::before {
   content: "";
-  @apply w-full absolute -bottom-2 left-0 h-[0] bg-[#230149] transition-all;
+  /* @apply w-full absolute -bottom-2 left-0 h-[0] bg-[#230149] transition-all; */
+  @apply w-full absolute -bottom-2 left-0 h-[0] bg-inherit transition-all;
 }
 
 .nav-link {
@@ -171,7 +179,7 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
 }
 
 .btn {
-  @apply p-4 min-w-fit rounded-xl;
+  @apply p-6 min-w-fit rounded-xl;
 }
 
 .btn-primary {

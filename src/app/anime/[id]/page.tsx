@@ -11,7 +11,6 @@ const Page = () => {
 
   return (
     <div>
-        {animeId}
         <FetchAnimeInfo animeId={animeId} />
     </div>
   )

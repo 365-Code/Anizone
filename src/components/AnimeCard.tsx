@@ -4,12 +4,11 @@ import React from "react";
 
 const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
   const animeTitle = anime.title as ITitle;
-
   return (
     <div className="pt-3 pl-3">
       <div className="anime-card">
         <div className="anime-tag">
-          {anime.genres
+          {anime.genres && anime.genres.length > 0
             ? anime.genres?.map(
                 (g, i) =>
                   (i < 2 ? g : "") +
