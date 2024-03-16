@@ -6,6 +6,7 @@ import ListAnime from "./ListAnime";
 import Hero from "./Hero";
 import Search from "./Search";
 import { animeData } from "@/utils";
+import Filter from "./Filter";
 
 const fetchPopular = async () => {
   try {
@@ -147,23 +148,23 @@ const HomePage = () => {
   const [trending, setTrending] = useState<IAnimeResult[]>([]);
   const [recentMovies, setRecentMovies] = useState<IAnimeResult[]>([]);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     fetchPopular();
-  //   }, 1000);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      // fetchPopular();
+    }, 1000);
+  }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     fetchTrending();
-  //   }, 2000);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      // fetchTrending();
+    }, 2000);
+  }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     fetchRecentMovies();
-  //   }, 3000);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      // fetchRecentMovies();
+    }, 3000);
+  }, []);
 
   // useEffect(() => {
   //   setTimeout(() => {
@@ -175,6 +176,7 @@ const HomePage = () => {
     <>
       <Hero />
       <Search />
+      <Filter />
       {popular?.length > 0 && (
         <DisplayAnime title="popular" animeList={popular || animeData} />
       )}

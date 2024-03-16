@@ -1,42 +1,39 @@
 "use client"
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
 const Header = () => {
-
-
   const pathname = usePathname()
-
   return (
     // <!-- Header -->
     // <!-- my-container => fixed-nav later remove -->
     <header className="relative">
-    <nav className="my-container flex flex-wrap justify-between py-8 items-center text-white">
+    <nav className="text-white my-container flex flex-wrap justify-between py-8 items-center">
       {/* <h2 className="text-5xl text-[#230149] font-semibold"> */}
-      <h2 className="text-5xl text-white">
+      <h2 className="text-5xl">
         {
           pathname.includes('movies') ? "Movies" :
           pathname.includes('anime') ? "Play Now" :
-          pathname.includes('Trending') ? "Trending" :
-          pathname.includes('Series') ? "Series" :
-          "AniZone"
+          pathname.includes('trending') ? "Trending" :
+          pathname.includes('series') ? "Series" : "AniZone"
         }
       </h2>
       <ul className="flex flex-wrap items-center gap-12 uppercase font-normal">
         <li className="nav-link">
-          <a href="">home</a>
+          <Link href="/home">home</Link>
         </li>
         <li className="nav-link">
-          <a href="">movies</a>
+          <Link href="/movies">movies</Link>
         </li>
         <li className="nav-link">
-          <a href="">series</a>
+          <Link href="/series">series</Link>
         </li>
         <li className="nav-link">
-          <a href="">trending</a>
+          <Link href="/trending">trending</Link>
         </li>
         <li className="nav-link">
-          <a href="">top rated</a>
+          <Link href="/top-rated">top rated</Link>
         </li>
       </ul>
     </nav>

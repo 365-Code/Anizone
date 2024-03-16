@@ -1,22 +1,14 @@
-import { ANIME } from "@consumet/extensions";
+import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import React from "react";
 
-const fetchAnimeInfo = async (animeId: string) => {
-  try {
-    // const anilist = new META.Anilist()
-    const anime = new ANIME.Gogoanime();
-    const results = await anime.fetchAnimeInfo(animeId);
-    return results;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const StAnimeCard = async ({ animeId }: { animeId: string }) => {
-  const anime = await fetchAnimeInfo(animeId);
-
+const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
   // const str = "Lorem Ipsum Dolor, Sit Amet Consectetur Adipisicing Elit. Sequi Veritatis Aut Nemo Quibusdam Accusamus Cum Minus Reprehenderit Beatae. Aut, Maiores Facilis."
   // console.log(str.length);
+  const animeTitle =
+    (anime.title as ITitle).romaji ||
+    (anime.title as ITitle).english ||
+    (anime.title as ITitle).userPreferred ||
+    "";
 
   return (
     <>
@@ -33,17 +25,16 @@ const StAnimeCard = async ({ animeId }: { animeId: string }) => {
           <div className="st-anime-card-detail">
             <h3 className="text-cyan-500 font-bold capitalize">
               {/* Attack on titan final season */}
-              {(anime.title as string).slice(0, 146)}
+              {(animeTitle as string).slice(0, 146)}
             </h3>
-            <p>
+            <p className="hyphens-auto">
               {/* Known in japan as shingeki no kyojin, many years ago, the last
           remnants of humanity were forced to retreat behind the towering walls
           ..... */}
-              {anime.description?.slice(
-                0,
-                146 - (anime.title as string).length
+              {anime.description?.slice(0, 146 - animeTitle.length).replaceAll("<br>", ' ')}
+              {(anime.description as string)?.length > 150 && (
+                <span>.....</span>
               )}
-              {(anime.description as string)?.length > 150 && <span>.....</span>}
             </p>
           </div>
         </div>

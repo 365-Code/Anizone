@@ -70,7 +70,7 @@ section {
 .nav-link::before {
   content: "";
   /* @apply w-full absolute -bottom-2 left-0 h-[0] bg-[#230149] transition-all; */
-  @apply w-full absolute -bottom-2 left-0 h-[0] bg-inherit transition-all;
+  @apply w-full absolute -bottom-2 left-0 h-0 bg-current transition-all;
 }
 
 .nav-link {
@@ -131,13 +131,20 @@ section {
 
 .st-anime-card-image {
   box-shadow: 25px 20px 100px 0px #000000;
-  /* @apply w-[220px] h-[320px] text-xs; */
-  @apply w-[200px] h-[320px] text-xs;
+  @apply w-[220px] h-[320px] text-xs;
+  /* @apply w-[200px] h-[320px] text-xs; */
 }
 
 .st-anime-card-detail {
-  /* @apply rounded-r-xl w-[260px] text-[0.58rem] bg-[#230149] text-white py-2 px-4; */
-  @apply rounded-r-xl w-[230px] text-[0.60rem] bg-[#230149] text-white py-2 px-4 h-full;
+  @apply rounded-r-xl w-[240px] text-[0.58rem] bg-[#230149] text-white py-2 px-4;
+  /* @apply rounded-r-xl w-[230px] text-[0.60rem] bg-[#230149] text-white py-2 px-4 h-full; */
+}
+
+.st-anime-card-detail p{
+    height:45px;
+    line-height:15px; /* Height / no. of lines to display */
+    overflow:hidden;
+  /* @apply rounded-r-xl w-[230px] text-[0.60rem] bg-[#230149] text-white py-2 px-4 h-full; */
 }
 
 /* .st-anime-card-detail h3 {
@@ -179,7 +186,7 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
 }
 
 .btn {
-  @apply p-6 min-w-fit rounded-xl;
+  @apply p-6 min-w-fit rounded-xl text-center;
 }
 
 .btn-primary {

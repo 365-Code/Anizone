@@ -3,6 +3,8 @@ import { ANIME, IAnimeInfo, ITitle } from "@consumet/extensions";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import PlayNowCard from "./PlayNowCard";
+import { useParams } from "next/navigation";
+
 
 const fetchAnimeInfo = async (animeId: string) => {
   try {
@@ -16,8 +18,12 @@ const fetchAnimeInfo = async (animeId: string) => {
 };
 
 // const FetchAnimeInfo = async ({ animeId }: { animeId: string }) => {
-const FetchAnimeInfo = ({ animeId }: { animeId: string }) => {
+const FetchAnimeInfo = () => {
   // const animeInfo = await fetchAnimeInfo(animeId) as IAnimeInfo;
+  
+  const params = useParams()
+  const animeId = params["id"] as string || ""
+  
   const fetchAnime = async (aName: string) => {
     try {
       const result = await fetch(`/api/anilist/fetchAnimeInfo?anime=${aName}`);
@@ -25,6 +31,8 @@ const FetchAnimeInfo = ({ animeId }: { animeId: string }) => {
       if (res.success) {
         setAnimeInfo(res.animeData);
         setAnimeTitle(res.animeData.title);
+        const animeTitle = res.animeData.title as ITitle
+        setAnimeId(((animeTitle?.romaji || animeTitle?.english || animeTitle?.userPreferred)?.toLowerCase().replaceAll(' ', '-').replaceAll(',', '')) || "")
       }
     } catch (error) {
       console.log(error);
@@ -34,14 +42,11 @@ const FetchAnimeInfo = ({ animeId }: { animeId: string }) => {
   useEffect(() => {
     animeId && fetchAnime(animeId);
   }, [animeId]);
-
+  
   const [animeInfo, setAnimeInfo] = useState<IAnimeInfo>();
   const [animeTitle, setAnimeTitle] = useState<ITitle>();
   const [moreLess, setMoreLess] = useState(true)
-
-  console.log(animeInfo?.description);
-  
-
+  const [animId, setAnimeId] = useState("")
 
   return (
     // <!-- Play Now -->
@@ -106,8 +111,8 @@ const FetchAnimeInfo = ({ animeId }: { animeId: string }) => {
             <div className="flex-1 items-center flex sm:flex-row md:flex-col flex-col gap-4 justify-between py-8">
               <div className="flex md:flex-col justify-center gap-4">
                 {/* <button className="btn-primary">Watch Now</button> */}
-                <Link href={"/anime/" + animeInfo?.id + "/watch"}>
-                  <button className="btn-primary">Watch Now</button>
+                <Link className="btn-primary" href={"/anime/watch/" + animId + '/' + animeInfo.totalEpisodes + "/episode-1" }>
+                  Watch Now
                 </Link>
                 <button className="btn-secondary">Add to watchlist</button>
               </div>
@@ -145,7 +150,7 @@ const FetchAnimeInfo = ({ animeId }: { animeId: string }) => {
                 moreLess ?
                 <span>...show</span>
                 :
-                <span>{" "}...hide</span>
+                <span>{" "}hide</span>
               }
               </button>
             </p>

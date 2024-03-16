@@ -17,33 +17,13 @@ const proxyURL = async (referer: string, source: string) => {
     }
 }
 
-const fetchEpisode = async (episodeId: string) => {
-    
-    try {
-        const anime = new ANIME.Gogoanime()
-        // const results = await anime.search(episodeId)
-        const results = await anime.fetchEpisodeServers(episodeId)
-        const {headers, sources} = await anime.fetchEpisodeSources(episodeId)
-        if(headers && sources){
-            const episode = await proxyURL(headers?.Referer, sources[0].url)
-            return episode
-        }
-        return results || ""
-    } catch (error) {
-    }
-}
 
 
 const FetchEpisode = async ({episodeId}: {episodeId: string}) => {
-    const episode = await fetchEpisode(episodeId);
 
   return (
     <div>
-        FetchEpisode
-        <button className='flex items-center px-4 py-2 rounded-lg text-white hover:bg-[#6200cf]'>
-            360p
-        </button>
-        <VideoPlayer source={""} />
+
     </div>
   )
 }

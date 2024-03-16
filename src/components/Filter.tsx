@@ -17,6 +17,7 @@ const fetchFilters = async () => {
 const Filter = async () => {
 
   const genreList = await fetchFilters()
+  
 
   return (
     <section className="my-container bg-[#230149] py-8 flex flex-col gap-8 text-white">
