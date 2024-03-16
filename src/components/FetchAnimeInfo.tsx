@@ -4,35 +4,55 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import PlayNowCard from "./PlayNowCard";
 import { useParams } from "next/navigation";
-
-
-const fetchAnimeInfo = async (animeId: string) => {
-  try {
-    // const anilist = new META.Anilist()
-    const anime = new ANIME.Gogoanime();
-    const results = await anime.fetchAnimeInfo(animeId);
-    return JSON.parse(JSON.stringify(results));
-  } catch (error) {
-    // console.log(error);
-  }
-};
+import { removeChars, toAnimeId } from "@/utils";
+import { useDispatch } from "react-redux";
+import { AppDispatch, useAppSelector } from "@/redux/store";
+import currentAnimeReducer, {
+  setCurrentAnime,
+} from "@/redux/features/currentAnimeSlice";
 
 // const FetchAnimeInfo = async ({ animeId }: { animeId: string }) => {
 const FetchAnimeInfo = () => {
   // const animeInfo = await fetchAnimeInfo(animeId) as IAnimeInfo;
-  
-  const params = useParams()
-  const animeId = params["id"] as string || ""
-  
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const params = useParams();
+  const animeId = (params["animeId"] as string) || "";
+
+  const setResources = (animeData: IAnimeInfo) => {
+    setAnimeInfo(animeData);
+    const animeTitle = animeData.title as ITitle;
+    setAnimeTitle(animeTitle);
+    setAnimeId(toAnimeId(animeTitle));
+  }
+
   const fetchAnime = async (aName: string) => {
     try {
-      const result = await fetch(`/api/anilist/fetchAnimeInfo?anime=${aName}`);
+      // const result = await fetch(`/api/anilist/fetchAnimeInfo?anime=${aName}`);
+      const result = await fetch(`/api/anilist/searchAnime?anime=${aName}`);
       const res = await result.json();
       if (res.success) {
-        setAnimeInfo(res.animeData);
-        setAnimeTitle(res.animeData.title);
-        const animeTitle = res.animeData.title as ITitle
-        setAnimeId(((animeTitle?.romaji || animeTitle?.english || animeTitle?.userPreferred)?.toLowerCase().replaceAll(' ', '-').replaceAll(',', '')) || "")
+        
+        // setAnimeInfo(res.animeData);
+        // setAnimeTitle(res.animeData.title);
+        // const animeTitle = res.animeData.title as ITitle;
+        // setAnimeId(toAnimeId(animeTitle));
+        setResources(res.animeData)
+
+        // dispatch(setCurrentAnime(res.animeData));
+
+
+        // setAnimeId(
+        //   (
+        //     animeTitle?.romaji ||
+        //     animeTitle?.english ||
+        //     animeTitle?.userPreferred
+        //   )
+        //     ?.toLowerCase()
+        //     .replaceAll(" ", "-")
+        //     .replaceAll(",", "") || ""
+        // );
       }
     } catch (error) {
       console.log(error);
@@ -40,13 +60,21 @@ const FetchAnimeInfo = () => {
   };
 
   useEffect(() => {
-    animeId && fetchAnime(animeId);
+    // animeId && fetchAnime(animeId);
   }, [animeId]);
-  
+
+  const currentAnime = useAppSelector((state) => state.currentAnimeReducer.value) as IAnimeInfo
+
   const [animeInfo, setAnimeInfo] = useState<IAnimeInfo>();
   const [animeTitle, setAnimeTitle] = useState<ITitle>();
-  const [moreLess, setMoreLess] = useState(true)
-  const [animId, setAnimeId] = useState("")
+  const [moreLess, setMoreLess] = useState(true);
+  const [animId, setAnimeId] = useState("");
+
+  useEffect(() => {
+    currentAnime && setResources(currentAnime)
+  }, [currentAnime])
+
+  
 
   return (
     // <!-- Play Now -->
@@ -55,7 +83,6 @@ const FetchAnimeInfo = () => {
         <>
           <h2 className="text-5xl invisible">Play Now</h2>
           <div className="flex flex-col md:flex-row gap-4 justify-between">
-
             {/* <div className="play-now-card">
               <div className="play-now-card-detail">
                 <img
@@ -111,7 +138,17 @@ const FetchAnimeInfo = () => {
             <div className="flex-1 items-center flex sm:flex-row md:flex-col flex-col gap-4 justify-between py-8">
               <div className="flex md:flex-col justify-center gap-4">
                 {/* <button className="btn-primary">Watch Now</button> */}
-                <Link className="btn-primary" href={"/anime/watch/" + animId + '/' + animeInfo.totalEpisodes + "/episode-1" }>
+                <Link
+                  className="btn-primary"
+                  // href={
+                  //   "/anime/watch/" +
+                  //   animId +
+                  //   "/" +
+                  //   animeInfo.totalEpisodes +
+                  //   "/episode-1"
+                  // }
+                  href={"/anime/" + animId + "/episode-1"}
+                >
                   Watch Now
                 </Link>
                 <button className="btn-secondary">Add to watchlist</button>
@@ -123,11 +160,11 @@ const FetchAnimeInfo = () => {
                   50.5k
                 </span>
                 <span className="flex flex-col items-center gap-2 text-2xl font-normal">
-                <i className="fi fi-sr-beacon text-4xl" />
+                  <i className="fi fi-sr-beacon text-4xl" />
                   2.3k
                 </span>
                 <span className="flex flex-col items-center gap-2 text-2xl font-normal">
-                <i className="fi fi-sr-paper-plane text-4xl" />
+                  <i className="fi fi-sr-paper-plane text-4xl" />
                   5.3k
                 </span>
               </div>
@@ -136,22 +173,25 @@ const FetchAnimeInfo = () => {
 
           <div className="space-y-4">
             <h1 className="md:max-w-[70%] leading-tight text-3xl sm:text-4xl md:text-6xl">
-              {
-                animeTitle?.english ||
+              {animeTitle?.english ||
                 animeTitle?.romaji ||
                 animeTitle?.userPreferred ||
-                (animeInfo?.title as string)
-              }
+                (animeInfo?.title as string)}
             </h1>
             <p className="md:max-w-[80%] font-light sm:text-lg pb-8">
-              {(animeInfo?.description?.slice(0, moreLess ? 260 : -1) as string).split("<br>")[0]}
-              <button className={"text-blue-500"} onClick={() => setMoreLess(!moreLess)} >
               {
-                moreLess ?
-                <span>...show</span>
-                :
-                <span>{" "}hide</span>
+                removeChars((
+                  animeInfo?.description?.slice(
+                    0,
+                    moreLess ? 260 : animeInfo.description.length
+                  ) as string
+                ), ["<br>","<i>", "</i>"])
               }
+              <button
+                className={"text-blue-500"}
+                onClick={() => setMoreLess(!moreLess)}
+              >
+                {moreLess ? <span>...show</span> : <span> hide</span>}
               </button>
             </p>
           </div>

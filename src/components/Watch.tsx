@@ -38,14 +38,14 @@ const Watch = () => {
 
   return (
     <div>
-      {epSources.length > 0 && (
+      {/* {epSources.length > 0 && ( */}
         <Player
           source={
             // "https://www116.vipanicdn.net/streamhls/49979d0674bcda313a04defd97c92a25/ep.1.1709184073.480.m3u8"
-            epSources[2].url || epSources[1].url || epSources[0].url || epSources[3].url
+            epSources[2]?.url || epSources[1]?.url || epSources[0]?.url || epSources[3]?.url || "https://cdn.dribbble.com/users/93245/screenshots/3231739/loader.gif"
           }
         />
-      )}
+      {/* )} */}
       {/* <FetchEpisode /> */}
     </div>
   );

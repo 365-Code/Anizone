@@ -4,6 +4,7 @@ import React from "react";
 
 const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
   const animeTitle = anime.title as ITitle;
+  const animeId = (((animeTitle?.romaji || animeTitle?.english || animeTitle?.userPreferred)?.toLowerCase().replaceAll(' ', '-').replaceAll(',', '')) || "")
   return (
     <div className="pt-3 pl-3">
       <div className="anime-card">
@@ -40,13 +41,14 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
               <span className="w-1 h-1 rounded-full bg-white" />
               <span>{anime.type}</span>
             </p>
-            <Link href={"/anime/" + anime.id}>
+            {/* <Link href={"/anime/" + anime.id}> */}
+            <Link href={"/anime/" + animeId}>
               <h3 className="text-3xl font-semibold">
                 {
                   (animeTitle.english ||
                     animeTitle.romaji ||
-                    animeTitle.romaji ||
                     animeTitle.userPreferred ||
+                    animeTitle.native ||
                     anime.title) as string
                 }
               </h3>

@@ -1,4 +1,5 @@
 "use client";
+import HomePage from "@/components/HomePage";
 import ListAnime from "@/components/ListAnime";
 import { IAnimeResult } from "@consumet/extensions";
 import React, { useEffect, useState } from "react";
@@ -7,13 +8,13 @@ const Page = () => {
   const fetchAnimeList = async () => {
     try {
       const res = await fetch(
-        "/api/anilist/fetchPopularAnime?page=1&perPage=10"
+        `/api/anilist/fetchPopularAnime?page=${page}&perPage=10`
       );
       const result = await res.json();
       if (result.success) {
         const { results } = result.animeList;
         if (results) {
-          setPopular((preVal) => [...preVal, ...results]);
+          setAnimeList((preVal) => [...preVal, ...results]);
         }
       }
     } catch (error) {
@@ -21,7 +22,7 @@ const Page = () => {
     }
   };
 
-  const [popular, setPopular] = useState<IAnimeResult[]>([]);
+  const [animeList, setAnimeList] = useState<IAnimeResult[]>([]);
 
   
   useEffect(() => {
@@ -30,10 +31,10 @@ const Page = () => {
     }, 1000);
   }, []);
 
+  const [page, setPage] = useState(1)
+
   return (
-    <div>
-      <ListAnime title="Home" animeList={popular} />
-    </div>
+    <HomePage />
   );
 };
 

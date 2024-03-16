@@ -1,3 +1,5 @@
+import { ITitle } from "@consumet/extensions"
+
 const urls = [
     {
         url: 
@@ -49,6 +51,22 @@ export type fetchAnimeInfoType = {
   startDate: { year: number, month: number, day: number },
   season: string,
   studios: string[]
+}
+
+export const removeChars = (aName: string, characters: string[]) => {
+
+  let animeId = aName
+  characters.forEach(element => {
+    if(animeId)
+      animeId = animeId.replaceAll(element, "");
+  });
+  return animeId
+
+}
+
+export const toAnimeId = (animeTitle: ITitle) => {
+  const animId = (animeTitle?.romaji || animeTitle?.english || animeTitle?.userPreferred)?.toLowerCase().replaceAll(' ', '-');
+  return removeChars( animId as string, [',', ':'])
 }
 
 // 142769

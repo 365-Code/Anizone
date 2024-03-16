@@ -1,4 +1,4 @@
-import { ANIME, META } from "@consumet/extensions";
+import { ANIME } from "@consumet/extensions";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest){
@@ -12,5 +12,4 @@ export async function GET(req: NextRequest){
     } catch (error: any) {
         return NextResponse.json({error: error.message},{status: 500, statusText: "Internal Server Error in SearchAnime"})
     }
-
 }

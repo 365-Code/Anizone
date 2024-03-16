@@ -142,13 +142,15 @@ const MyComponent = ({ source }: { source: string }) => {
   });
 
   return (
+    <section className="my-container">
     <Plyr
       id="plyr"
-      options={{ volume: 0.1, seekTime: 5, keyboard: {focused: true, global: false}}}
+      options={{ volume: 0.1, seekTime: 5, keyboard: {focused: true}}}
       source={{} as PlyrProps["source"]}
       ref={ref}
       autoPlay={false}
-    />
+      />
+      </section>
   );
 };
 

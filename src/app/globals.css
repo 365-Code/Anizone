@@ -63,7 +63,7 @@ section {
   @apply w-full absolute -bottom-2 left-0 h-[3px] bg-current;
 }
 
-.nav-link-selected::before {
+.nav-link-selected {
   @apply relative;
 }
 
@@ -136,16 +136,20 @@ section {
 }
 
 .st-anime-card-detail {
-  @apply rounded-r-xl w-[240px] text-[0.58rem] bg-[#230149] text-white py-2 px-4;
-  /* @apply rounded-r-xl w-[230px] text-[0.60rem] bg-[#230149] text-white py-2 px-4 h-full; */
-}
-
-.st-anime-card-detail p{
-    height:45px;
+  /* @apply rounded-r-xl w-[240px] text-[0.58rem] bg-[#230149] text-white py-2 px-4; */
+  @apply rounded-r-xl w-[240px] text-[0.7rem] bg-[#230149] text-white py-2 px-4;
+    height:70px;
     line-height:15px; /* Height / no. of lines to display */
     overflow:hidden;
   /* @apply rounded-r-xl w-[230px] text-[0.60rem] bg-[#230149] text-white py-2 px-4 h-full; */
 }
+
+/* .st-anime-card-detail p{
+    height:45px;
+    line-height:15px;
+    overflow:hidden;
+  } */
+  /* @apply rounded-r-xl w-[230px] text-[0.60rem] bg-[#230149] text-white py-2 px-4 h-full; */
 
 /* .st-anime-card-detail h3 {
   @apply text-[0.55rem];
@@ -195,6 +199,19 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
 
 .btn-secondary {
   @apply bg-[#ffffff] hover:bg-[#ffffff]/90 btn w-[200px] text-black;
+}
+
+
+.btn-sm{
+  @apply px-4 py-1 min-w-fit rounded-xl text-center;
+}
+
+.btn-primary-sm{
+  @apply btn-sm bg-[#6200cf] hover:bg-[#6200cf]/90 text-white;
+}
+
+.btn-secondary-sm{
+  @apply btn-sm bg-[#ffffff] hover:bg-[#ffffff]/90 text-black;
 }
 
 .gbg::before {

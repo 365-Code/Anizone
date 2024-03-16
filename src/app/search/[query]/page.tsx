@@ -1,11 +1,9 @@
-import FetchAnimeInfo from '@/components/FetchAnimeInfo'
+import FetchSearch from '@/components/FetchSearch'
 import React from 'react'
-
 const Page = () => {
-
   return (
     <div>
-        <FetchAnimeInfo />
+      <FetchSearch />
     </div>
   )
 }

@@ -5,16 +5,18 @@ import StAnimeCard from "./StAnimeCard";
 
 const ListAnime = ({title, animeList}: {title: string, animeList: IAnimeResult[]}) => {
   const anime = animeList
-  
-  console.log(anime);
-  
   return (
       <section className="text-white my-container flex flex-col gap-8 py-8 gbg">
+        {
+          title && 
         <h2 className="text-5xl">{title}</h2>
+        }
 
         <div className="text-white flex flex-col-reverse items-center sm:items-start sm:flex-row gap-8 sm:gap-0">
 
-          <div className="no-scrollbar max-h-[140vh] overflow-y-scroll flex gap-3 flex-1 justify-center sm:justify-start flex-wrap">
+          {/* <div className="no-scrollbar max-h-[140vh] overflow-y-scroll flex gap-3 flex-1 justify-center sm:justify-start flex-wrap"> */}
+          {/* <div className="no-scrollbar max-h-[140vh] overflow-y-scroll flex gap-4 flex-1 justify-center sm:justify-between flex-wrap"> */}
+          <div className="no-scrollbar max-h-[140vh] overflow-y-scroll grid grid-cols-4 gap-4 flex-1 justify-center sm:justify-between flex-wrap">
             {
               anime?.map((anim) => 
               <StAnimeCard key={anim.id} animeId={anim} />

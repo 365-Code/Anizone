@@ -3,6 +3,7 @@ import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import ReduxProvider from "@/redux/provider";
 
 // const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -20,11 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
+        <ReduxProvider>
         <Header />
-        <main className="flex-1">
-        {children}
-        </main>
-        <Footer/>
+          <main className="flex-1">{children}</main>
+        <Footer />
+        </ReduxProvider>
       </body>
     </html>
   );
