@@ -1,5 +1,5 @@
 "use client"
-import { setCurrentAnime } from "@/redux/features/currentAnimeSlice";
+import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch } from "@/redux/store";
 import { useParams } from "next/navigation";
 import React, { useEffect } from "react";

@@ -1,5 +1,5 @@
 "use client";
-import { ANIME, IAnimeInfo, ITitle } from "@consumet/extensions";
+import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import PlayNowCard from "./PlayNowCard";
@@ -7,9 +7,7 @@ import { useParams } from "next/navigation";
 import { removeChars, toAnimeId } from "@/utils";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import currentAnimeReducer, {
-  setCurrentAnime,
-} from "@/redux/features/currentAnimeSlice";
+import { loadCurrentAnime, setCurrentAnime } from "@/redux/features/utilitySlice";
 
 // const FetchAnimeInfo = async ({ animeId }: { animeId: string }) => {
 const FetchAnimeInfo = () => {
@@ -18,52 +16,32 @@ const FetchAnimeInfo = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const params = useParams();
-  const animeId = (params["animeId"] as string) || "";
+  const animeId = (params["animeId"] as string).split("-").at(-1) || "";
 
   const setResources = (animeData: IAnimeInfo) => {
     setAnimeInfo(animeData);
     const animeTitle = animeData.title as ITitle;
     setAnimeTitle(animeTitle);
     setAnimeId(toAnimeId(animeTitle));
-  }
+  };
 
   const fetchAnime = async (aName: string) => {
     try {
-      // const result = await fetch(`/api/anilist/fetchAnimeInfo?anime=${aName}`);
-      const result = await fetch(`/api/anilist/searchAnime?anime=${aName}`);
+      const result = await fetch(`/api/anilist/fetchAnimeInfo?anime=${aName}`);
+      // const result = await fetch(`/api/anilist/searchAnime?anime=${aName}`);
       const res = await result.json();
       if (res.success) {
-        
-        // setAnimeInfo(res.animeData);
-        // setAnimeTitle(res.animeData.title);
-        // const animeTitle = res.animeData.title as ITitle;
-        // setAnimeId(toAnimeId(animeTitle));
-        setResources(res.animeData)
-
-        // dispatch(setCurrentAnime(res.animeData));
-
-
-        // setAnimeId(
-        //   (
-        //     animeTitle?.romaji ||
-        //     animeTitle?.english ||
-        //     animeTitle?.userPreferred
-        //   )
-        //     ?.toLowerCase()
-        //     .replaceAll(" ", "-")
-        //     .replaceAll(",", "") || ""
-        // );
+        setResources(res.animeData);
+        dispatch(setCurrentAnime(res.animeData));
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    // animeId && fetchAnime(animeId);
-  }, [animeId]);
-
-  const currentAnime = useAppSelector((state) => state.currentAnimeReducer.value) as IAnimeInfo
+  const currentAnime = useAppSelector(
+    (state) => state.utilityReducer.value.currentAnime
+  ) as IAnimeInfo;
 
   const [animeInfo, setAnimeInfo] = useState<IAnimeInfo>();
   const [animeTitle, setAnimeTitle] = useState<ITitle>();
@@ -71,11 +49,11 @@ const FetchAnimeInfo = () => {
   const [animId, setAnimeId] = useState("");
 
   useEffect(() => {
-    currentAnime && setResources(currentAnime)
-  }, [currentAnime])
-
+    currentAnime ? setResources(currentAnime) : 
+    // fetchAnime(animeId);
+    dispatch(loadCurrentAnime())
+  }, [currentAnime]);
   
-
   return (
     // <!-- Play Now -->
     <section className="text-white py-8 my-container flex flex-col gap-8 relative">
@@ -140,33 +118,11 @@ const FetchAnimeInfo = () => {
                 {/* <button className="btn-primary">Watch Now</button> */}
                 <Link
                   className="btn-primary"
-                  // href={
-                  //   "/anime/watch/" +
-                  //   animId +
-                  //   "/" +
-                  //   animeInfo.totalEpisodes +
-                  //   "/episode-1"
-                  // }
                   href={"/anime/" + animId + "/episode-1"}
                 >
                   Watch Now
                 </Link>
                 <button className="btn-secondary">Add to watchlist</button>
-              </div>
-
-              <div className="flex items-center font-semibold text-lg gap-10 justify-center md:justify-between">
-                <span className="flex flex-col items-center gap-2 text-2xl font-normal">
-                  <i className="fi fi-sr-heart text-4xl" />
-                  50.5k
-                </span>
-                <span className="flex flex-col items-center gap-2 text-2xl font-normal">
-                  <i className="fi fi-sr-beacon text-4xl" />
-                  2.3k
-                </span>
-                <span className="flex flex-col items-center gap-2 text-2xl font-normal">
-                  <i className="fi fi-sr-paper-plane text-4xl" />
-                  5.3k
-                </span>
               </div>
             </div>
           </div>
@@ -179,19 +135,19 @@ const FetchAnimeInfo = () => {
                 (animeInfo?.title as string)}
             </h1>
             <p className="md:max-w-[80%] font-light sm:text-lg pb-8">
-              {
-                removeChars((
-                  animeInfo?.description?.slice(
-                    0,
-                    moreLess ? 260 : animeInfo.description.length
-                  ) as string
-                ), ["<br>","<i>", "</i>"])
-              }
+              {removeChars(
+                animeInfo?.description?.slice(
+                  0,
+                  moreLess ? 260 : animeInfo.description.length
+                ) as string,
+                ["<br>", "<i>", "</i>"]
+              )}
               <button
                 className={"text-blue-500"}
                 onClick={() => setMoreLess(!moreLess)}
               >
-                {moreLess ? <span>...show</span> : <span> hide</span>}
+                {Number(animeInfo.description?.length) > 260 &&
+                  (moreLess ? <span>...show more</span> : <span> hide</span>)}
               </button>
             </p>
           </div>

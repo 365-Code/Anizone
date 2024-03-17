@@ -15,7 +15,6 @@
   --body-color: #2c004b;
 }
 
-
 * {
   margin: 0;
   padding: 0;
@@ -29,7 +28,7 @@ body {
   @apply bg-[#230149] min-[1000px]:px-40;
 }
 
-body{
+body {
   @apply flex flex-col min-h-screen;
 }
 
@@ -49,7 +48,7 @@ section {
   @apply relative gbg;
 }
 
-.fi{
+.fi {
   @apply flex flex-col;
 }
 
@@ -82,11 +81,10 @@ section {
 }
 
 .anime-card {
-  @apply max-w-[625px] h-[320px] flex relative bg-black/40 backdrop-blur-sm sm:rounded-none rounded-br-3xl bg-shadow 
+  @apply max-w-[625px] h-[320px] flex relative bg-black/40 backdrop-blur-sm sm:rounded-none rounded-br-3xl shadow-xl shadow-black 
   min-w-[380px]
   md:min-w-[625px]
-  md:min-h-fit
-  ;
+  md:min-h-fit;
 }
 
 .anime-tag {
@@ -95,6 +93,12 @@ section {
 
 .anime-card-detail {
   @apply sm:flex-1 relative text-white pt-10 pb-6 pl-6 flex flex-col justify-between;
+}
+
+.anime-card-detail h3{
+  @apply min-h-fit max-h-[102px];
+  /* line-height: 25px; Height / no. of lines to display */
+  overflow: hidden;
 }
 
 .anime-card-img {
@@ -113,8 +117,7 @@ section {
 
 .play-now-card {
   @apply max-w-[720px] h-[380px] flex relative bg-black/40 backdrop-blur-sm sm:rounded-none rounded-br-3xl bg-shadow
-  md:min-w-[720px]
-  ;
+  md:min-w-[720px];
 }
 .play-now-card-detail {
   @apply sm:flex-1 relative text-white pt-10 pb-8 pl-8 flex flex-col justify-between;
@@ -138,9 +141,9 @@ section {
 .st-anime-card-detail {
   /* @apply rounded-r-xl w-[240px] text-[0.58rem] bg-[#230149] text-white py-2 px-4; */
   @apply rounded-r-xl w-[240px] text-[0.7rem] bg-[#230149] text-white py-2 px-4;
-    height:70px;
-    line-height:15px; /* Height / no. of lines to display */
-    overflow:hidden;
+  height: 70px;
+  line-height: 15px; /* Height / no. of lines to display */
+  overflow: hidden;
   /* @apply rounded-r-xl w-[230px] text-[0.60rem] bg-[#230149] text-white py-2 px-4 h-full; */
 }
 
@@ -149,7 +152,7 @@ section {
     line-height:15px;
     overflow:hidden;
   } */
-  /* @apply rounded-r-xl w-[230px] text-[0.60rem] bg-[#230149] text-white py-2 px-4 h-full; */
+/* @apply rounded-r-xl w-[230px] text-[0.60rem] bg-[#230149] text-white py-2 px-4 h-full; */
 
 /* .st-anime-card-detail h3 {
   @apply text-[0.55rem];
@@ -201,16 +204,15 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
   @apply bg-[#ffffff] hover:bg-[#ffffff]/90 btn w-[200px] text-black;
 }
 
-
-.btn-sm{
+.btn-sm {
   @apply px-4 py-1 min-w-fit rounded-xl text-center;
 }
 
-.btn-primary-sm{
+.btn-primary-sm {
   @apply btn-sm bg-[#6200cf] hover:bg-[#6200cf]/90 text-white;
 }
 
-.btn-secondary-sm{
+.btn-secondary-sm {
   @apply btn-sm bg-[#ffffff] hover:bg-[#ffffff]/90 text-black;
 }
 
@@ -236,3 +238,11 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
     <div className="basis-1/2 bg-[#230149]"></div>
     <div className="basis-1/2 gradient-bg py-10"></div>
   </div> */
+
+video{
+  @apply relative;
+}
+
+video[poster] {
+  @apply w-full h-full object-scale-down object-center;
+}

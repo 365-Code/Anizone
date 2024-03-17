@@ -1,7 +1,13 @@
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import React from "react";
 
-const PlayNowCard = ({animeInfo, animeTitle}: {animeInfo: IAnimeInfo, animeTitle: ITitle}) => {
+const PlayNowCard = ({
+  animeInfo,
+  animeTitle,
+}: {
+  animeInfo: IAnimeInfo;
+  animeTitle: ITitle;
+}) => {
   return (
     <div className="play-now-card">
       <div className="play-now-card-detail">
@@ -12,26 +18,39 @@ const PlayNowCard = ({animeInfo, animeTitle}: {animeInfo: IAnimeInfo, animeTitle
         />
         <div className="flex flex-col gap-2">
           <p className="flex items-center text-xs gap-2">
-            {animeInfo?.type?.split(" ").map((t, ind) => (
+            {/* {animeInfo?.type?.split(" ").map((t, ind) => (
               <span key={ind} className="flex gap-2 items-center">
                 <span>{t}</span>
                 {ind + 1 != animeInfo.type?.split(" ")?.length && (
                   <span className="w-1 h-1 rounded-full bg-white" />
                 )}
               </span>
-            ))}
+            ))} */}
+            {animeInfo.season || animeInfo.type == "TV" && (
+                <>
+                  <span>{animeInfo.season || "Season 1"}</span>
+                  <span className="w-1 h-1 rounded-full bg-white" />
+                </>
+              )}
+              <span>{animeInfo.releaseDate}</span>
+              <span className="w-1 h-1 rounded-full bg-white" />
+              <span>{animeInfo.type}</span>
           </p>
           <h3 className="text-3xl font-semibold">
             {animeTitle?.english ||
               animeTitle?.romaji ||
               animeTitle?.userPreferred}
           </h3>
-          <p className="text-orange-500 font-semibold">CLAP</p>
+          <p className="text-orange-500 font-semibold">
+          {(animeInfo.studios && animeInfo.studios[0]) || "Studio: N/A"}
+          </p>
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-3xl font-semibold space-x-2">
-            <span className="text-orange-500">R</span>
-            <span>74%</span>
+          <p className="font-semibold flex items-center gap-2">
+            <i className="text-2xl fi fi-ss-star text-orange-500" />
+            <span className="text-3xl">
+              {animeInfo.rating ? animeInfo.rating + "%" : "Rating: N/A"}
+            </span>
           </p>
           <ul className="flex items-center gap-2 text-xs font-medium flex-wrap">
             {animeInfo?.genres?.map((g, i) => (

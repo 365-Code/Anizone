@@ -11,7 +11,6 @@ const Page = () => {
     <Hero />
     <Search />
     <About />
-    <FetchCurrentAnime />
     </>
     // <HomePage />
   )

@@ -9,9 +9,10 @@ export async function GET(req: NextRequest){
         const page = searchParams.get('page') || 1
         const perPage = searchParams.get('perPage') || 10
         const anime = new META.Anilist();
-        const animeList = await anime.search("movie",Number(page), Number(perPage))
-        return NextResponse.json({animeList, success: true})
+        // const {currentPage, hasNextPage, results} = await anime.search("movie",Number(page), Number(perPage))
+        const {currentPage, hasNextPage, results} = await anime.advancedSearch(undefined,"ANIME",Number(page), Number(perPage), "MOVIE")
+        return NextResponse.json({currentPage, hasNextPage, totalResults: results.length, results, success: true})
     } catch (error) {
-        return NextResponse.json({},{status: 500, statusText: "Internal Server Error in FetchAnimeInfo"})
+        return NextResponse.json({},{status: 500, statusText: "Internal Server Error in FetchRecentMovies"})
     }
 }

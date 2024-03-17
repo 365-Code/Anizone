@@ -4,11 +4,10 @@ import { IAnimeInfo } from "@consumet/extensions";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import FetchCurrentAnime from "./FetchCurrentAnime";
 
 const Episodes = () => {
   const currentAnime = useAppSelector(
-    (state) => state.currentAnimeReducer.value
+    (state) => state.utilityReducer.value.currentAnime
   ) as IAnimeInfo;
   const episodes = currentAnime.totalEpisodes;
   const pathname = usePathname();
@@ -17,7 +16,6 @@ const Episodes = () => {
 
   return (
     <section className="my-container">
-      <FetchCurrentAnime />
       <div className="flex flex-wrap gap-4 py-8">
         {Number(episodes) > 1 &&
           [...Array(Number(episodes))].map((v, i) => (

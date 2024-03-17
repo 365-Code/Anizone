@@ -8,7 +8,6 @@ const fetchPopular = async () => {
     
   } catch (error) {
     console.log(error);
-    
   }
 }
 

@@ -8,7 +8,6 @@ const Test = async () => {
         const res = await fetch('/api/anilist/fetchPopularAnime');
         const result = await res.json()
         console.log(result);
-        
       } catch (error) {
         console.log(error);
       }

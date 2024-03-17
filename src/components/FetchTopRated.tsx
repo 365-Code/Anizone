@@ -1,13 +1,12 @@
 "use client";
 import InfiniteScroll from "@/components/InfiniteScroll";
-import ListAnime from "@/components/ListAnime";
-import Loader from "@/components/Loader";
-import SearchBar from "@/components/SearchBar";
 import { IAnimeResult } from "@consumet/extensions";
 import React, { useEffect, useState } from "react";
+import DisplayAnime from "./DisplayAnime";
 
-const Page = () => {
-  const fetchAnimeList = async () => {
+const FetchTopRated = () => {
+
+  const fetchTopRated = async () => {
     try {
       const data = await fetch(
         `/api/anilist/fetchPopularAnime?page=${page}&perPage=${perPage}`
@@ -15,15 +14,18 @@ const Page = () => {
       const res = await data.json();
       setLoading(false);
       if (res.success) {
+        if (topRated.length == 0) {
+            setPage(page + 1);
+        }
         setHasMore(res.hasNextPage);
-        setAnimeList((preVal) => [...preVal, ...res.results]);
+        setTopRated((preVal) => [...preVal, res.results]);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  const [animeList, setAnimeList] = useState<IAnimeResult[]>([]);
-  // console.log(animeList.length);
+
+  const [topRated, setTopRated] = useState<Array<IAnimeResult[]>>([]);
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
@@ -31,19 +33,23 @@ const Page = () => {
   useEffect(() => {
     setLoading(true);
     const debounce = setTimeout(() => {
-      fetchAnimeList();
+      fetchTopRated();
     }, 1000);
     return () => clearTimeout(debounce);
   }, [page]);
 
   return (
     <main>
-      <div className="my-container max-w-full w-[600px]">
-        <SearchBar />
+      <div
+        id="topRated"
+        className="no-scrollbar overflow-y-scroll max-h-[106vh]"
+      >
+        {topRated?.map((topRatedList, ind) => (
+          <DisplayAnime key={ind} animeList={topRatedList} />
+        ))}
       </div>
-      <ListAnime id={"homepage"} title="" animeList={animeList} />
       <InfiniteScroll
-        id="homepage"
+        id="topRated"
         page={page}
         setPage={setPage}
         hasMore={hasMore}
@@ -55,4 +61,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default FetchTopRated;

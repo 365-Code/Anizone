@@ -1,12 +1,21 @@
+import { setCurrentAnime } from "@/redux/features/utilitySlice";
+import { AppDispatch } from "@/redux/store";
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import Link from "next/link";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
+  const dispatch = useDispatch<AppDispatch>();
   const animeTitle = anime.title as ITitle;
-  const animeId = (((animeTitle?.romaji || animeTitle?.english || animeTitle?.userPreferred)?.toLowerCase().replaceAll(' ', '-').replaceAll(',', '')) || "")
+
+  const animeId =
+    (animeTitle?.romaji || animeTitle?.english || animeTitle?.userPreferred)
+      ?.toLowerCase()
+      .replaceAll(" ", "-")
+      .replaceAll(",", "") || "";
   return (
-    <div className="pt-3 pl-3">
+    <div className="snap-start pt-3 pl-3">
       <div className="anime-card">
         <div className="anime-tag">
           {anime.genres && anime.genres.length > 0
@@ -17,7 +26,7 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
                     ? ", "
                     : "")
               )
-            : "N/A"}
+            : "Genres: N/A"}
         </div>
         <div className="anime-card-detail">
           <img
@@ -27,23 +36,22 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
           />
           <div className="flex flex-col gap-2">
             <p className="flex items-center text-xs gap-2">
-              {/* {anime?.type?.split(" ").map((t, ind) => (
-                <span key={ind} className="flex gap-2 items-center">
-                  <span>{t}</span>
-                  {ind + 1 != anime.type?.split(" ")?.length && (
-                    <span className="w-1 h-1 rounded-full bg-white" />
-                    )}
-                    </span>
-                  ))} */}
-              <span>{anime.season}</span>
-              <span className="w-1 h-1 rounded-full bg-white" />
+              {anime.season && (
+                <>
+                  <span>{anime.season}</span>
+                  <span className="w-1 h-1 rounded-full bg-white" />
+                </>
+              )}
               <span>{anime.releaseDate}</span>
               <span className="w-1 h-1 rounded-full bg-white" />
               <span>{anime.type}</span>
             </p>
             {/* <Link href={"/anime/" + anime.id}> */}
-            <Link href={"/anime/" + animeId}>
-              <h3 className="text-3xl font-semibold">
+            <Link
+              onClick={() => dispatch(setCurrentAnime(anime))}
+              href={"/anime/" + animeId + "-" + anime.id}
+            >
+              <h3 id="anime-card-title" className="hyphens-auto text-3xl font-semibold">
                 {
                   (animeTitle.english ||
                     animeTitle.romaji ||
@@ -55,13 +63,15 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
             </Link>
 
             <p className="text-orange-500 tesm font-medium">
-              {(anime.studios && anime.studios[0]) || "N/A"}
+              {(anime.studios && anime.studios[0]) || "Studio: N/A"}
             </p>
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-semibold flex items-center gap-2">
               <i className="text-2xl fi fi-ss-star text-orange-500" />
-              <span className="text-3xl">{anime.rating || "N/A"}%</span>
+              <span className="text-3xl">
+                {anime.rating ? anime.rating + "%" : "Rating: N/A"}
+              </span>
             </p>
             <ul className="flex items-center gap-2 text-xs font-medium flex-wrap">
               {anime.genres?.slice(0, 4).map((g, i) => (

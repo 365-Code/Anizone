@@ -1,0 +1,26 @@
+#loader-container{
+    @apply w-[100px] h-[100px] p-8 relative mx-auto
+    /* top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 */
+    ;
+}
+
+.loader-div{
+    /* width:  calc(100% - 16px);
+    height:  calc(100% - 16px); */
+    width: 100%;
+    height: 100%;
+    border: 8px;
+    border-top:  8px solid #09f;
+    border-radius: 50%;
+    animation: rotate 5s linear infinite;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+@keyframes rotate{
+    100% {
+        transform: rotate(360deg);
+    }
+}

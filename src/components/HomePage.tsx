@@ -11,11 +11,8 @@ import SearchBar from "./SearchBar";
 
 const fetchPopular = async () => {
   try {
-    // const anime = new ANIME.Gogoanime();
-    // const { results } = await anime.fetchPopular();
     const anilist = new META.Anilist();
     const { results } = await anilist.fetchPopularAnime();
-    // console.log(results);
     return results;
   } catch (error) {
     console.log(error);
@@ -107,7 +104,8 @@ const HomePage = () => {
 
   const fetchTrending = async (page?: number, perPage?: number) => {
     try {
-      const res = await fetch(`/api/anilist/fetchTrendingAnime?page=${page || 1}&perPage=${perPage || 10}`);
+      const res = 
+      await fetch(`/api/anilist/fetchTrendingAnime?page=${page || 1}&perPage=${perPage || 10}`);
       const result = await res.json();
       if(result.success){
         const { results } = result.animeList;

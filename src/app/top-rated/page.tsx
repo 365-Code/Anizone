@@ -1,8 +1,9 @@
-import FetchSearch from '@/components/FetchSearch'
+import FetchTopRated from '@/components/FetchTopRated'
 import React from 'react'
+
 const Page = () => {
   return (
-      <FetchSearch />
+    <FetchTopRated />
   )
 }
 

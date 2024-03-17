@@ -2,8 +2,11 @@ import React from 'react'
 
 const About = () => {
   return (
-<section className="text-white my-container flex flex-col gap-8 py-8 gradient-bg">
-
+<section className="text-white my-container flex flex-col gap-8 py-8">
+<div className="absolute top-0 left-0 w-full h-full flex flex-col -z-10">
+        <div className="basis-1/2 bg-[#230149]"></div>
+        <div className="basis-1/2 gradient-bg py-10"></div>
+      </div>
   <div>
   <h3 className="text-2xl font-semibold text-center">ABOUT</h3>
   <p>Introducing AniZone: Your Gateway to Anime Paradise!

@@ -1,8 +1,9 @@
-import FetchSearch from '@/components/FetchSearch'
+import FetchTrending from '@/components/FetchTrending'
 import React from 'react'
+
 const Page = () => {
   return (
-      <FetchSearch />
+    <FetchTrending />   
   )
 }
 

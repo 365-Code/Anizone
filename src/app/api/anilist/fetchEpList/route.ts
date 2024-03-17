@@ -6,11 +6,7 @@ export async function GET(req: NextRequest){
         const {searchParams} = new URL(req.url)
         const anId = searchParams.get('animeId') || ""
         const anime = new META.Anilist();
-        // const anime = new ANIME.Gogoanime();
-        console.log(anId);
-        // const animeList = await anime.fetchEpisodeSources(anId)
         const animeList = await anime.fetchEpisodesListById(anId)
-
         return NextResponse.json({animeList, success: true})
     } catch (error) {
         return NextResponse.json({},{status: 500, statusText: "Internal Server Error in FetchAnimeInfo"})

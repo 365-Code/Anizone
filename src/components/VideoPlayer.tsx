@@ -1,3 +1,64 @@
+import { useEffect, useRef } from "react";
+import "plyr-react/plyr.css";
+import Hls from "hls.js";
+import Plyr, { APITypes, PlyrProps, PlyrInstance } from "plyr-react";
+import { useAppSelector } from "@/redux/store";
+import { IAnimeInfo } from "@consumet/extensions";
+
+const MyComponent = ({ source }: { source: string }) => {
+  const currentAnime = useAppSelector(
+    (state) => state.utilityReducer.value.currentAnime
+  ) as IAnimeInfo;
+  const ref = useRef<APITypes>(null);
+  useEffect(() => {
+    const loadVideo = async () => {
+      const video = document.getElementById("plyr") as HTMLVideoElement;
+      var hls = new Hls();
+      // hls.loadSource("https://content.jwplatform.com/manifests/vM7nH0Kl.m3u8");
+      // hls.loadSource("https://www034.vipanicdn.net/streamhls/7244984011002ee29dc294666636b688/ep.1.1709545502.480.m3u8");
+      hls.loadSource(source);
+      hls.attachMedia(video);
+
+      // @ts-ignore
+      ref.current!.plyr.media = video;
+
+      hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+        (ref.current!.plyr as PlyrInstance).play();
+      });
+    };
+    loadVideo();
+  });
+
+  return (
+    <section className="my-container">
+      <Plyr
+        id="plyr"
+        options={{
+          volume: 0.1,
+          seekTime: 5,
+          keyboard: { focused: true, global: true },
+        }}
+        source={{} as PlyrProps["source"]}
+        ref={ref}
+      />
+    </section>
+  );
+};
+
+export default function Player({ source }: { source: string }) {
+  const supported = Hls.isSupported();
+
+  return (
+    <div>
+      {supported ? (
+        <MyComponent source={source} />
+      ) : (
+        "HLS is not supported in your browser"
+      )}
+    </div>
+  );
+}
+
 // import * as React from "react";
 // import { APITypes, PlyrProps, usePlyr } from "plyr-react";
 // import "plyr-react/plyr.css";
@@ -112,58 +173,3 @@
 // };
 
 // export default Player;
-
-
-
-import { useEffect, useRef } from "react";
-import "plyr-react/plyr.css";
-import Hls from "hls.js";
-import Plyr, { APITypes, PlyrProps, PlyrInstance } from "plyr-react";
-
-const MyComponent = ({ source }: { source: string }) => {
-  const ref = useRef<APITypes>(null);
-  useEffect(() => {
-    const loadVideo = async () => {
-      const video = document.getElementById("plyr") as HTMLVideoElement;
-      var hls = new Hls();
-      // hls.loadSource("https://content.jwplatform.com/manifests/vM7nH0Kl.m3u8");
-      // hls.loadSource("https://www034.vipanicdn.net/streamhls/7244984011002ee29dc294666636b688/ep.1.1709545502.480.m3u8");
-      hls.loadSource(source);
-      hls.attachMedia(video);
-
-      // @ts-ignore
-      ref.current!.plyr.media = video;
-
-      hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-        (ref.current!.plyr as PlyrInstance).play();
-      });
-    };
-    loadVideo();
-  });
-
-  return (
-    <section className="my-container">
-    <Plyr
-      id="plyr"
-      options={{ volume: 0.1, seekTime: 5, keyboard: {focused: true}}}
-      source={{} as PlyrProps["source"]}
-      ref={ref}
-      autoPlay={false}
-      />
-      </section>
-  );
-};
-
-export default function Player({ source }: { source: string }) {
-  const supported = Hls.isSupported();
-
-  return (
-    <div>
-      {supported ? (
-        <MyComponent source={source} />
-      ) : (
-        "HLS is not supported in your browser"
-      )}
-    </div>
-  );
-}

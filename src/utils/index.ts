@@ -54,7 +54,6 @@ export type fetchAnimeInfoType = {
 }
 
 export const removeChars = (aName: string, characters: string[]) => {
-
   let animeId = aName
   characters.forEach(element => {
     if(animeId)
@@ -65,15 +64,11 @@ export const removeChars = (aName: string, characters: string[]) => {
 }
 
 export const toAnimeId = (animeTitle: ITitle) => {
-  const animId = (animeTitle?.romaji || animeTitle?.english || animeTitle?.userPreferred)?.toLowerCase().replaceAll(' ', '-');
-  return removeChars( animId as string, [',', ':'])
+  // const animId = (animeTitle?.romaji || animeTitle?.english || animeTitle?.userPreferred)?.toLowerCase().replaceAll(' ', '-');
+  const animId = (animeTitle?.romaji || animeTitle?.english || animeTitle?.userPreferred)?.toLowerCase().replaceAll('-', ' ');
+  return removeChars( animId as string, [',', ':', '?', '!', '.'])?.replace(/\s+/g, ' ').replaceAll(' ', '-')
 }
 
-// 142769
-// {
-//   currentPage: 1,
-//   hasNextPage: true,
-//   results: 
 export const animeData = 
 [
     {

@@ -17,9 +17,11 @@ import AnimeCard from "./AnimeCard";
 const FetchAnime = ({ animeId }: { animeId: string }) => {
   // const anime = await fetchAnime(animeId);
 
-  const fetchAnime = async (aName: string) => {
+  const fetchAnime = async () => {
     try {
-      const result = await fetch(`/api/anilist/fetchAnimeInfo?anime=${aName}`);
+      const result = await fetch(
+        `/api/anilist/fetchAnimeInfo?anime=${animeId}`
+      );
       const res = await result.json();
       if (res.success) {
         setAnime(res.animeData);
@@ -30,10 +32,13 @@ const FetchAnime = ({ animeId }: { animeId: string }) => {
   };
 
   useEffect(() => {
-    animeId && fetchAnime(animeId);
-  }, [animeId]);
-  const [anime, setAnime] = useState();
+    const debounce = setTimeout(() => {
+      fetchAnime();
+    }, 500);
 
+    return () => clearTimeout(debounce);
+  }, []);
+  const [anime, setAnime] = useState();
 
   return (
     <div className="snap-start">{anime && <AnimeCard anime={anime} />}</div>

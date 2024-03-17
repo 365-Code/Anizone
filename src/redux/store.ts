@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import currentAnimeReducer from './features/currentAnimeSlice'
+import utilityReducer from './features/utilitySlice'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 
 export const store = configureStore({
   reducer: {
-    currentAnimeReducer
+    utilityReducer
   },
 })
 
