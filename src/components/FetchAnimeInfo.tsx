@@ -3,11 +3,15 @@ import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import PlayNowCard from "./PlayNowCard";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { removeChars, toAnimeId } from "@/utils";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import { loadCurrentAnime, setCurrentAnime } from "@/redux/features/utilitySlice";
+import {
+  loadCurrentAnime,
+  setCurrentAnime,
+} from "@/redux/features/utilitySlice";
+import Loader from "./Loader";
 
 // const FetchAnimeInfo = async ({ animeId }: { animeId: string }) => {
 const FetchAnimeInfo = () => {
@@ -16,13 +20,18 @@ const FetchAnimeInfo = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const params = useParams();
-  const animeId = (params["animeId"] as string).split("-").at(-1) || "";
+  // const animeId = (params["animeId"] as string).split("-").at(-1) || "";
+  const searchParams = useSearchParams();
+  const animeId = searchParams.get("aId") || "";
 
   const setResources = (animeData: IAnimeInfo) => {
     setAnimeInfo(animeData);
     const animeTitle = animeData.title as ITitle;
     setAnimeTitle(animeTitle);
     setAnimeId(toAnimeId(animeTitle));
+    setTimeout(() => {
+      setLoading(false);
+    }, 100)
   };
 
   const fetchAnime = async (aName: string) => {
@@ -33,6 +42,7 @@ const FetchAnimeInfo = () => {
       if (res.success) {
         setResources(res.animeData);
         dispatch(setCurrentAnime(res.animeData));
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -47,16 +57,28 @@ const FetchAnimeInfo = () => {
   const [animeTitle, setAnimeTitle] = useState<ITitle>();
   const [moreLess, setMoreLess] = useState(true);
   const [animId, setAnimeId] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    currentAnime ? setResources(currentAnime) : 
-    // fetchAnime(animeId);
-    dispatch(loadCurrentAnime())
+    setLoading(true)
+    if(currentAnime){
+      setResources(currentAnime)
+    } else{
+      animeId && fetchAnime(animeId);
+    }
   }, [currentAnime]);
-  
+
   return (
     // <!-- Play Now -->
     <section className="text-white py-8 my-container flex flex-col gap-8 relative">
+      {loading && (
+            <div className="w-screen h-screen flex flex-col justify-center items-center bg-opacity-25 bg-black/40 top-0 left-0 fixed z-10">
+              <Loader />
+              <h3 className="text-[#09f] text-2xl font-bold py-2">
+                Please Wait for a few...
+              </h3>
+            </div>
+          )}
       {animeInfo && (
         <>
           <h2 className="text-5xl invisible">Play Now</h2>
@@ -68,7 +90,12 @@ const FetchAnimeInfo = () => {
                 {/* <button className="btn-primary">Watch Now</button> */}
                 <Link
                   className="btn-primary"
-                  href={"/anime/" + animId + "/episode-1?total=" + animeInfo.totalEpisodes}
+                  href={
+                    "/anime/" +
+                    animId +
+                    "/episode-1?total=" +
+                    animeInfo.totalEpisodes
+                  }
                 >
                   Watch Now
                 </Link>

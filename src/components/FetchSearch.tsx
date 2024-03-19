@@ -9,23 +9,24 @@ import { IAnimeResult } from "@consumet/extensions";
 import { setSearchAnime } from "@/redux/features/utilitySlice";
 
 const FetchSearch = () => {
-  // const params = useParams();
-  // const query = (params["query"] as string) || "";
-  const searchParams = useSearchParams()
-  const query = searchParams.get("query")
-  const type = searchParams.get("type")
-  const status = searchParams.get("status")
-  const season = searchParams.get("season")
-  const genres = searchParams.get("genres")
-  const route = `query=${query || "All"}&type=${type || "All"}&status=${status || "All"}&season=${season || "All"}&genres=${genres || "All"}`
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query");
+  const type = searchParams.get("type");
+  const status = searchParams.get("status");
+  const season = searchParams.get("season");
+  const genres = searchParams.get("genres");
+  const route = `query=${query || "All"}&type=${type || "All"}&status=${
+    status || "All"
+  }&season=${season || "All"}&genres=${genres || "All"}`;
+
   const fetchSearchResults = async () => {
     try {
       // const data = await fetch(`/api/anilist/advanceSearch?query=${query}&page=${page}&perPage=${perPage}`);
-      const data = await fetch(`/api/anilist/advanceSearch?${route}&page=${page}&perPage=${perPage}`);
-      
+      const data = await fetch(
+        `/api/anilist/advanceSearch?${route}&page=${page}&perPage=${perPage}`
+      );
       const res = await data.json();
       setLoading(false);
-
       if (res.success) {
         setSearchResults(res.results);
         setHasMore(res.hasNextPage);
@@ -35,7 +36,6 @@ const FetchSearch = () => {
           results: page == 1 ? res.results : [...searchResults, ...res.results],
         };
         dispatch(setSearchAnime(data));
-      
       }
     } catch (error) {
       console.log(error);
@@ -54,9 +54,7 @@ const FetchSearch = () => {
   //   setLoading(true)
   //   fetchSearchResults();
   // }, []);
-  
 
-  
   const dispatch = useDispatch<AppDispatch>();
   const searchAnime = useAppSelector(
     (state) => state.utilityReducer.value.searchAnime
@@ -69,10 +67,10 @@ const FetchSearch = () => {
     }
   }, []);
 
-  useEffect(() =>{
-    setLoading(true)
-    fetchSearchResults()
-  }, [route])
+  useEffect(() => {
+    setLoading(true);
+    fetchSearchResults();
+  }, [route]);
 
   useEffect(() => {
     if ((searchAnime && page == 1) || searchAnime?.currentPage == page) {
@@ -85,9 +83,6 @@ const FetchSearch = () => {
       return () => clearTimeout(debounce);
     }
   }, [page]);
-
-
-
 
   return (
     <div>

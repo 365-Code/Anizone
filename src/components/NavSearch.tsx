@@ -12,6 +12,7 @@ const NavSearch = () => {
     e.preventDefault();
     setSearch("")
     nav.push("/search/results?query=" + search);
+    // nav.push("/test?query=" + search);
     localStorage.setItem(
       "recentSearches",
       JSON.stringify([search, ...recentSearches])

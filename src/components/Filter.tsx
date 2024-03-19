@@ -22,29 +22,28 @@ const Filter = () => {
     season: "All",
   });
 
-  const nav = useRouter()
+  const nav = useRouter();
 
   const handleFilter = () => {
-    const route = `type=${filter.type}&status=${filter.status}&season=${filter.season}&genres=${filter.genres}`
-    nav.push("/search/results?" + route)
-    
-  }
+    const route = `type=${filter.type}&status=${filter.status}&season=${filter.season}&genres=${filter.genres}`;
+    nav.push("/search/results?" + route);
+  };
 
   const handleGenre = (genre: string, ind: number) => {
     const index = filter.genres.findIndex((g) => g == genre);
-    let nGr = selectedGenres
+    let nGr = selectedGenres;
     if (index == -1) {
       setFilter((preVal) => ({ ...preVal, genres: [...preVal.genres, genre] }));
-      nGr[ind] = true
+      nGr[ind] = true;
     } else {
       const genreList = filter.genres;
       setFilter((preVal) => ({
         ...preVal,
         genres: genreList.filter((g) => g != genre),
       }));
-      nGr[ind] = false
+      nGr[ind] = false;
     }
-  setSelectedGenres(nGr)
+    setSelectedGenres(nGr);
   };
 
   const genreList = [
@@ -68,7 +67,9 @@ const Filter = () => {
     "Thriller",
   ];
 
-  const [selectedGenres, setSelectedGenres] = useState<boolean[]>(genreList.map((v) => false))
+  const [selectedGenres, setSelectedGenres] = useState<boolean[]>(
+    genreList.map(() => false)
+  );
 
   const seasons = ["All", "WINTER", "SPRING", "SUMMER", "FALL"];
 
@@ -100,7 +101,14 @@ const Filter = () => {
         <ul id="genre" className="md:grid flex-wrap flex md:grid-cols-5 gap-4">
           {genreList?.map((g, i) => (
             <li key={g}>
-              <button  onClick={() => handleGenre(g, i)} className={`${selectedGenres[i] ? "border-b" : "border-b border-transparent"} transition-all`}>{g}</button>
+              <button
+                onClick={() => handleGenre(g, i)}
+                className={`${
+                  selectedGenres[i] ? "border-b" : "border-b border-transparent"
+                } transition-all`}
+              >
+                {g}
+              </button>
             </li>
           ))}
         </ul>
@@ -183,7 +191,12 @@ const Filter = () => {
               </div>
             </div>
           </div>
-      <button onClick={handleFilter} className="btn-primary-sm w-fit">Filter Here</button>
+          <button onClick={handleFilter} className="btn-primary-sm w-fit">
+            Filter Here
+          </button>
+          <button onClick={handleFilter} className="btn-secondary-sm w-fit">
+            Get Random
+          </button>
 
           {/* <div className="flex gap-2 font-medium">
             <p className="gradient-bg px-2 rounded-lg w-fit">Language</p>

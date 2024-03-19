@@ -1,22 +1,11 @@
 "use client"
+import Test from "@/components/Test";
 import React, { useEffect } from "react";
 
 
-const Test = async () => {
-    const fetchPopular = async () => {
-      try {
-        const res = await fetch('/api/anilist/fetchPopularAnime');
-        const result = await res.json()
-        console.log(result);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    useEffect(() => {
-        fetchPopular()
-    })
+const Page = async () => {
 
-  return <div>Test</div>;
+  return <Test />
 };
 
-export default Test;
+export default Page;

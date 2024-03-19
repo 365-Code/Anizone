@@ -6,9 +6,9 @@ import DisplayAnime from "./DisplayAnime";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { setMovieAnime } from "@/redux/features/utilitySlice";
+import Background from "./Background";
 
 const FetchMovies = () => {
-
   const fetchMovies = async () => {
     try {
       const data = await fetch(
@@ -26,9 +26,9 @@ const FetchMovies = () => {
         const data = {
           currentPage: res.currentPage,
           hasNextPage: res.hasNextPage,
-          results: [...movies, res.results]
-        }
-        dispatch(setMovieAnime(data))
+          results: [...movies, res.results],
+        };
+        dispatch(setMovieAnime(data));
       }
     } catch (error) {
       console.log(error);
@@ -40,18 +40,18 @@ const FetchMovies = () => {
   const [page, setPage] = useState(1);
   const perPage = 20;
 
-
   const dispatch = useDispatch<AppDispatch>();
-  const movieAnime = useAppSelector((state) => state.utilityReducer.value.movies)
+  const movieAnime = useAppSelector(
+    (state) => state.utilityReducer.value.movies
+  );
 
   useEffect(() => {
     if (movieAnime) {
       setMovies(movieAnime.results);
       setPage(movieAnime.currentPage);
-      setHasMore(movieAnime.hasNextPage)
+      setHasMore(movieAnime.hasNextPage);
     }
   }, []);
-  
 
   useEffect(() => {
     if ((movieAnime && page == 1) || movieAnime?.currentPage == page) {
@@ -65,7 +65,6 @@ const FetchMovies = () => {
     }
   }, [page]);
 
-
   // useEffect(() => {
   //   setLoading(true);
   //   const debounce = setTimeout(() => {
@@ -74,14 +73,15 @@ const FetchMovies = () => {
   //   return () => clearTimeout(debounce);
   // }, [page]);
 
-
   return (
     <main>
-      <div id="movies" className="no-scrollbar overflow-y-scroll max-h-[106vh]">
+      <div id="movies" className="no-scrollbar overflow-y-scroll max-h-[85vh]">
         {movies?.map((movieList, ind) => (
           <DisplayAnime key={ind} title="" animeList={movieList} />
         ))}
       </div>
+      {/* <div className="my-container"> */}
+      {/* </div> */}
       <InfiniteScroll
         id="movies"
         page={page}

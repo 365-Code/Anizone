@@ -12,6 +12,7 @@ type utilites = {
   trending: ISearchResults;
   popular: ISearchResults;
   searchAnime: ISearch<IAnimeResult>;
+  // searchAnime: ISearchResults;
 };
 
 const initialState = {
@@ -63,6 +64,7 @@ const utilitySlice = createSlice({
       state.value.popular = action.payload;
     },
     setSearchAnime: (state, action: PayloadAction<ISearch<IAnimeResult>>) => {
+    // setSearchAnime: (state, action: PayloadAction<ISearchResults>) => {
       state.value.searchAnime = action.payload
     },
   },

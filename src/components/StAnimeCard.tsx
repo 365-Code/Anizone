@@ -25,7 +25,7 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
         // <Link href={"/anime/" + anime.id}>
         <Link
           onClick={() => dispatch(setCurrentAnime(anime))}
-          href={"/anime/" + animeId}
+          href={"/anime/" + animeId + "?aId=" + anime.id}
         >
           <div className="st-anime-card">
             <div className="st-anime-card-image">

@@ -1,19 +1,9 @@
-import { META } from "@consumet/extensions";
-import React from "react";
+import React from 'react'
 
-const fetchPopular = async () => {
-  try {
-    const res = await fetch('/api/anilist/fetchPopularAnime');
-    console.log(res);
-    
-  } catch (error) {
-    console.log(error);
-  }
+const Test = () => {
+  return (
+    <div>Test</div>
+  )
 }
 
-const Test = async () => {
-
-  return <div>Test</div>;
-};
-
-export default Test;
+export default Test
