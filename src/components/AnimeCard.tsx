@@ -1,5 +1,6 @@
 import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch } from "@/redux/store";
+import { toAnimeId } from "@/utils";
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import Link from "next/link";
 import React from "react";
@@ -9,11 +10,7 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
   const dispatch = useDispatch<AppDispatch>();
   const animeTitle = anime.title as ITitle;
 
-  const animeId =
-    (animeTitle?.romaji || animeTitle?.english || animeTitle?.userPreferred)
-      ?.toLowerCase()
-      .replaceAll(" ", "-")
-      .replaceAll(",", "") || "";
+  const animeId = toAnimeId(animeTitle)
   return (
     <div className="snap-start pt-3 pl-3">
       <div className="anime-card">

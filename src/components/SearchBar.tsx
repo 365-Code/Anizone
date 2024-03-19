@@ -11,7 +11,7 @@ const SearchBar = () => {
 
   const handleSearch = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    nav.push("/search/" + search);
+    nav.push("/search/results?query=" + search);
     localStorage.setItem("recentSearches", JSON.stringify([search, ...recentSearches]))
     setRecentSearches((preVal) => [search, ...preVal])
   };

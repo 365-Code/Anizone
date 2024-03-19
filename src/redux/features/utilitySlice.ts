@@ -1,17 +1,17 @@
+import { IEpisodeCard, ISearchResults } from "@/utils";
 import { IAnimeInfo, IAnimeResult, ISearch } from "@consumet/extensions";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-
-type ISearchResults = {
-  currentPage: number;
-  hasNextPage?: boolean;
-  results: Array<IAnimeResult[]>;
-};
 
 type utilites = {
   currentAnime: IAnimeInfo;
   recentSearches: string[];
+  recentEpisodes: IEpisodeCard[]
+  homeAnime: ISearch<IAnimeResult>;
   movies: ISearchResults;
+  series: ISearchResults;
   trending: ISearchResults;
+  popular: ISearchResults;
+  searchAnime: ISearch<IAnimeResult>;
 };
 
 const initialState = {
@@ -44,9 +44,26 @@ const utilitySlice = createSlice({
         ...state.value.recentSearches,
       ];
     },
+    setRecentEpisodes: (state, action: PayloadAction<IEpisodeCard[]>) => {
+      state.value.recentEpisodes = action.payload
+    },
+    setHomeAnime: (state, action: PayloadAction<ISearch<IAnimeResult>>) => {
+      state.value.homeAnime = action.payload
+    },
+    setMovieAnime: (state, action: PayloadAction<ISearchResults>) => {
+      state.value.movies = action.payload;
+    },
+    setSeriesAnime: (state, action: PayloadAction<ISearchResults>) => {
+      state.value.series = action.payload;
+    },
     setTrendingAnime: (state, action: PayloadAction<ISearchResults>) => {
-      console.log(action.payload);
       state.value.trending = action.payload;
+    },
+    setPopularAnime: (state, action: PayloadAction<ISearchResults>) => {
+      state.value.popular = action.payload;
+    },
+    setSearchAnime: (state, action: PayloadAction<ISearch<IAnimeResult>>) => {
+      state.value.searchAnime = action.payload
     },
   },
 });
@@ -54,9 +71,15 @@ const utilitySlice = createSlice({
 const utilityReducer = utilitySlice.reducer;
 export default utilityReducer;
 export const {
+  loadCurrentAnime,
   setCurrentAnime,
   setRecentSearches,
   addToRecentSearches,
-  loadCurrentAnime,
+  setRecentEpisodes,
+  setHomeAnime,
+  setMovieAnime,
+  setSeriesAnime,
   setTrendingAnime,
+  setPopularAnime,
+  setSearchAnime
 } = utilitySlice.actions;

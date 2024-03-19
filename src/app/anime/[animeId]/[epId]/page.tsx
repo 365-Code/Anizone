@@ -6,6 +6,7 @@ const Page = () => {
   return (
     <div>
       <Watch />
+      
       <Episodes/>
     </div>
   );

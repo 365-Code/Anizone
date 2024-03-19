@@ -65,7 +65,6 @@ const fetchTrending = async () => {
     // const results = await anilist.fetchTrendingAnime();
     const anime = new ANIME.Zoro();
     const results = await anime.fetchLatestCompleted();
-    console.log(results);
 
     return results;
   } catch (error) {

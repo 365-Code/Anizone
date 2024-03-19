@@ -1,4 +1,20 @@
-import { ITitle } from "@consumet/extensions"
+import { IAnimeInfo, IAnimeResult, ITitle } from "@consumet/extensions"
+
+export type ISearchResults = {
+  currentPage: number;
+  hasNextPage: boolean;
+  results: Array<IAnimeResult[]>;
+};
+
+
+export interface IEpisodeCard extends IAnimeInfo {
+  id: string,
+  title: ITitle,
+  image: string,
+  episodeTitle: string,
+  episodeNumber: number
+  // type: string
+}
 
 const urls = [
     {
@@ -373,3 +389,19 @@ const movInfo = {
     "download": "https://gogohd.net/download?id=MjA1MzE2&token=E9AcFsr_JtEaooGyPZpK5A&expires=1710571187",
     "success": true
 }
+
+// {
+//   "id": "171144",
+//   "malId": "57502",
+//   "title": {
+//     "romaji": "Meiji Gekken: 1874",
+//     "english": "Meiji Gekken: 1874",
+//     "native": "明治撃剣－1874－"
+//   },
+//   "image": "https://artworks.thetvdb.com/banners/v4/series/443181/posters/65a503ae52daf.jpg",
+//   "imageHash": "hash",
+//   "episodeId": "undefined",
+//   "episodeTitle": "Episode 10",
+//   "episodeNumber": 10,
+//   "type": "TV"
+// }

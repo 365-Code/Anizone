@@ -3,6 +3,7 @@ import { IAnimeResult } from "@consumet/extensions";
 import React from "react";
 import StAnimeCard from "./StAnimeCard";
 import Background from "./Background";
+import Loader from "./Loader";
 
 const ListAnime = ({
   title,
@@ -16,9 +17,9 @@ const ListAnime = ({
   const anime = animeList;
 
   return (
-    <section className="text-white my-container flex flex-col gap-8 py-8 gbg">
+    <section className="text-white my-container flex flex-col gap-4 py-4 gbg">
       {title && <h2 className="text-5xl">{title}</h2>}
-
+      
       <div className="text-white flex flex-col-reverse items-center sm:items-start sm:flex-row gap-8 sm:gap-0">
         {/* <div className="no-scrollbar max-h-[140vh] overflow-y-scroll flex gap-3 flex-1 justify-center sm:justify-start flex-wrap"> */}
         {/* <div className="no-scrollbar max-h-[140vh] overflow-y-scroll flex gap-4 flex-1 justify-center sm:justify-between flex-wrap"> */}
@@ -30,19 +31,7 @@ const ListAnime = ({
             <StAnimeCard key={anim.id} animeId={anim} />
           ))}
         </div>
-
-        {/* <div className="absolute top-0 left-0 w-full h-full flex flex-col -z-10">
-          {[...Array(anime?.length / 4 || 0)].map((v, i) => (
-            <>
-              <div className="basis-1/2 bg-[#230149]"></div>
-              <div className="basis-1/2 gradient-bg py-10"></div>
-            </>
-          ))}
-        </div> */}
-        {
-          anime.length > 0 &&
-          <Background bgLength={1} />
-        }
+        {anime.length > 0 && <Background bgLength={1} />}
         {/* <Background bgLength={anime?.length / 12} /> */}
         {/* 12 = perPage */}
       </div>

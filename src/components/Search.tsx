@@ -15,11 +15,9 @@ const Search = () => {
     dispatch(setRecentSearches());
   }, []);
 
-  console.log(recentSearches);
-
   return (
     <section className="min-h-[55vh] my-container py-8 gradient-bg flex text-white">
-      <div className="sm:basis-2/3 flex-col flex gap-6 h-full">
+      <div className="sm:basis-1/2 flex-col flex gap-6 h-full">
         <h2 className="text-3xl">Stream. Explore. Anime.</h2>
 
         <SearchBar />
@@ -46,8 +44,8 @@ const Search = () => {
         </p>
       </div>
 
-      <div className="hidden sm:flex flex-col justify-center basis-1/3 min-h-full text-center">
-        <h1 className="font-medium text-5xl">AniStream</h1>
+      <div className="hidden sm:flex flex-col justify-center basis-1/2 min-h-full text-center">
+        <h1 className="font-medium text-7xl italic">AniZone</h1>
       </div>
     </section>
   );

@@ -4,7 +4,10 @@ import Player from "./VideoPlayer";
 import { useParams } from "next/navigation";
 import { IAnimeEpisode, IVideo } from "@consumet/extensions";
 import FetchEpisode from "./FetchEpisode";
-import { useAppSelector } from "@/redux/store";
+import { AppDispatch, useAppSelector } from "@/redux/store";
+import Loader from "./Loader";
+import { setCurrentAnime } from "@/redux/features/utilitySlice";
+import { useDispatch } from "react-redux";
 
 const Watch = () => {
   const fetchEpisode = async () => {
@@ -25,9 +28,11 @@ const Watch = () => {
   const params = useParams();
 
   const epId = (params["epId"] as string) || "";
+  
   const currentAnime = useAppSelector(
     (state) => state.utilityReducer.value.currentAnime
   );
+
   const animeId = (params["animeId"] as string) || "";
 
   const [epSources, setEpSources] = useState<IVideo[]>([]);
@@ -56,7 +61,7 @@ const Watch = () => {
           <img
             src={currentAnime?.image}
             alt=""
-            className="w-full h-full object-scale-down object-center"
+            className="bg-black w-full h-full object-scale-down object-center"
           />
           <div className="px-4 sm:px-12 md:px-20 absolute top-0 left-0 w-full h-full -z-10">
             <img
@@ -64,6 +69,9 @@ const Watch = () => {
               alt=""
               className="w-full h-full object-cover object-center opacity-50"
             />
+          </div>
+          <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center ">
+          <Loader />
           </div>
         </div>
       )}

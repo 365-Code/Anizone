@@ -10,8 +10,8 @@ export async function GET(req: NextRequest){
         const page = searchParams.get('page') || 1
         const perPage = searchParams.get('perPage') || 10
         const anime = new META.Anilist();
-        const animeList = await anime.fetchRecentEpisodes("zoro", Number(page), Number(perPage))
-        return NextResponse.json({animeList, success: true})
+        const {currentPage, hasNextPage, results} = await anime.fetchRecentEpisodes("zoro")
+        return NextResponse.json({currentPage, hasNextPage, results, success: true})
     } catch (error) {
         return NextResponse.json({},{status: 500, statusText: "Internal Server Error in FetchAnimeInfo"})
     }

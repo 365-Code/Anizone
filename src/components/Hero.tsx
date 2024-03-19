@@ -27,7 +27,7 @@ const Hero = () => {
           {/* <!-- <button className="py-2 px-4 rounded-2xl bg-[#6200cf] text-white">
       Read More
     </button> --> */}
-          <button className="btn-primary">Read More</button>
+          <button className="btn-primary-sm capitalize">Read More</button>
         </div>
       </div>
     </section>

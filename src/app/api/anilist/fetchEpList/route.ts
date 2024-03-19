@@ -1,4 +1,4 @@
-import { ANIME, META } from "@consumet/extensions";
+import { META } from "@consumet/extensions";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest){
@@ -12,11 +12,4 @@ export async function GET(req: NextRequest){
         return NextResponse.json({},{status: 500, statusText: "Internal Server Error in FetchAnimeInfo"})
     }
 
-} 
-// "id": "142769",
-// "malId": 50593,
-// Natsu e no Tunnel, Sayonara-no-deguchi
-
-// "id": "124080",
-// "malId": 42897,
-// Horimiya
+}

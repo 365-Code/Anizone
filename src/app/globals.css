@@ -205,15 +205,15 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
 }
 
 .btn-sm {
-  @apply px-4 py-1 min-w-fit rounded-xl text-center;
+  @apply px-4 py-2 min-w-fit rounded-xl text-center;
 }
 
 .btn-primary-sm {
-  @apply btn-sm bg-[#6200cf] hover:bg-[#6200cf]/90 text-white;
+  @apply btn-sm bg-[#6200cf] hover:bg-[#6200cf]/80 text-white;
 }
 
 .btn-secondary-sm {
-  @apply btn-sm bg-[#ffffff] hover:bg-[#ffffff]/90 text-black;
+  @apply btn-sm bg-[#ffffff] hover:bg-[#ffffff]/80 text-black;
 }
 
 .gbg::before {
@@ -230,6 +230,12 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
   @apply basis-1/2 gradient-bg py-10 h-full w-full;
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  @apply w-1 h-1;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply w-2 h-2 bg-slate-600 rounded-full;
+}
 .no-scrollbar::-webkit-scrollbar {
   @apply w-0 h-0;
 }

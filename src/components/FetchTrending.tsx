@@ -16,35 +16,22 @@ const FetchTrending = () => {
       const res = await data.json();
       setLoading(false);
       if (res.success) {
-        if (trending.length == 0) {
-            setPage(page + 1);
+        if(page%2 == 1){
+          setPage((preVal) => preVal+1)
         }
-        let data;
-        if (trendingAnime) {
-          data = {
-            currentPage: res.currentPage,
-            hasNextPage: res.hasNextPage,
-            results: [trendingAnime.results, res.results],
-          };
-        } else {
-          data = {
-            currentPage: res.currentPage,
-            hasNextPage: res.hasNextPage,
-            results: [res.results],
-          };
-        }
-        dispatch(setTrendingAnime(data));
         setHasMore(res.hasNextPage);
         setTrending((preVal) => [...preVal, res.results]);
+        const data = {
+          currentPage: res.currentPage,
+          hasNextPage: res.hasNextPage,
+          results: [...trending, res.results]
+        }
+        dispatch(setTrendingAnime(data))
       }
     } catch (error) {
       console.log(error);
     }
   };
-  const dispatch = useDispatch<AppDispatch>();
-  const trendingAnime = useAppSelector(
-    (state) => state.utilityReducer.value.trending
-  );
 
 //   useEffect(() => {
 //     if (trendingAnime) {
@@ -55,16 +42,33 @@ const FetchTrending = () => {
 //   }, [trendingAnime]);
 
   const [trending, setTrending] = useState<Array<IAnimeResult[]>>([]);
-  const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
   const [page, setPage] = useState(1);
   const perPage = 20;
+  
+  const dispatch = useDispatch<AppDispatch>();
+  const trendingAnime = useAppSelector((state) => state.utilityReducer.value.trending)
+
   useEffect(() => {
-    setLoading(true);
-    const debounce = setTimeout(() => {
-      fetchTrending();
-    }, 1000);
-    return () => clearTimeout(debounce);
+    if (trendingAnime) {
+      setTrending(trendingAnime.results);
+      setPage(trendingAnime.currentPage);
+      setHasMore(trendingAnime.hasNextPage)
+    }
+  }, []);
+  
+
+  useEffect(() => {
+    if ((trendingAnime && page == 1) || trendingAnime?.currentPage == page) {
+      return;
+    } else {
+      setLoading(true);
+      const debounce = setTimeout(() => {
+        fetchTrending();
+      }, 1000);
+      return () => clearTimeout(debounce);
+    }
   }, [page]);
 
   return (
@@ -86,7 +90,6 @@ const FetchTrending = () => {
         setLoading={setLoading}
       />
     </main>
-    // <HomePage />
   );
 };
 

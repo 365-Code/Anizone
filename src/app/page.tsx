@@ -12,7 +12,6 @@ const Page = () => {
     <Search />
     <About />
     </>
-    // <HomePage />
   )
 }
 

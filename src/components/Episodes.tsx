@@ -1,22 +1,20 @@
 "use client";
-import { useAppSelector } from "@/redux/store";
-import { IAnimeInfo } from "@consumet/extensions";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import React from "react";
 
 const Episodes = () => {
-  const currentAnime = useAppSelector(
-    (state) => state.utilityReducer.value.currentAnime
-  ) as IAnimeInfo;
-  const episodes = currentAnime.totalEpisodes;
+  const searchParams = useSearchParams();
+  const total = searchParams.get("total");
+  const episodes = total;
   const pathname = usePathname();
   const basePath = pathname.split("/episode-")[0];
   const currentEpisode = pathname.split("/episode-")[1];
 
   return (
-    <section className="my-container">
-      <div className="flex flex-wrap gap-4 py-8">
+    <section className="my-container py-4 bg-[#17024d]">
+      <h2 className="text-3xl text-white font-normal">Episodes</h2>
+      <div className="flex flex-wrap gap-4 py-4 max-h-[130px] overflow-y-scroll custom-scrollbar">
         {Number(episodes) > 1 &&
           [...Array(Number(episodes))].map((v, i) => (
             <Link

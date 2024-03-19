@@ -1,48 +1,99 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ListAnime from "./ListAnime";
-import Search from "./Search";
-import Filter from "./Filter";
-import SearchBar from "./SearchBar";
 import InfiniteScroll from "./InfiniteScroll";
+import { useDispatch } from "react-redux";
+import { AppDispatch, useAppSelector } from "@/redux/store";
+import { IAnimeResult } from "@consumet/extensions";
+import { setSearchAnime } from "@/redux/features/utilitySlice";
 
 const FetchSearch = () => {
-  const params = useParams();
-  const query = (params["query"] as string) || "";
-
+  // const params = useParams();
+  // const query = (params["query"] as string) || "";
+  const searchParams = useSearchParams()
+  const query = searchParams.get("query")
+  const type = searchParams.get("type")
+  const status = searchParams.get("status")
+  const season = searchParams.get("season")
+  const genres = searchParams.get("genres")
+  const route = `query=${query || "All"}&type=${type || "All"}&status=${status || "All"}&season=${season || "All"}&genres=${genres || "All"}`
   const fetchSearchResults = async () => {
     try {
-      const data = await fetch(`/api/anilist/advanceSearch?query=${query}&page=${page}&perPage=${perPage}`);
+      // const data = await fetch(`/api/anilist/advanceSearch?query=${query}&page=${page}&perPage=${perPage}`);
+      const data = await fetch(`/api/anilist/advanceSearch?${route}&page=${page}&perPage=${perPage}`);
+      
       const res = await data.json();
       setLoading(false);
+
       if (res.success) {
         setSearchResults(res.results);
         setHasMore(res.hasNextPage);
+        const data = {
+          currentPage: res.currentPage,
+          hasNextPage: res.hasNextPage,
+          results: page == 1 ? res.results : [...searchResults, ...res.results],
+        };
+        dispatch(setSearchAnime(data));
+      
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<IAnimeResult[]>([]);
 
-  const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
   const [page, setPage] = useState(1);
   const perPage = 20;
   const pageId = "searchResults";
 
+  // useEffect(() => {
+  //   setLoading(true)
+  //   fetchSearchResults();
+  // }, []);
+  
+
+  
+  const dispatch = useDispatch<AppDispatch>();
+  const searchAnime = useAppSelector(
+    (state) => state.utilityReducer.value.searchAnime
+  );
   useEffect(() => {
-    setLoading(true)
-    fetchSearchResults();
+    if (searchAnime) {
+      setSearchResults(searchAnime.results);
+      setPage(searchAnime.currentPage || 1);
+      setHasMore(searchAnime.hasNextPage || true);
+    }
   }, []);
+
+  useEffect(() =>{
+    setLoading(true)
+    fetchSearchResults()
+  }, [route])
+
+  useEffect(() => {
+    if ((searchAnime && page == 1) || searchAnime?.currentPage == page) {
+      return;
+    } else {
+      setLoading(true);
+      const debounce = setTimeout(() => {
+        fetchSearchResults();
+      }, 1000);
+      return () => clearTimeout(debounce);
+    }
+  }, [page]);
+
+
+
 
   return (
     <div>
-      <div className="my-container">
+      {/* <div className="my-container">
         <SearchBar />
-      </div>
+      </div> */}
       <ListAnime id={pageId} animeList={searchResults} />
       <InfiniteScroll
         id={pageId}
