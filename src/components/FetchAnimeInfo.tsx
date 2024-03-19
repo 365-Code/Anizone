@@ -20,9 +20,9 @@ const FetchAnimeInfo = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const params = useParams();
-  // const animeId = (params["animeId"] as string).split("-").at(-1) || "";
-  const searchParams = useSearchParams();
-  const animeId = searchParams.get("aId") || "";
+  const animeId = (params["animeId"] as string).split("-").at(-1) || "";
+  // const searchParams = useSearchParams();
+  // const animeId = searchParams.get("aId") || "";
 
   const setResources = (animeData: IAnimeInfo) => {
     setAnimeInfo(animeData);
@@ -59,6 +59,8 @@ const FetchAnimeInfo = () => {
   const [animId, setAnimeId] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const dms = "death-note-153"
+
   useEffect(() => {
     setLoading(true)
     if(currentAnime){
@@ -92,7 +94,8 @@ const FetchAnimeInfo = () => {
                   className="btn-primary"
                   href={
                     "/anime/" +
-                    animId +
+                    // animId +
+                    (params["animeId"] as string) +
                     "/episode-1?total=" +
                     animeInfo.totalEpisodes
                   }

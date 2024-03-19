@@ -46,7 +46,7 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
             {/* <Link href={"/anime/" + anime.id}> */}
             <Link
               onClick={() => dispatch(setCurrentAnime(anime))}
-              href={"/anime/" + animeId + "?aId=" + anime.id}
+              href={"/anime/" + animeId + "-" + anime.id}
             >
               <h3 id="anime-card-title" className="hyphens-auto text-3xl font-semibold">
                 {

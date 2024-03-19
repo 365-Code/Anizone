@@ -15,30 +15,34 @@ const Header = () => {
   const pathname = usePathname();
   const nav = useRouter();
 
-  const navLinks = ["home", "movies", "series", "trending", "top rated"];
+  const navLinks = [
+    // "home", 
+  "movies", "series", "trending", "top rated"];
 
   return (
     // <!-- Header -->
     // <!-- my-container => fixed-nav later remove -->
     <header className="relative">
-      <nav className="text-white my-container flex flex-wrap justify-between py-8 items-center">
+      <nav className="text-white my-container flex flex-wrap justify-between py-6 items-center">
         {/* <h2 className="text-5xl text-[#230149] font-semibold"> */}
         <h2 className="text-5xl relative">
-          {pathname.includes("movies")
-            ? "Movies"
-            : pathname.includes("episode")
-            ? "Playing"
-            : pathname.includes("anime")
-            ? "Play Now"
-            : pathname.includes("trending")
-            ? "Trending"
-            : pathname.includes("series")
-            ? "Series"
-            : pathname.includes("top-rated")
-            ? "Top Rated"
-            : pathname.includes("search")
-            ? "Results"
-            : "AniZone"}
+          {pathname.includes("movies") ? (
+            "Movies"
+          ) : pathname.includes("episode") ? (
+            "Playing"
+          ) : pathname.includes("anime") ? (
+            "Play Now"
+          ) : pathname.includes("trending") ? (
+            "Trending"
+          ) : pathname.includes("series") ? (
+            "Series"
+          ) : pathname.includes("top-rated") ? (
+            "Top Rated"
+          ) : pathname.includes("search") ? (
+            "Results"
+          ) : (
+            <Link href={"/home"}>AniZone</Link>
+          )}
           <button onClick={() => nav.back()}>
             <i className="fi fi-rr-arrow-small-left absolute top-0 -left-16" />
           </button>

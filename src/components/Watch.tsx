@@ -33,7 +33,8 @@ const Watch = () => {
     (state) => state.utilityReducer.value.currentAnime
   );
 
-  const animeId = (params["animeId"] as string) || "";
+  const aId = (params["animeId"] as string) || "";
+  const animeId = aId.slice(0,aId.lastIndexOf('-'))
 
   const [epSources, setEpSources] = useState<IVideo[]>([]);
   const [epHeader, setEpHeader] = useState({

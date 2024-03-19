@@ -12,7 +12,7 @@ const Episodes = () => {
   const currentEpisode = pathname.split("/episode-")[1];
 
   return (
-    <section className="my-container py-4 bg-[#17024d]">
+    <section className="my-container py-4 bg-[#4f0055]">
       <h2 className="text-3xl text-white font-normal">Episodes</h2>
       <div className="flex flex-wrap gap-4 py-4 max-h-[130px] overflow-y-scroll custom-scrollbar">
         {Number(episodes) > 1 &&
