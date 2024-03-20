@@ -10,43 +10,59 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import SearchBar from "./SearchBar";
 import NavSearch from "./NavSearch";
+import Image from "next/image";
 
 const Header = () => {
   const pathname = usePathname();
   const nav = useRouter();
 
   const navLinks = [
-    // "home", 
-  "movies", "series", "trending", "top rated"];
+    // "home",
+    "movies",
+    "series",
+    "trending",
+    "top rated",
+  ];
+  
 
   return (
     // <!-- Header -->
     // <!-- my-container => fixed-nav later remove -->
     <header className="relative">
-      <nav className="text-white my-container flex flex-wrap justify-between py-6 items-center">
+      <nav className="text-white my-container flex flex-wrap justify-between py-8 items-center">
         {/* <h2 className="text-5xl text-[#230149] font-semibold"> */}
-        <h2 className="text-5xl relative">
-          {pathname.includes("movies") ? (
-            "Movies"
-          ) : pathname.includes("episode") ? (
-            "Playing"
-          ) : pathname.includes("anime") ? (
-            "Play Now"
-          ) : pathname.includes("trending") ? (
-            "Trending"
-          ) : pathname.includes("series") ? (
-            "Series"
-          ) : pathname.includes("top-rated") ? (
-            "Top Rated"
-          ) : pathname.includes("search") ? (
-            "Results"
-          ) : (
-            <Link href={"/home"}>AniZone</Link>
-          )}
-          <button onClick={() => nav.back()}>
-            <i className="fi fi-rr-arrow-small-left absolute top-0 -left-16" />
+        <div className="relative flex items-center">
+        <Link href={'/home'} className="text-5xl">
+          {pathname.includes("movies")
+            ? "Movies"
+            : pathname.includes("episode")
+            ? "Playing"
+            : pathname.includes("anime")
+            ? "Play Now"
+            : pathname.includes("trending")
+            ? "Trending"
+            : pathname.includes("series")
+            ? "Series"
+            : pathname.includes("top-rated")
+            ? "Top Rated"
+            : pathname.includes("search")
+            ? "Results"
+            : pathname.includes('/') &&
+            // <Link href={"/home"}>
+              <Image
+                height={400}
+                width={700}
+                className="w-[180px]"
+                src={"/logo2.png"}
+                alt="logo"
+                />
+            // </Link>
+            }
+        </Link>
+          <button onClick={() => nav.back()} className="text-5xl">
+            <i className="fi fi-rr-arrow-small-left absolute top-1/2 -translate-y-1/2 -left-16" />
           </button>
-        </h2>
+        </div>
         <ul className="flex flex-wrap items-center gap-12 uppercase font-normal">
           {navLinks.map((l, i) => (
             <li

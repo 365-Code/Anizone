@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { IAnimeResult } from "@consumet/extensions";
 import { setSearchAnime } from "@/redux/features/utilitySlice";
+import FetchRandom from "./FetchRandom";
 
 const FetchSearch = () => {
   const searchParams = useSearchParams();
@@ -84,12 +85,17 @@ const FetchSearch = () => {
     }
   }, [page]);
 
+
   return (
     <div>
       {/* <div className="my-container">
         <SearchBar />
       </div> */}
       <ListAnime id={pageId} animeList={searchResults} />
+      {
+        searchResults.length == 0 && <h2 className="text-center py-8 text-white text-6xl">No Results Found</h2>
+      }
+      {/* <FetchRandom /> */}
       <InfiniteScroll
         id={pageId}
         page={page}

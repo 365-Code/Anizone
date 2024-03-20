@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Hero = () => {
@@ -11,12 +13,30 @@ const Hero = () => {
 
       <div className="w-full h-full  absolute top-0 left-0 flex flex-col justify-center items-center">
         <div className="text-center max-w-full sm:max-w-[70%] flex flex-col items-center gap-2">
-          <h1 className="text-5xl italic flex-col flex">
+          {/* <h1 className="text-5xl italic flex-col flex">
             AniZone{" "}
             <span className="text-base text-right">
               Stream. Explore. Anime.
             </span>
-          </h1>
+          </h1> */}
+          <div className="relative">
+          <Link href={"/home"}>
+            <Image
+              height={400}
+              width={700}
+              className="w-[300px]"
+              src={"/logo2.png"}
+              alt="logo"
+              />
+          </Link>
+              <Image
+              height={400}
+              width={700}
+              className="w-[180px] ml-auto"
+              src={"/tag.png"}
+              alt="tag"
+              />
+          </div>
           <p>
             Embark on an epic anime journey with AniZone, your ultimate
             destination for immersive storytelling and boundless imagination.

@@ -1,11 +1,51 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
+  const alphabets = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+  ];
+
   return (
     <footer className="text-white my-container bg-[#17024d] py-8 flex justify-between h-fit gap-8 min-h-[50vh]">
       <div className="basis-1/4 flex flex-col gap-4 justify-between text-xs">
         <div>
-          <h3 className="text-3xl font-medium">AniZone</h3>
+          {/* <h3 className="text-3xl font-medium">AniZone</h3> */}
+          <Link href={"/home"}>
+            <Image
+              height={400}
+              width={700}
+              className="w-[160px]"
+              src={"/logo2.png"}
+              alt="logo"
+            />
+          </Link>
           <p className="sm:max-w-[80%]">
             AniZone is a site to watch anime you can even download subbed or
             dubbed anime in ultra HD quality. By having No Ads in all kinds, we
@@ -25,32 +65,9 @@ const Footer = () => {
         </div>
 
         <div className="font-normal text-base flex gap-4 leading-3 flex-wrap ">
-          <a className="hover:underline underline">A</a>
-          <a>B</a>
-          <a>C</a>
-          <a>D</a>
-          <a>E</a>
-          <a>F</a>
-          <a>G</a>
-          <a>H</a>
-          <a>I</a>
-          <a>J</a>
-          <a>K</a>
-          <a>L</a>
-          <a>M</a>
-          <a>N</a>
-          <a>O</a>
-          <a>P</a>
-          <a>Q</a>
-          <a>R</a>
-          <a>S</a>
-          <a>T</a>
-          <a>U</a>
-          <a>V</a>
-          <a>W</a>
-          <a>X</a>
-          <a>Y</a>
-          <a>Z</a>
+          {
+            alphabets.map((alph, i) => <Link key={i} href={"/search/results?query=" + alph.toLowerCase()} className="hover:underline transition-all">{alph}</Link>)
+          }
         </div>
 
         <p className="sm:max-w-[62%]">
