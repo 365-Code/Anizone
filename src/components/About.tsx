@@ -4,8 +4,8 @@ const About = () => {
   return (
     <section className="my-container flex flex-col gap-8 py-8 text-white">
       <div className="absolute left-0 top-0 -z-10 flex h-full w-full flex-col">
-        <div className="basis-1/2 bg-[#230149]"></div>
-        <div className="gradient-bg basis-1/2 py-10"></div>
+        <div className="basis-1/2 bg-[#230149]"/>
+        <div className="gradient-bg basis-1/2 py-10"/>
       </div>
       <div>
         <h3 className="text-center text-2xl font-semibold">ABOUT</h3>

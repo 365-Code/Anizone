@@ -4,9 +4,9 @@ import "./css/loader2.css";
 const Loader2 = () => {
   return (
     <div className="loader">
-      <div className="inner one"></div>
-      <div className="inner two"></div>
-      <div className="inner three"></div>
+      <div className="inner one"/>
+      <div className="inner two"/>
+      <div className="inner three"/>
     </div>
   );
 };

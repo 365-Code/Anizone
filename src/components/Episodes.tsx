@@ -12,29 +12,31 @@ const Episodes = () => {
   const currentEpisode = pathname.split("/episode-")[1];
 
   return (
-    <section className="my-container py-4 bg-[#17024d] ">
-      <div className="">
-        {Number(episodes) > 1 && (
-          <h2 className="text-3xl text-white font-normal">Episodes</h2>
-        )}
-        <div className="flex flex-wrap gap-4 py-4 max-h-[130px] overflow-y-scroll custom-scrollbar">
-          {Number(episodes) > 1 &&
-            [...Array(Number(episodes))].map((v, i) => (
-              <Link
-                href={basePath + "/episode-" + (i + 1)}
-                className={
-                  Number(currentEpisode) == i + 1
-                    ? "btn-primary-sm"
-                    : "btn-secondary-sm"
-                }
-                key={"episode-" + (i + 1)}
-              >
-                {"Episode " + (i + 1)}
-              </Link>
-            ))}
-        </div>
-      </div>
-    </section>
+    <>
+      {Number(episodes) > 1 && (
+        <section className="my-container bg-[#17024d] py-4 ">
+          <div className="">
+            <h2 className="text-3xl font-normal text-white">Episodes</h2>
+            <div className="custom-scrollbar flex max-h-[130px] flex-wrap gap-4 overflow-y-scroll py-4">
+              {Number(episodes) > 1 &&
+                [...Array(Number(episodes))].map((v, i) => (
+                  <Link
+                    href={basePath + "/episode-" + (i + 1) + "?total=" + total}
+                    className={
+                      Number(currentEpisode) == i + 1
+                        ? "btn-primary-sm"
+                        : "btn-secondary-sm"
+                    }
+                    key={"episode-" + (i + 1)}
+                  >
+                    {"Episode " + (i + 1)}
+                  </Link>
+                ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </>
   );
 };
 

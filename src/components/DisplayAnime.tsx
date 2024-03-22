@@ -27,16 +27,16 @@ const DisplayAnime = ({
       className="my-container flex snap-start flex-col gap-8 py-8"
     >
       <div className="absolute left-0 top-0 -z-10 flex h-full w-full flex-col">
-        <div className="basis-1/2 bg-[#230149]"></div>
-        <div className="gradient-bg basis-1/2 py-10"></div>
+        <div className="basis-1/2 bg-[#230149]"/>
+        <div className="gradient-bg basis-1/2 py-10"/>
       </div>
       {title && <h2 className="text-5xl capitalize text-white">{title}</h2>}
       
         
       <button
-        className="absolute top-4 right-4 text-right block sm:hidden text-xl text-slate-400"
+        className=" absolute top-4 right-4 text-right block transition-all sm:hidden text-xl text-slate-400"
       >
-        <i className="fi fi-rr-arrow-right transition-all hover:-translate-x-1" />
+        <i className="fi fi-rr-arrow-right transition-all bounceH transition-transform" />
       </button>
       <div
         ref={scrollRef}

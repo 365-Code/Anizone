@@ -25,19 +25,19 @@
 }
 
 body {
-  @apply bg-[#230149] min-[1100px]:px-40 transition-all;
+  @apply bg-[#230149] transition-all min-[1100px]:px-40;
 }
 
 body {
-  @apply flex flex-col min-h-screen;
+  @apply flex min-h-screen flex-col;
 }
 
 .fixed-nav {
-  @apply fixed w-full top-0 left-0 px-60 z-50;
+  @apply fixed left-0 top-0 z-50 w-full px-60;
 }
 
 body::-webkit-scrollbar {
-  @apply w-0 h-0;
+  @apply h-0 w-0;
 }
 /* 
 main{
@@ -45,7 +45,7 @@ main{
 } */
 
 section {
-  @apply relative gbg;
+  @apply gbg relative;
 }
 
 .fi {
@@ -53,13 +53,13 @@ section {
 }
 
 .my-container {
-  @apply px-2 sm:px-12 md:px-20 relative;
+  @apply relative px-2 sm:px-12 md:px-20;
 }
 
 .nav-link-selected::before {
   content: "";
   /* @apply w-full absolute -bottom-2 left-0 h-[3px] bg-[#230149]; */
-  @apply w-full absolute -bottom-2 left-0 h-[3px] bg-current;
+  @apply absolute -bottom-2 left-0 h-[3px] w-full bg-current;
 }
 
 .nav-link-selected {
@@ -69,7 +69,7 @@ section {
 .nav-link::before {
   content: "";
   /* @apply w-full absolute -bottom-2 left-0 h-[0] bg-[#230149] transition-all; */
-  @apply w-full absolute -bottom-2 left-0 h-0 bg-current transition-all;
+  @apply absolute -bottom-2 left-0 h-0 w-full bg-current transition-all;
 }
 
 .nav-link {
@@ -81,67 +81,67 @@ section {
 }
 
 .anime-card {
-  @apply max-w-[625px] h-[320px] flex relative bg-black/40 backdrop-blur-sm sm:rounded-none rounded-br-3xl shadow-xl shadow-black 
+  @apply relative flex h-[320px] w-[90vw] max-w-[625px] rounded-br-3xl bg-black/40 shadow-xl shadow-black backdrop-blur-sm 
   sm:min-w-[380px]
-  w-[90vw]
-  md:min-w-[625px]
-  md:min-h-fit;
+  sm:rounded-none
+  md:min-h-fit
+  md:min-w-[625px];
 }
 
 .anime-tag {
-  @apply p-2 z-10 bg-white text-black absolute -top-3 -left-3 font-semibold rounded-br-[60px] rounded-lg w-[250px];
+  @apply absolute -left-3 -top-3 z-10 w-[250px] rounded-lg rounded-br-[60px] bg-white p-2 font-semibold text-black;
 }
 
 .anime-card-detail {
-  @apply sm:flex-1 relative text-white pt-10 pb-6 px-2 sm:pl-6 flex flex-col justify-between;
+  @apply relative flex flex-col justify-between px-2 pb-6 pt-10 text-white sm:flex-1 pl-4 sm:pl-6;
 }
 
-.anime-card-detail h3{
-  @apply min-h-fit max-h-[102px];
+.anime-card-detail h3 {
+  @apply max-h-[102px] min-h-fit;
   /* line-height: 25px; Height / no. of lines to display */
   overflow: hidden;
 }
 
 .anime-card-img {
-  @apply sm:block hidden sm:basis-[38%];
+  @apply hidden sm:block sm:basis-[38%];
   /* -webkit-clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%); */
   clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
 }
 
 .half-anime-card {
-  @apply h-[320px] flex relative bg-[#000000]/50 backdrop-blur-sm w-[380px] min-w-[380px] rounded-br-3xl bg-shadow;
+  @apply bg-shadow relative flex h-[320px] w-[380px] min-w-[380px] rounded-br-3xl bg-[#000000]/50 backdrop-blur-sm;
 }
 
 .half-anime-card-detail {
-  @apply relative text-white py-10 pb-6 pl-6 flex flex-col justify-between;
+  @apply relative flex flex-col justify-between py-10 pb-6 pl-6 text-white;
 }
 
 .play-now-card {
-  @apply max-w-[720px] h-[380px] flex relative bg-black/40 backdrop-blur-sm sm:rounded-none rounded-br-3xl bg-shadow
+  @apply bg-shadow relative flex h-[380px] max-w-[720px] rounded-br-3xl bg-black/40 backdrop-blur-sm sm:rounded-none
   md:min-w-[720px];
 }
 .play-now-card-detail {
-  @apply sm:flex-1 relative text-white pt-10 pb-8 pl-8 flex flex-col justify-between;
+  @apply relative flex flex-col justify-between pb-8 pl-8 pt-10 text-white sm:flex-1;
 }
 .play-now-card-img {
-  @apply sm:block hidden sm:basis-[38%];
+  @apply hidden sm:block sm:basis-[38%];
   /* -webkit-clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%); */
   clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
 }
 
 .st-anime-card {
-  @apply h-fit relative;
+  @apply relative h-fit;
 }
 
 .st-anime-card-image {
   box-shadow: 25px 20px 100px 0px #000000;
-  @apply w-full h-[300px] sm:max-w-[220px] sm:h-[320px] text-xs;
+  @apply h-[300px] w-full text-xs sm:h-[320px] sm:max-w-[220px];
   /* @apply w-[200px] h-[320px] text-xs; */
 }
 
 .st-anime-card-detail {
   /* @apply rounded-r-xl w-[240px] text-[0.58rem] bg-[#230149] text-white py-2 px-4; */
-  @apply absolute bottom-0 rounded-none bg-opacity-70 w-full left-0 sm:static sm:rounded-r-xl sm:max-w-[240px] text-[0.7rem] sm:bg-[#230149] text-white py-2 px-4;
+  @apply absolute bottom-0 left-0 w-full rounded-none bg-opacity-70 sm:bg-opacity-100 px-4 py-2 text-[0.7rem] text-white sm:static sm:max-w-[240px] sm:rounded-r-xl bg-[#230149];
   height: 70px;
   line-height: 15px; /* Height / no. of lines to display */
   overflow: hidden;
@@ -164,7 +164,7 @@ section {
 }
 
 #search-box {
-  @apply flex-1 h-fit max-w-fit rounded-xl text-white gradient-bg overflow-hidden;
+  @apply gradient-bg h-fit max-w-fit flex-1 overflow-hidden rounded-xl text-white;
 }
 
 .gradient-bg {
@@ -186,74 +186,82 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
 }
 
 .filter-btn {
-  @apply hover:text-white hover:bg-cyan-400;
+  @apply hover:bg-cyan-400 hover:text-white;
 }
 
 #genre a {
-  @apply hover:text-white hover:bg-[#6200cf] px-2 py-1 rounded-lg transition-all;
+  @apply rounded-lg px-2 py-1 transition-all hover:bg-[#6200cf] hover:text-white;
 }
 
 .btn {
-  @apply p-4 sm:p-6 sm:min-w-fit rounded-xl text-center transition-all;
+  @apply rounded-xl p-4 text-center transition-all sm:min-w-fit sm:p-6;
 }
 
 .btn-primary {
-  @apply bg-[#6200cf] hover:bg-[#6200cf]/90 btn sm:w-[200px];
+  @apply btn bg-[#6200cf] hover:bg-[#6200cf]/90 sm:w-[200px];
 }
 
 .btn-secondary {
-  @apply bg-[#ffffff] hover:bg-[#ffffff]/90 btn sm:w-[200px] text-black;
+  @apply btn bg-[#ffffff] text-black hover:bg-[#ffffff]/90 sm:w-[200px];
 }
 
 .btn-sm {
-  @apply px-4 py-2 min-w-fit rounded-xl text-center transition-all;
+  @apply min-w-fit rounded-xl px-4 py-2 text-center transition-all;
 }
 
 .btn-primary-sm {
-  @apply btn-sm bg-[#6200cf] hover:bg-[#6200cf]/80 text-white;
+  @apply btn-sm bg-[#6200cf] text-white hover:bg-[#6200cf]/80;
 }
 
 .btn-secondary-sm {
-  @apply btn-sm bg-[#ffffff] hover:bg-[#ffffff]/50 hover:text-white text-black;
+  @apply btn-sm bg-[#ffffff] text-black hover:bg-[#ffffff]/50 hover:text-white;
 }
 
 .gbg::before {
   content: "";
-  @apply absolute top-0 left-0 w-full h-full flex flex-col -z-10;
+  @apply absolute left-0 top-0 -z-10 flex h-full w-full flex-col;
 }
 
 .gbg::before::before {
   content: "";
-  @apply basis-1/2 bg-[#1d0840] w-full h-full;
+  @apply h-full w-full basis-1/2 bg-[#1d0840];
 }
 .gbg::before::after {
   content: "";
-  @apply basis-1/2 gradient-bg py-10 h-full w-full;
+  @apply gradient-bg h-full w-full basis-1/2 py-10;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  @apply w-1 h-1;
+  @apply h-1 w-1;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply w-2 h-2 bg-slate-600 rounded-full;
+  @apply h-2 w-2 rounded-full bg-slate-600;
 }
 .no-scrollbar::-webkit-scrollbar {
-  @apply w-0 h-0;
+  @apply h-0 w-0;
 }
 
-/* <div className="absolute top-0 left-0 w-full h-full flex flex-col -z-10">
-    <div className="basis-1/2 bg-[#230149]"></div>
-    <div className="basis-1/2 gradient-bg py-10"></div>
-  </div> */
-
-video{
+video {
   @apply relative;
 }
 
 video[poster] {
-  @apply w-full h-full object-scale-down object-center;
+  @apply h-full w-full object-scale-down object-center;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
   display: none;
+}
+
+.bounceH {
+  @apply transition-all;
+  animation: bounceH 2s linear 5;
+}
+
+@keyframes bounceH {
+  0% {
+    @apply translate-x-0;
+  } 100%{
+    @apply -translate-x-2;
+  }
 }

@@ -132,8 +132,8 @@ const FetchAnimeInfo = () => {
           </div>
 
           <div className="absolute top-0 left-0 w-full h-full flex flex-col -z-10">
-            <div className="basis-2/5 bg-[#1c073f]"></div>
-            <div className="basis-3/5 gradient-bg py-10"></div>
+            <div className="basis-2/5 bg-[#1c073f]"/>
+            <div className="basis-3/5 gradient-bg py-10"/>
           </div>
         </>
       )}

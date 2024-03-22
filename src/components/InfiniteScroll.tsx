@@ -42,7 +42,7 @@ const InfiniteScroll = ({
       upScroll.addEventListener("scroll", handleInfiniteScroll);
     }
     return () => {
-      // upScroll?.scrollBy({ top: 40, behavior: "smooth" });
+      page > 2 && upScroll?.scrollBy({ top: 40, behavior: "smooth" });
       upScroll?.removeEventListener("scroll", handleInfiniteScroll);
     };
   });

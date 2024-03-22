@@ -75,7 +75,7 @@ const FetchTrending = () => {
     <main>
       <div
         id="trending"
-        className="no-scrollbar overflow-y-scroll max-h-[106vh]"
+        className="no-scrollbar overflow-y-scroll max-h-[85vh]"
       >
         {trending?.map((trendingList, ind) => (
           <DisplayAnime key={ind} animeList={trendingList} />

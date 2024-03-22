@@ -34,6 +34,7 @@ const MyComponent = ({ source }: { source: string }) => {
           volume: 0.1,
           seekTime: 5,
           keyboard: { focused: true, global: true },
+          storage: 	{ enabled: true, key: 'plyr' }
         }}
         source={{} as PlyrProps["source"]}
         ref={ref}

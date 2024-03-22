@@ -23,7 +23,7 @@ const FetchRecentEpisodes = () => {
 
   const [recents, setRecents] = useState<IEpisodeCard[]>();
   const recentEpisodes = useAppSelector(
-    (state) => state.utilityReducer.value.recentEpisodes
+    (state) => state.utilityReducer.value.recentEpisodes,
   );
   const dispatch = useDispatch<AppDispatch>();
 
@@ -37,26 +37,29 @@ const FetchRecentEpisodes = () => {
       // return () => clearTimeout(debounce);
     }
   }, []);
+  console.log(recents);
 
   return (
-    <section className="my-container py-4 space-y-2">
-      <h2 className="text-3xl text-white font-normal">Recent Episodes</h2>
-      {!recents && 
-      // <Loader2 />
-      <div className="flex items-start gap-8 overflow-x-scroll no-scrollbar">
-        {
-          [...Array(20)].map((v, i) =>
-          <div key={i} className={`animate-pulse delay-[${i*10}]`}>
-          <StAnimeCardSkeleton key={i} />
-          </div>
-          )
-        }
-      </div>
-      
-      }
-      <div className="flex items-start gap-8 overflow-x-scroll no-scrollbar">
+    <section className="my-container space-y-2 py-4">
+      <h2 className="text-3xl font-normal text-white">Recent Episodes</h2>
+      {!recents && (
+        // <Loader2 />
+        <div className="no-scrollbar flex items-start gap-8 overflow-x-scroll">
+          {[...Array(20)].map((v, i) => (
+            <div key={i} style={{
+              animationDelay: `${i * 0.25}s`,
+              animationDuration: "1s"
+            }} className={`min-w-fit animate-pulse`}>
+              <StAnimeCardSkeleton key={i} />
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="no-scrollbar flex items-start gap-8 overflow-x-scroll">
         {recents?.map((e, i) => (
-          <EpisodeCard key={e.id} anime={e} />
+          <div className="min-w-fit" key={e.id}>
+            <EpisodeCard key={e.id} anime={e} />
+          </div>
         ))}
       </div>
     </section>

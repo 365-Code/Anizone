@@ -8,26 +8,25 @@ import { AppDispatch, useAppSelector } from "@/redux/store";
 import { setPopularAnime } from "@/redux/features/utilitySlice";
 
 const FetchTopRated = () => {
-
   const fetchTopRated = async () => {
     try {
       const data = await fetch(
-        `/api/anilist/fetchPopularAnime?page=${page}&perPage=${perPage}`
+        `/api/anilist/fetchPopularAnime?page=${page}&perPage=${perPage}`,
       );
       const res = await data.json();
       setLoading(false);
       if (res.success) {
-        if(page%2 == 1){
-          setPage((preVal) => preVal+1)
+        if (page % 2 == 1) {
+          setPage((preVal) => preVal + 1);
         }
         setHasMore(res.hasNextPage);
         setTopRated((preVal) => [...preVal, res.results]);
         const data = {
           currentPage: res.currentPage,
           hasNextPage: res.hasNextPage,
-          results: [...topRated, res.results]
-        }
-        dispatch(setPopularAnime(data))
+          results: [...topRated, res.results],
+        };
+        dispatch(setPopularAnime(data));
       }
     } catch (error) {
       console.log(error);
@@ -40,19 +39,18 @@ const FetchTopRated = () => {
   const [page, setPage] = useState(1);
   const perPage = 20;
 
-  
-
   const dispatch = useDispatch<AppDispatch>();
-  const topRatedAnime = useAppSelector((state) => state.utilityReducer.value.popular)
+  const topRatedAnime = useAppSelector(
+    (state) => state.utilityReducer.value.popular,
+  );
 
   useEffect(() => {
     if (topRatedAnime) {
       setTopRated(topRatedAnime.results);
       setPage(topRatedAnime.currentPage);
-      setHasMore(topRatedAnime.hasNextPage)
+      setHasMore(topRatedAnime.hasNextPage);
     }
   }, []);
-  
 
   useEffect(() => {
     if ((topRatedAnime && page == 1) || topRatedAnime?.currentPage == page) {
@@ -70,7 +68,7 @@ const FetchTopRated = () => {
     <main>
       <div
         id="topRated"
-        className="no-scrollbar overflow-y-scroll max-h-[106vh]"
+        className="no-scrollbar max-h-[85vh] overflow-y-scroll"
       >
         {topRated?.map((topRatedList, ind) => (
           <DisplayAnime key={ind} animeList={topRatedList} />
