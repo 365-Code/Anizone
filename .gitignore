@@ -36,7 +36,7 @@ yarn-error.log*
 next-env.d.ts
 
 #extra
-/src/components/Test.{js,ts,jsx,tsx,mdx}
-/src/components/css/test.css
+/src/components/Test.*
+/src/components/css/test.*
 /src/app/test/
 /src/app/api/test/

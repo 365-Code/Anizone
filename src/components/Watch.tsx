@@ -51,6 +51,9 @@ const Watch = () => {
     animId && fetchCurrentAnime();
   }, []);
 
+  console.log(epSources);
+  
+
   return (
     <section className="bg-[#17024d] py-8 max-h-[650px]">
       {epSources.length > 0 ? (

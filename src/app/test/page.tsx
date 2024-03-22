@@ -1,5 +1,5 @@
 import Test from "@/components/Test";
-import React, { useEffect } from "react";
+import React from "react";
 
 
 const Page = async () => {
