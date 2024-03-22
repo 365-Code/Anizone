@@ -1,13 +1,10 @@
 "use client";
-import { IAnimeResult } from "@consumet/extensions";
 import React, { useEffect, useState } from "react";
 import EpisodeCard from "./EpisodeCard";
 import { IEpisodeCard } from "@/utils";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { setRecentEpisodes } from "@/redux/features/utilitySlice";
-import Background from "./Background";
-import Loader2 from "./Loader2";
 import StAnimeCardSkeleton from "./StAnimeCardSkeleton";
 
 const FetchRecentEpisodes = () => {
@@ -49,7 +46,9 @@ const FetchRecentEpisodes = () => {
       <div className="flex items-start gap-8 overflow-x-scroll no-scrollbar">
         {
           [...Array(20)].map((v, i) =>
+          <div key={i} className={`animate-pulse delay-[${i*10}]`}>
           <StAnimeCardSkeleton key={i} />
+          </div>
           )
         }
       </div>

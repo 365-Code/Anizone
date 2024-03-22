@@ -65,14 +65,6 @@ const FetchMovies = () => {
     }
   }, [page]);
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   const debounce = setTimeout(() => {
-  //     fetchMovies();
-  //   }, 1000);
-  //   return () => clearTimeout(debounce);
-  // }, [page]);
-
   return (
     <main>
       <div id="movies" className="no-scrollbar overflow-y-scroll max-h-[85vh]">
@@ -80,8 +72,6 @@ const FetchMovies = () => {
           <DisplayAnime key={ind} title="" animeList={movieList} />
         ))}
       </div>
-      {/* <div className="my-container"> */}
-      {/* </div> */}
       <InfiniteScroll
         id="movies"
         page={page}

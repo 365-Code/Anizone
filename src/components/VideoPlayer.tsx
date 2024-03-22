@@ -6,9 +6,6 @@ import { useAppSelector } from "@/redux/store";
 import { IAnimeInfo } from "@consumet/extensions";
 
 const MyComponent = ({ source }: { source: string }) => {
-  const currentAnime = useAppSelector(
-    (state) => state.utilityReducer.value.currentAnime
-  ) as IAnimeInfo;
   const ref = useRef<APITypes>(null);
   useEffect(() => {
     const loadVideo = async () => {
@@ -23,7 +20,7 @@ const MyComponent = ({ source }: { source: string }) => {
       ref.current!.plyr.media = video;
 
       hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-        (ref.current!.plyr as PlyrInstance).play();
+        // (ref.current!.plyr as PlyrInstance).play();
       });
     };
     loadVideo();

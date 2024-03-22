@@ -4,7 +4,7 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <section className="min-h-fit max-h-[65vh] overflow-hidden w-full relative text-white">
+    <section className="sm:min-h-fit h-[500px] sm:max-h-[65vh] overflow-hidden w-full relative text-white">
       <img
         src="https://www.itl.cat/pngfile/big/8-83033_naruto-vs-sasuke-4k-wallpaper-photo-naruto-sasuke.jpg"
         alt=""
@@ -37,7 +37,7 @@ const Hero = () => {
               alt="tag"
               />
           </div>
-          <p>
+          <p className="text-sm sm:text-base">
             Embark on an epic anime journey with AniZone, your ultimate
             destination for immersive storytelling and boundless imagination.
             From pulse-pounding action to heartwarming tales, we bring you a

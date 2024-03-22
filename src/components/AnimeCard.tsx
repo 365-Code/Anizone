@@ -10,10 +10,15 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
   const dispatch = useDispatch<AppDispatch>();
   const animeTitle = anime.title as ITitle;
 
-  const animeId = toAnimeId(animeTitle)
+  const animeId = toAnimeId(animeTitle);
   return (
-    <div className="snap-start pt-3 pl-3">
+    <div className="snap-start pl-3 pt-3">
       <div className="anime-card">
+        <img
+          src={anime?.image}
+          alt=""
+          className="absolute left-0 top-0 -z-10 h-full w-full object-cover object-center opacity-50 sm:opacity-10 sm:blur-sm"
+        />
         <div className="anime-tag">
           {anime.genres && anime.genres.length > 0
             ? anime.genres?.map(
@@ -21,26 +26,21 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
                   (i < 2 ? g : "") +
                   (anime?.genres?.length && anime?.genres?.length > 1 && i < 1
                     ? ", "
-                    : "")
+                    : ""),
               )
             : "Genres: N/A"}
         </div>
         <div className="anime-card-detail">
-          <img
-            src={anime?.image}
-            alt=""
-            className="w-full h-full object-cover object-center absolute top-0 left-0 -z-10 opacity-10 blur-sm"
-          />
           <div className="flex flex-col gap-2">
-            <p className="flex items-center text-xs gap-2">
+            <p className="flex items-center gap-2 text-xs">
               {anime.season && (
                 <>
                   <span>{anime.season}</span>
-                  <span className="w-1 h-1 rounded-full bg-white" />
+                  <span className="h-1 w-1 rounded-full bg-white" />
                 </>
               )}
               <span>{anime.releaseDate}</span>
-              <span className="w-1 h-1 rounded-full bg-white" />
+              <span className="h-1 w-1 rounded-full bg-white" />
               <span>{anime.type}</span>
             </p>
             {/* <Link href={"/anime/" + anime.id}> */}
@@ -48,7 +48,10 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
               onClick={() => dispatch(setCurrentAnime(anime))}
               href={"/anime/" + animeId + "-" + anime.id}
             >
-              <h3 id="anime-card-title" className="hyphens-auto text-3xl font-semibold">
+              <h3
+                id="anime-card-title"
+                className="hyphens-auto text-lg font-semibold  sm:text-3xl"
+              >
                 {
                   (animeTitle.english ||
                     animeTitle.romaji ||
@@ -59,20 +62,22 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
               </h3>
             </Link>
 
-            <p className="text-orange-500 tesm font-medium">
-              {(anime.studios && anime.studios[0]) || "Studio: N/A"}
+            <p className="text-sm font-medium text-orange-500">
+              {(anime.studios && anime.studios[0]) ||
+                anime.status ||
+                "Studio: N/A"}
             </p>
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-semibold flex items-center gap-2">
-              <i className="text-2xl fi fi-ss-star text-orange-500" />
-              <span className="text-3xl">
+            <p className="flex items-center gap-2 font-semibold">
+              <i className="fi fi-ss-star text-lg text-orange-500 sm:text-2xl" />
+              <span className="text-lg sm:text-3xl">
                 {anime.rating ? anime.rating + "%" : "Rating: N/A"}
               </span>
             </p>
-            <ul className="flex items-center gap-2 text-xs font-medium flex-wrap">
+            <ul className="flex flex-wrap items-center gap-2 text-xs font-medium">
               {anime.genres?.slice(0, 4).map((g, i) => (
-                <li key={i} className="bg-white/20 py-1 px-2 rounded-full">
+                <li key={i} className="rounded-full bg-white/20 px-2 py-1">
                   {g}
                 </li>
               ))}
@@ -83,7 +88,7 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
           <img
             src={anime.image}
             alt=""
-            className="w-full h-full object-cover object-center"
+            className="h-full w-full object-cover object-center"
           />
         </div>
       </div>

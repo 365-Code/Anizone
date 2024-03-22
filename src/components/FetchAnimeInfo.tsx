@@ -72,7 +72,7 @@ const FetchAnimeInfo = () => {
 
   return (
     // <!-- Play Now -->
-    <section className="text-white py-8 my-container flex flex-col gap-8 relative">
+    <section className="text-white py-4 sm:py-8 my-container flex flex-col gap-8 relative">
       {loading && (
             <div className="w-screen h-screen flex flex-col justify-center items-center bg-opacity-25 bg-black/40 top-0 left-0 fixed z-10">
               <Loader />
@@ -86,9 +86,8 @@ const FetchAnimeInfo = () => {
           <h2 className="text-5xl invisible">Play Now</h2>
           <div className="flex flex-col md:flex-row gap-4 justify-between">
             <PlayNowCard animeInfo={animeInfo} animeTitle={animeTitle || {}} />
-
-            <div className="flex-1 items-center flex sm:flex-row md:flex-col flex-col gap-4 justify-between py-8">
-              <div className="flex md:flex-col justify-center gap-4">
+            <div className=" flex-1 items-center flex sm:flex-row md:flex-col flex-col gap-4 justify-between py-8">
+              <div className="flex sm:flex-row md:flex-col justify-center gap-2 sm:gap-4">
                 {/* <button className="btn-primary">Watch Now</button> */}
                 <Link
                   className="btn-primary"

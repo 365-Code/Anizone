@@ -25,7 +25,7 @@
 }
 
 body {
-  @apply bg-[#230149] min-[1000px]:px-40 transition-all;
+  @apply bg-[#230149] min-[1100px]:px-40 transition-all;
 }
 
 body {
@@ -53,7 +53,7 @@ section {
 }
 
 .my-container {
-  @apply px-4 sm:px-12 md:px-20 relative;
+  @apply px-2 sm:px-12 md:px-20 relative;
 }
 
 .nav-link-selected::before {
@@ -82,7 +82,8 @@ section {
 
 .anime-card {
   @apply max-w-[625px] h-[320px] flex relative bg-black/40 backdrop-blur-sm sm:rounded-none rounded-br-3xl shadow-xl shadow-black 
-  min-w-[380px]
+  sm:min-w-[380px]
+  w-[90vw]
   md:min-w-[625px]
   md:min-h-fit;
 }
@@ -92,7 +93,7 @@ section {
 }
 
 .anime-card-detail {
-  @apply sm:flex-1 relative text-white pt-10 pb-6 pl-6 flex flex-col justify-between;
+  @apply sm:flex-1 relative text-white pt-10 pb-6 px-2 sm:pl-6 flex flex-col justify-between;
 }
 
 .anime-card-detail h3{
@@ -129,18 +130,18 @@ section {
 }
 
 .st-anime-card {
-  @apply h-fit;
+  @apply h-fit relative;
 }
 
 .st-anime-card-image {
   box-shadow: 25px 20px 100px 0px #000000;
-  @apply w-[220px] h-[320px] text-xs;
+  @apply w-full h-[300px] sm:max-w-[220px] sm:h-[320px] text-xs;
   /* @apply w-[200px] h-[320px] text-xs; */
 }
 
 .st-anime-card-detail {
   /* @apply rounded-r-xl w-[240px] text-[0.58rem] bg-[#230149] text-white py-2 px-4; */
-  @apply rounded-r-xl w-[240px] text-[0.7rem] bg-[#230149] text-white py-2 px-4;
+  @apply absolute bottom-0 rounded-none bg-opacity-70 w-full left-0 sm:static sm:rounded-r-xl sm:max-w-[240px] text-[0.7rem] sm:bg-[#230149] text-white py-2 px-4;
   height: 70px;
   line-height: 15px; /* Height / no. of lines to display */
   overflow: hidden;
@@ -193,15 +194,15 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
 }
 
 .btn {
-  @apply p-6 min-w-fit rounded-xl text-center transition-all;
+  @apply p-4 sm:p-6 sm:min-w-fit rounded-xl text-center transition-all;
 }
 
 .btn-primary {
-  @apply bg-[#6200cf] hover:bg-[#6200cf]/90 btn w-[200px];
+  @apply bg-[#6200cf] hover:bg-[#6200cf]/90 btn sm:w-[200px];
 }
 
 .btn-secondary {
-  @apply bg-[#ffffff] hover:bg-[#ffffff]/90 btn w-[200px] text-black;
+  @apply bg-[#ffffff] hover:bg-[#ffffff]/90 btn sm:w-[200px] text-black;
 }
 
 .btn-sm {
@@ -251,4 +252,8 @@ video{
 
 video[poster] {
   @apply w-full h-full object-scale-down object-center;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
 }

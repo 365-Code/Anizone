@@ -1,10 +1,8 @@
-"use client"
 import Test from "@/components/Test";
 import React, { useEffect } from "react";
 
 
 const Page = async () => {
-
   return <Test />
 };
 

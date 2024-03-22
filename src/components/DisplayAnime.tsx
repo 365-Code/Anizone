@@ -13,7 +13,6 @@ const DisplayAnime = ({
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const handleScroll = (dir: number) => {
-    
     if (scrollRef.current) {
       scrollRef.current.scrollBy({
         left: dir * 500,
@@ -25,33 +24,41 @@ const DisplayAnime = ({
   return (
     <section
       id="disp"
-      className="snap-start my-container py-8 flex flex-col gap-8"
+      className="my-container flex snap-start flex-col gap-8 py-8"
     >
-      <div className="absolute top-0 left-0 w-full h-full flex flex-col -z-10">
+      <div className="absolute left-0 top-0 -z-10 flex h-full w-full flex-col">
         <div className="basis-1/2 bg-[#230149]"></div>
-        <div className="basis-1/2 gradient-bg py-10"></div>
+        <div className="gradient-bg basis-1/2 py-10"></div>
       </div>
-      {title && <h2 className="text-5xl text-white capitalize">{title}</h2>}
+      {title && <h2 className="text-5xl capitalize text-white">{title}</h2>}
+      
+        
+      <button
+        className="absolute top-4 right-4 text-right block sm:hidden text-xl text-slate-400"
+      >
+        <i className="fi fi-rr-arrow-right transition-all hover:-translate-x-1" />
+      </button>
       <div
         ref={scrollRef}
-        className="relative flex items-center w-full snap-x snap-mandatory gap-6 overflow-x-scroll no-scrollbar rounded-r-2xl"
+        className="no-scrollbar relative flex w-full snap-x snap-mandatory items-center gap-6 overflow-x-scroll rounded-r-2xl"
       >
         {animeList?.map((anime) => (
           // <FetchAnime key={anime.id} animeId={anime.id} />
           <AnimeCard key={anime.id} anime={anime} />
         ))}
       </div>
+
       <button
         onClick={() => handleScroll(1)}
-        className="text-8xl text-slate-400 absolute right-2 top-1/2 -translate-y-1/2"
+        className="absolute right-2 top-1/2 hidden -translate-y-1/2 text-8xl text-slate-400 sm:block"
       >
-        <i className="fi fi-rr-caret-right hover:translate-x-1 transition-all" />
+        <i className="fi fi-rr-caret-right transition-all hover:translate-x-1" />
       </button>
       <button
         onClick={() => handleScroll(-1)}
-        className="text-8xl text-slate-400 absolute left-2 top-1/2 -translate-y-1/2"
+        className="absolute left-2 top-1/2 hidden -translate-y-1/2 text-8xl text-slate-400 sm:block"
       >
-        <i className="fi fi-rr-caret-left hover:-translate-x-1 transition-all" />
+        <i className="fi fi-rr-caret-left transition-all hover:-translate-x-1" />
       </button>
     </section>
   );

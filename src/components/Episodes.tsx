@@ -12,23 +12,27 @@ const Episodes = () => {
   const currentEpisode = pathname.split("/episode-")[1];
 
   return (
-    <section className="my-container py-4 bg-[#4f0055]">
-      <h2 className="text-3xl text-white font-normal">Episodes</h2>
-      <div className="flex flex-wrap gap-4 py-4 max-h-[130px] overflow-y-scroll custom-scrollbar">
-        {Number(episodes) > 1 &&
-          [...Array(Number(episodes))].map((v, i) => (
-            <Link
-              href={basePath + "/episode-" + (i + 1)}
-              className={
-                Number(currentEpisode) == i + 1
-                  ? "btn-primary-sm"
-                  : "btn-secondary-sm"
-              }
-              key={"episode-" + (i + 1)}
-            >
-              {"Episode " + (i + 1)}
-            </Link>
-          ))}
+    <section className="my-container py-4 bg-[#17024d] ">
+      <div className="">
+        {Number(episodes) > 1 && (
+          <h2 className="text-3xl text-white font-normal">Episodes</h2>
+        )}
+        <div className="flex flex-wrap gap-4 py-4 max-h-[130px] overflow-y-scroll custom-scrollbar">
+          {Number(episodes) > 1 &&
+            [...Array(Number(episodes))].map((v, i) => (
+              <Link
+                href={basePath + "/episode-" + (i + 1)}
+                className={
+                  Number(currentEpisode) == i + 1
+                    ? "btn-primary-sm"
+                    : "btn-secondary-sm"
+                }
+                key={"episode-" + (i + 1)}
+              >
+                {"Episode " + (i + 1)}
+              </Link>
+            ))}
+        </div>
       </div>
     </section>
   );

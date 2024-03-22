@@ -33,8 +33,8 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="text-white my-container bg-[#17024d] py-8 flex justify-between h-fit gap-8 min-h-[50vh]">
-      <div className="basis-1/4 flex flex-col gap-4 justify-between text-xs">
+    <footer className="my-container flex h-fit min-[1100px]:flex-row flex-col min-h-[50vh] justify-between gap-8 bg-[#17024d] py-8 text-white">
+      <div className="flex basis-1/4 flex-col justify-between gap-4 text-xs">
         <div>
           {/* <h3 className="text-3xl font-medium">AniZone</h3> */}
           <Link href={"/home"}>
@@ -52,44 +52,50 @@ const Footer = () => {
             are trying to make it the safest site for free anime
           </p>
         </div>
-        <p className="text-base text-nowrap">
+        <p className="text-nowrap text-base">
           &copy; Blank 2023 All Rights Reserved
         </p>
       </div>
-      <div className="w-[1px] bg-white border"></div>
+      <div className="min-[1100px]:w-[1px] w-full border bg-white" />
 
-      <div className="basis-1/2 flex flex-col gap-4 justify-between text-xs">
+      <div className="flex basis-1/2 flex-col justify-between gap-4 text-xs">
         <div>
           <h3 className="text-2xl font-medium capitalize">Order Filter</h3>
           <p className="text-xs">Search Anime by A to Z Alphabetic Order</p>
         </div>
 
-        <div className="font-normal text-base flex gap-4 leading-3 flex-wrap ">
-          {
-            alphabets.map((alph, i) => <Link key={i} href={"/search/results?query=" + alph.toLowerCase()} className="hover:underline transition-all">{alph}</Link>)
-          }
+        <div className="flex flex-wrap gap-4 text-base font-normal leading-3 ">
+          {alphabets.map((alph, i) => (
+            <Link
+              key={i}
+              href={"/search/results?query=" + alph.toLowerCase()}
+              className="transition-all hover:underline"
+            >
+              {alph}
+            </Link>
+          ))}
         </div>
 
-        <p className="sm:max-w-[62%]">
+        <p className="min-[1100px]:max-w-[62%]">
           AniZone does not store any files on our server we only linked to the
           media which is hosted on 3rd party services.
         </p>
         <p className="text-sm">@AniZone.com </p>
       </div>
 
-      <div className="w-[1px] bg-white border"></div>
+      <div className="min-[1100px]:w-[1px] border bg-white" />
 
-      <div className="basis-1/5 flex flex-col gap-4 justify-between text-xs">
-        <h3 className="text-2xl uppercase font-medium">Contacts</h3>
+      <div className="flex basis-1/5 flex-col justify-between gap-4 text-xs">
+        <h3 className="text-2xl font-medium uppercase">Contacts</h3>
         <div>
           <p>9384593475</p>
           <p>3948539460</p>
           <p>AniZone@gmail.com</p>
         </div>
 
-        <h3 className="text-xl uppercase font-medium">Follow</h3>
+        <h3 className="text-xl font-medium uppercase">Follow</h3>
         <div className="flex flex-wrap items-center gap-4">
-          <span className="w-6 h-6 bg-white rounded-full"></span>
+          <span className="h-6 w-6 rounded-full bg-white"></span>
         </div>
       </div>
     </footer>
