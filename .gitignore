@@ -34,3 +34,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#extra
+"./src/components/test.{js,ts,jsx,tsx,mdx}",
+"./src/components/Test.{js,ts,jsx,tsx,mdx}",
+"./src/components/css/test.css",
+"./src/app/**/test.{js,ts,jsx,tsx,mdx}",

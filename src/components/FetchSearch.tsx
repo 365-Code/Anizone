@@ -93,7 +93,7 @@ const FetchSearch = () => {
       </div> */}
       <ListAnime id={pageId} animeList={searchResults} />
       {
-        searchResults.length == 0 && <h2 className="text-center py-8 text-white text-6xl">No Results Found</h2>
+        (searchResults.length == 0 && !loading) && <h2 className="text-center py-8 text-white text-6xl">No Results Found</h2>
       }
       {/* <FetchRandom /> */}
       <InfiniteScroll
