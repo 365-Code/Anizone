@@ -1,50 +1,12 @@
 "use client";
-import { ANIME, META } from "@consumet/extensions";
+import { setCurrentAnime } from "@/redux/features/utilitySlice";
+import { AppDispatch } from "@/redux/store";
+import { toAnimeId } from "@/utils";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-
-const fetchFilters = async () => {
-  try {
-    // const anilist = new META.Anilist()
-    const anime = new ANIME.Gogoanime();
-    const results = await anime.fetchGenreList();
-
-    return results;
-  } catch (error) {}
-};
-
+import { useDispatch } from "react-redux";
+import Loader2 from "./Loader2";
 const Filter = () => {
-  // const genreList = await fetchFilters()
-  const [filter, setFilter] = useState({
-    type: "All",
-    status: "All",
-    genres: [] as string[],
-    season: "All",
-  });
-
-  const nav = useRouter();
-
-  const handleFilter = () => {
-    const route = `type=${filter.type}&status=${filter.status}&season=${filter.season}&genres=${filter.genres}`;
-    nav.push("/search/results?" + route);
-  };
-
-  const handleGenre = (genre: string, ind: number) => {
-    const index = filter.genres.findIndex((g) => g == genre);
-    let nGr = selectedGenres;
-    if (index == -1) {
-      setFilter((preVal) => ({ ...preVal, genres: [...preVal.genres, genre] }));
-      nGr[ind] = true;
-    } else {
-      const genreList = filter.genres;
-      setFilter((preVal) => ({
-        ...preVal,
-        genres: genreList.filter((g) => g != genre),
-      }));
-      nGr[ind] = false;
-    }
-    setSelectedGenres(nGr);
-  };
 
   const genreList = [
     "Action",
@@ -90,8 +52,58 @@ const Filter = () => {
     "NOT_YET_RELEASED",
     "FINISHED",
     "CANCELLED",
-    // "HIATUS",
+    "HIATUS",
   ];
+
+  const [filter, setFilter] = useState({
+    type: "All",
+    status: "All",
+    genres: [] as string[],
+    season: "All",
+  });
+
+  const nav = useRouter();
+
+  const handleFilter = () => {
+    const route = `type=${filter.type}&status=${filter.status}&season=${filter.season}&genres=${filter.genres}`;
+    nav.push("/search/results?" + route);
+  };
+
+  const dispatch = useDispatch<AppDispatch>()
+  const [rLoading, setRLoading] = useState(false)
+  const handleRandom = async () => {
+    setRLoading(true)
+    try {
+      const data = await fetch("/api/anilist/fetchRandomAnime")
+      const res = await data.json()
+      if(res.success){
+        setRLoading(false)
+        dispatch(setCurrentAnime(res.result))
+        const animeId = toAnimeId(res.result.title) + '-' + res.result.id
+        nav.push('/anime/'+animeId)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  const handleGenre = (genre: string, ind: number) => {
+    const index = filter.genres.findIndex((g) => g == genre);
+    let nGr = selectedGenres;
+    if (index == -1) {
+      setFilter((preVal) => ({ ...preVal, genres: [...preVal.genres, genre] }));
+      nGr[ind] = true;
+    } else {
+      const genreList = filter.genres;
+      setFilter((preVal) => ({
+        ...preVal,
+        genres: genreList.filter((g) => g != genre),
+      }));
+      nGr[ind] = false;
+    }
+    setSelectedGenres(nGr);
+  };
 
   return (
     <section className="my-container bg-[#1c073f] py-8 pb-16 flex flex-col gap-8 text-white">
@@ -132,12 +144,6 @@ const Filter = () => {
                 ))}
               </div>
             </div>
-
-            {/* <select>
-              {
-                types.map((t, i) => <option key={i} value={t}>{t}</option>)
-              }
-            </select> */}
           </div>
           <div className="flex items-center gap-2 font-semibold">
             <p className="gradient-bg px-2 py-1 rounded-lg w-fit">Status</p>
@@ -161,14 +167,6 @@ const Filter = () => {
               </div>
             </div>
           </div>
-          {/* <div className="flex gap-2 font-medium">
-            <p className="gradient-bg px-2 rounded-lg w-fit">Rated</p>
-            <button>All</button>
-          </div> */}
-          {/* <div className="flex gap-2 font-medium">
-            <p className="gradient-bg px-2 rounded-lg w-fit">Score</p>
-            <button>All</button>
-          </div> */}
           <div className="flex items-center gap-2 font-semibold">
             <p className="gradient-bg px-2 py-1 rounded-lg w-fit">Season</p>
             <div className="relative flex-1 group/filterSeasons">
@@ -194,14 +192,15 @@ const Filter = () => {
           <button onClick={handleFilter} className="btn-primary-sm w-fit">
             Filter Here
           </button>
-          <button onClick={handleFilter} className="btn-secondary-sm w-fit">
-            Get Random
+          <button onClick={handleRandom} className="flex items-center gap-2 btn-secondary-sm w-fit">
+            <span>Get Random</span>
+            {
+              rLoading ?
+              <i className="fi fi-sr-spinner animate-spin" />
+              :
+              <i className="fi fi-sr-shuffle" />
+            }
           </button>
-
-          {/* <div className="flex gap-2 font-medium">
-            <p className="gradient-bg px-2 rounded-lg w-fit">Language</p>
-            <button>All</button>
-          </div> */}
         </div>
       </div>
     </section>

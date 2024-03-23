@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { IAnimeInfo, IVideo } from "@consumet/extensions";
 import Loader from "./Loader";
 import Image from "next/image";
+import { movInfo } from "@/utils/test";
 
 const Watch = () => {
   const fetchEpisode = async () => {
@@ -41,7 +42,7 @@ const Watch = () => {
   const aId = (params["animeId"] as string) || "";
   const animeId = aId.slice(0, aId.lastIndexOf("-"));
   const animId = aId.slice(aId.lastIndexOf("-") + 1);
-  const [epSources, setEpSources] = useState<IVideo[]>([]);
+  const [epSources, setEpSources] = useState<IVideo[]>([{url: movInfo.sources[4].url, quality: "default"}]);
   const [epHeader, setEpHeader] = useState({
     Referer: "",
   });
@@ -49,14 +50,15 @@ const Watch = () => {
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      epId && animeId && fetchEpisode();
-      animId && fetchCurrentAnime();
+      // epId && animeId && fetchEpisode();
+      // animId && fetchCurrentAnime();
     }, 100);
     return () => clearTimeout(debounce);
+    
   }, []);
 
   return (
-    <section className="bg-[#17024d] py-8 h-fit max-h-[650px]">
+    <section className="bg-[#17024d] py-8 h-fit [650px]">
       {epSources.length > 0 ? (
         <Player
           source={

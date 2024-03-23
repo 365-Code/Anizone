@@ -40,13 +40,14 @@ export const removeChars = (aName: string, characters: string[]) => {
   export const toAnimeId = (animeTitle: ITitle) => {
     // const animId = (animeTitle?.romaji || animeTitle?.english || animeTitle?.userPreferred)?.toLowerCase().replaceAll(' ', '-');
     const animId = (
-      animeTitle?.romaji ||
+      animeTitle.english?.includes("Hunter") ? animeTitle.english : animeTitle?.romaji ||
       animeTitle?.english ||
       animeTitle?.userPreferred
     )
       ?.toLowerCase()
+      .replaceAll('-', ' ')
       .replaceAll("-", " ");
-    return removeChars(animId as string, [",", ":", "?", "!", "."])
+    return removeChars(animId as string, [",", ":", "?", "!", ".", '(', ')', '{', '}', '[',']', '/', '\\' ])
       ?.replace(/\s+/g, " ")
       .replaceAll(" ", "-");
   };

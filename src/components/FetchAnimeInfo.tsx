@@ -18,7 +18,6 @@ const FetchAnimeInfo = () => {
   // const animeInfo = await fetchAnimeInfo(animeId) as IAnimeInfo;
 
   const dispatch = useDispatch<AppDispatch>();
-
   const params = useParams();
   const animeId = (params["animeId"] as string).split("-").at(-1) || "";
   // const searchParams = useSearchParams();
@@ -33,6 +32,7 @@ const FetchAnimeInfo = () => {
       setLoading(false);
     }, 100)
   };
+
 
   const fetchAnime = async (aName: string) => {
     try {
@@ -59,7 +59,15 @@ const FetchAnimeInfo = () => {
   const [animId, setAnimeId] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const dms = "death-note-153"
+  
+  const title = {
+    romaji : "Hunter X Hunter (2011)"
+  }
+  
+  console.log(currentAnime);
+  
+  console.log(toAnimeId(title));
+
 
   useEffect(() => {
     setLoading(true)

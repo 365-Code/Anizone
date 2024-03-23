@@ -64,11 +64,6 @@ const FetchSearch = () => {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
-    fetchSearchResults();
-  }, [route]);
-
-  useEffect(() => {
     if ((searchAnime && page == 1) || searchAnime?.currentPage == page) {
       return;
     } else {

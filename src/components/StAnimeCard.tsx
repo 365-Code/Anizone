@@ -16,7 +16,6 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
     (anime.title as ITitle).userPreferred ||
     "";
 
-  // const animeId = ((animeTitle?.toLowerCase().replaceAll(' ', '-').replaceAll(',', '')) || "")
   const animeId = toAnimeId(anime.title as ITitle);
 
   return (

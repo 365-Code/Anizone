@@ -68,10 +68,10 @@ const useHls = (src: string, options: Options | null) => {
         "volume",
         "captions",
         "settings",
-        "pip",
+        "fast-forward",
+        // "pip",
         "airplay",
         "fullscreen",
-        "fast-forward",
       ];
       setPlyrOptions({ ...plyrOptions, controls: plyrControls, quality });
       hasQuality.current = true;
