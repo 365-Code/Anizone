@@ -29,7 +29,7 @@ const FetchSearch = () => {
       const res = await data.json();
       setLoading(false);
       if (res.success) {
-        setSearchResults(res.results);
+        setSearchResults((preVal) => ([...preVal, ...res.results]));
         setHasMore(res.hasNextPage);
         const data = {
           currentPage: res.currentPage,
@@ -50,11 +50,6 @@ const FetchSearch = () => {
   const [page, setPage] = useState(1);
   const perPage = 20;
   const pageId = "searchResults";
-
-  // useEffect(() => {
-  //   setLoading(true)
-  //   fetchSearchResults();
-  // }, []);
 
   const dispatch = useDispatch<AppDispatch>();
   const searchAnime = useAppSelector(
@@ -88,9 +83,6 @@ const FetchSearch = () => {
 
   return (
     <div>
-      {/* <div className="my-container">
-        <SearchBar />
-      </div> */}
       <ListAnime id={pageId} animeList={searchResults} />
       {
         (searchResults.length == 0 && !loading) && <h2 className="text-center py-8 text-white text-6xl">No Results Found</h2>

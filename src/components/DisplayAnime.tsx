@@ -36,7 +36,7 @@ const DisplayAnime = ({
       <button
         className=" absolute top-4 right-4 text-right block transition-all sm:hidden text-xl text-slate-400"
       >
-        <i className="fi fi-rr-arrow-right transition-all bounceH transition-transform" />
+        <i className="fi fi-rr-arrow-right transition-all bounceH" />
       </button>
       <div
         ref={scrollRef}

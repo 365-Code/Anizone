@@ -96,7 +96,7 @@ const FetchAnimeInfo = () => {
                     // animId +
                     (params["animeId"] as string) +
                     "/episode-1?total=" +
-                    animeInfo.totalEpisodes
+                    (animeInfo.currentEpisode || animeInfo.totalEpisodes)
                   }
                 >
                   Watch Now

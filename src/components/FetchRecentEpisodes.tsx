@@ -37,7 +37,6 @@ const FetchRecentEpisodes = () => {
       // return () => clearTimeout(debounce);
     }
   }, []);
-  console.log(recents);
 
   return (
     <section className="my-container space-y-2 py-4">

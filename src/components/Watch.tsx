@@ -45,24 +45,22 @@ const Watch = () => {
   const [epHeader, setEpHeader] = useState({
     Referer: "",
   });
-
-  useEffect(() => {
-    epId && animeId && fetchEpisode();
-    animId && fetchCurrentAnime();
-  }, []);
-
-  console.log(epSources);
   
 
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      epId && animeId && fetchEpisode();
+      animId && fetchCurrentAnime();
+    }, 100);
+    return () => clearTimeout(debounce);
+  }, []);
+
   return (
-    <section className="bg-[#17024d] py-8 max-h-[650px]">
+    <section className="bg-[#17024d] py-8 h-fit max-h-[650px]">
       {epSources.length > 0 ? (
         <Player
           source={
-            epSources[2]?.url ||
-            epSources[1]?.url ||
-            epSources[0]?.url ||
-            epSources[3]?.url
+            String(epSources.find((s) => s.quality == "default")?.url)
           }
         />
       ) : (

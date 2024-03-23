@@ -13,7 +13,7 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
   return (
     <Link
     onClick={() => dispatch(setCurrentAnime({...anime, totalEpisodes: anime.episodeNumber}))}
-      href={"/anime/" + animeId + '/' + anime.episodeTitle.toLowerCase().replaceAll(' ', '-') + "?total=" + anime.episodeNumber }
+      href={"/anime/" + animeId + "-" + anime.id + '/' + anime.episodeTitle.toLowerCase().replaceAll(' ', '-') + "?total=" + anime.episodeNumber }
     >
       <div className="transition-all group/epCard st-anime-card relative">
         <div className="st-anime-card-image">
