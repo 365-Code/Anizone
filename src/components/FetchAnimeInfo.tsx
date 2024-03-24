@@ -59,16 +59,6 @@ const FetchAnimeInfo = () => {
   const [animId, setAnimeId] = useState("");
   const [loading, setLoading] = useState(true);
 
-  
-  const title = {
-    romaji : "Hunter X Hunter (2011)"
-  }
-  
-  console.log(currentAnime);
-  
-  console.log(toAnimeId(title));
-
-
   useEffect(() => {
     setLoading(true)
     if(currentAnime){

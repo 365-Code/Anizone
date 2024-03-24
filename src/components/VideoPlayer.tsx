@@ -59,7 +59,7 @@ const useHls = (src: string, options: Options | null) => {
           });
         },
       };
-      const plyrControls = [
+      let plyrControls = [
         "play-large",
         "play",
         "progress",
@@ -73,6 +73,12 @@ const useHls = (src: string, options: Options | null) => {
         "airplay",
         "fullscreen",
       ];
+
+      
+      if(window.innerWidth <= 600){
+        plyrControls = plyrControls.filter((c) => c!= "volume")
+      }
+
       setPlyrOptions({ ...plyrOptions, controls: plyrControls, quality });
       hasQuality.current = true;
     });

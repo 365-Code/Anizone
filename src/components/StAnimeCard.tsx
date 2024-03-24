@@ -7,8 +7,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
-  // const str = "Lorem Ipsum Dolor, Sit Amet Consectetur Adipisicing Elit. Sequi Veritatis Aut Nemo Quibusdam Accusamus Cum Minus Reprehenderit Beatae. Aut, Maiores Facilis."
-  // console.log(str.length);
   const dispatch = useDispatch<AppDispatch>();
   const animeTitle =
     (anime.title as ITitle).english ||

@@ -33,14 +33,6 @@ const FetchTrending = () => {
     }
   };
 
-//   useEffect(() => {
-//     if (trendingAnime) {
-//       console.log(trendingAnime);
-//       setTrending(trendingAnime.results);
-//       setPage(trendingAnime.currentPage);
-//     }
-//   }, [trendingAnime]);
-
   const [trending, setTrending] = useState<Array<IAnimeResult[]>>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(false);

@@ -1,6 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import SearchBar from "./SearchBar";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
@@ -14,7 +13,7 @@ const Search = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(setRecentSearches());
-  }, []);
+  }, []); 
 
   return (
     <section className="min-h-[55vh] my-container py-8 gradient-bg flex text-white">
