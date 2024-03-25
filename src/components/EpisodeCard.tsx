@@ -8,23 +8,36 @@ import { useDispatch } from "react-redux";
 
 const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
   const animeTitle = anime.title as ITitle;
-  const animeId = toAnimeId(animeTitle)
-      const dispatch = useDispatch<AppDispatch>()
+  const animeId = toAnimeId(animeTitle);
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <Link
-    onClick={() => dispatch(setCurrentAnime({...anime, totalEpisodes: anime.episodeNumber}))}
-      href={"/anime/" + animeId + "-" + anime.id + '/' + anime.episodeTitle.toLowerCase().replaceAll(' ', '-') + "?total=" + anime.episodeNumber }
+      onClick={() =>
+        dispatch(
+          setCurrentAnime({ ...anime, totalEpisodes: anime.episodeNumber }),
+        )
+      }
+      href={
+        "/anime/" +
+        animeId +
+        "-" +
+        anime.id +
+        "/" +
+        anime.episodeTitle.toLowerCase().replaceAll(" ", "-") 
+        // + "?total=" +
+        // anime.episodeNumber
+      }
     >
-      <div className="transition-all group/epCard st-anime-card relative">
+      <div className="group/epCard st-anime-card relative transition-all">
         <div className="st-anime-card-image">
           <img
             src={anime.image}
-            className="group-hover/epCard:opacity-100 transition-all h-full w-full object-cover object-center opacity-40"
+            className="h-full w-full object-cover object-center opacity-40 transition-all group-hover/epCard:opacity-100"
             alt=""
           />
         </div>
-        <div className="transition-all group-hover/epCard:bg-black/70 w-full absolute bottom-0 left-0 p-4 hyphens-auto font-semibold">
-          <h3 className="font-bold capitalize text-cyan-500 text-xs">
+        <div className="absolute bottom-0 left-0 w-full hyphens-auto p-4 font-semibold transition-all group-hover/epCard:bg-black/70">
+          <h3 className="text-xs font-bold capitalize text-cyan-500">
             {
               (animeTitle.english ||
                 animeTitle.romaji ||
@@ -32,9 +45,9 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
                 animeTitle.native ||
                 anime.title) as string
             }
-            <p className="text-xl font-medium text-white flex items-center gap-2">
+            <p className="flex items-center gap-2 text-xl font-medium text-white">
               {anime.type}
-              <span className="w-2 h-2 rounded-full bg-white" />
+              <span className="h-2 w-2 rounded-full bg-white" />
               {anime.episodeTitle}
             </p>
           </h3>

@@ -3,16 +3,29 @@ import { AppDispatch } from "@/redux/store";
 import { removeChars, toAnimeId } from "@/utils";
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useDispatch } from "react-redux";
 
 const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const animeTitle =
-    (anime.title as ITitle).english ||
-    (anime.title as ITitle).romaji ||
-    (anime.title as ITitle).userPreferred ||
-    "";
+  const animeTitle = anime.title as ITitle
+
+  const nav = useRouter()
+
+    const searchAnimeInfo = async () => {
+    try {
+      const data = await fetch(`/api/gogo/searchAnime?anime=${animeTitle.english || animeTitle.romaji || animeTitle.userPreferred || animeTitle.native}`)
+      const res = await data.json()
+      if(res.success){
+        dispatch(setCurrentAnime(anime))
+        const animeId = res.result.id
+        nav.push('/anime/' + animeId + "-" + anime.id)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const animeId = toAnimeId(anime.title as ITitle);
 
@@ -20,10 +33,11 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
     <>
       {anime && (
         // <Link href={"/anime/" + anime.id}>
-        <Link
-          onClick={() => dispatch(setCurrentAnime(anime))}
-          href={"/anime/" + animeId + "-" + anime.id}
-        >
+        // <Link
+        //   onClick={() => dispatch(setCurrentAnime(anime))}
+        //   href={"/anime/" + animeId + "-" + anime.id}
+        // >
+        <button onClick={searchAnimeInfo}>
           <div className="st-anime-card">
             <div className="st-anime-card-image">
               <img
@@ -35,13 +49,13 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
             <div className="st-anime-card-detail">
               <h3 className="font-bold capitalize text-cyan-500">
                 {/* Attack on titan final season */}
-                {(animeTitle as string).slice(0, 146)}
+                {((animeTitle.english || animeTitle.romaji || animeTitle.userPreferred || animeTitle.native) as string).slice(0, 146)}
               </h3>
               <p className="hyphens-auto">
                 {removeChars(
                   anime.description?.slice(
                     0,
-                    146 - animeTitle.length,
+                    146 - ((animeTitle.english || animeTitle.romaji || animeTitle.userPreferred || animeTitle.native) as string).length,
                   ) as string,
                   ["<br>", "<i>", "</i>"],
                 )}
@@ -51,7 +65,8 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
               </p>
             </div>
           </div>
-        </Link>
+        {/* </Link> */}
+        </button>
       )}
     </>
   );

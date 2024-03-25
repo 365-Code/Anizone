@@ -93,11 +93,11 @@ section {
 }
 
 .anime-card-detail {
-  @apply relative flex flex-col justify-between px-2 pb-6 pt-10 text-white sm:flex-1 pl-4 sm:pl-6;
+  @apply relative text-left flex flex-col justify-between px-2 pb-6 pt-10 text-white sm:flex-1 pl-4 sm:pl-6;
 }
 
 .anime-card-detail h3 {
-  @apply max-h-[102px] min-h-fit;
+  @apply max-h-[102px] min-h-fit text-left;
   /* line-height: 25px; Height / no. of lines to display */
   overflow: hidden;
 }
@@ -141,7 +141,7 @@ section {
 
 .st-anime-card-detail {
   /* @apply rounded-r-xl w-[240px] text-[0.58rem] bg-[#230149] text-white py-2 px-4; */
-  @apply absolute bottom-0 left-0 w-full rounded-none bg-opacity-70 sm:bg-opacity-100 px-4 py-2 text-[0.7rem] text-white sm:static sm:max-w-[240px] sm:rounded-r-xl bg-[#230149];
+  @apply absolute text-left bottom-0 left-0 w-full rounded-none bg-opacity-70 sm:bg-opacity-100 px-4 py-2 text-[0.7rem] text-white sm:static sm:max-w-[240px] sm:rounded-r-xl bg-[#230149];
   height: 70px;
   line-height: 15px; /* Height / no. of lines to display */
   overflow: hidden;

@@ -7,17 +7,8 @@ export async function GET(req: NextRequest){
         const epId = searchParams.get('epId') || ""
         const anime = new META.Anilist();
         const animeList = await anime.fetchEpisodeSources(epId)
-        // const animeList = await anime.fetchEpisodesListById(anId)
         return NextResponse.json({animeList, success: true})
     } catch (error) {
-        return NextResponse.json({},{status: 500, statusText: "Internal Server Error in FetchAnimeInfo"})
+        return NextResponse.json({},{status: 500, statusText: "Internal Server Error in FetchEpSource"})
     }
-
-} 
-// "id": "142769",
-// "malId": 50593,
-// Natsu e no Tunnel, Sayonara-no-deguchi
-
-// "id": "124080",
-// "malId": 42897,
-// Horimiya
+}

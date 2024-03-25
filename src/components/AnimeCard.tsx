@@ -1,14 +1,31 @@
+"use client"
 import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch } from "@/redux/store";
 import { toAnimeId } from "@/utils";
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useDispatch } from "react-redux";
 
 const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
   const dispatch = useDispatch<AppDispatch>();
   const animeTitle = anime.title as ITitle;
+  
+  const nav = useRouter()
+  const searchAnimeInfo = async () => {
+  try {
+    const data = await fetch(`/api/gogo/searchAnime?anime=${animeTitle.english || animeTitle.romaji || animeTitle.userPreferred || animeTitle.native}`)
+    const res = await data.json()
+    if(res.success){
+      dispatch(setCurrentAnime(anime))
+      const animeId = res.result.id
+      nav.push('/anime/' + animeId + "-" + anime.id)
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
   const animeId = toAnimeId(animeTitle);
   return (
@@ -44,10 +61,11 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
               <span>{anime.type}</span>
             </p>
             {/* <Link href={"/anime/" + anime.id}> */}
-            <Link
+            {/* <Link
               onClick={() => dispatch(setCurrentAnime(anime))}
               href={"/anime/" + animeId + "-" + anime.id}
-            >
+            > */}
+            <button onClick={searchAnimeInfo}>
               <h3
                 id="anime-card-title"
                 className="hyphens-auto text-lg font-semibold  sm:text-3xl"
@@ -60,7 +78,8 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
                     anime.title) as string
                 }
               </h3>
-            </Link>
+              </button>
+            {/* </Link> */}
 
             <p className="text-sm font-medium text-orange-500">
               {(anime.studios && anime.studios[0]) ||
