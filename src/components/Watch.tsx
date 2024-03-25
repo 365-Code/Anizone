@@ -79,7 +79,7 @@ const Watch = () => {
           />
           <div className={`mx-auto w-full left-0 sm:w-[86.8%] sm:left-auto absolute top-0 h-full flex flex-col justify-center ${!currentAnime?.image && "bg-black"}`}>
             <div className="mx-auto">
-            <Image width={300} height={300} alt="logo" src='/logo2.png' className="w-[100px] sm:w-[160px] min-[1100px]:w-[300px]" />
+            <Image width={300} height={300} alt="logo" src='/anizone.png' className="w-[100px] sm:w-[160px] min-[1100px]:w-[300px]" />
             </div>
             <Loader />
           </div>

@@ -5,27 +5,24 @@ import React from "react";
 const Hero = () => {
   return (
     <section className="sm:min-h-fit h-[500px] sm:max-h-[65vh] overflow-hidden w-full relative text-white">
-      <img
-        src="https://www.itl.cat/pngfile/big/8-83033_naruto-vs-sasuke-4k-wallpaper-photo-naruto-sasuke.jpg"
-        alt=""
-        className="w-full h-full object-cover object-top opacity-50"
+      <Image
+        // src="https://www.itl.cat/pngfile/big/8-83033_naruto-vs-sasuke-4k-wallpaper-photo-naruto-sasuke.jpg"
+        width={1000}
+        height={1000}
+        src="/bg7.jpg"
+        alt="bg"
+        className="w-full h-full object-cover md:object-fill object-top opacity-40"
       />
 
       <div className="w-full h-full  absolute top-0 left-0 flex flex-col justify-center items-center">
         <div className="text-center max-w-full sm:max-w-[70%] flex flex-col items-center gap-2">
-          {/* <h1 className="text-5xl italic flex-col flex">
-            AniZone{" "}
-            <span className="text-base text-right">
-              Stream. Explore. Anime.
-            </span>
-          </h1> */}
           <div className="relative">
           <Link href={"/home"}>
             <Image
               height={400}
               width={700}
               className="w-[300px]"
-              src={"/logo2.png"}
+              src={"/anizone.png"}
               alt="logo"
               />
           </Link>
@@ -44,10 +41,7 @@ const Hero = () => {
             handpicked selection of the finest anime series, ready to transport
             you to worlds beyond your wildest dreams.
           </p>
-          {/* <!-- <button className="py-2 px-4 rounded-2xl bg-[#6200cf] text-white">
-      Read More
-    </button> --> */}
-          <button className="btn-primary-sm capitalize">Read More</button>
+          {/* <button className="btn-primary-sm capitalize">Read More</button> */}
         </div>
       </div>
     </section>

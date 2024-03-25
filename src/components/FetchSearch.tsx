@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { IAnimeResult } from "@consumet/extensions";
 import { setSearchAnime } from "@/redux/features/utilitySlice";
-import FetchRandom from "./FetchRandom";
 
 const FetchSearch = () => {
   const searchParams = useSearchParams();
@@ -24,13 +23,15 @@ const FetchSearch = () => {
     try {
       // const data = await fetch(`/api/anilist/advanceSearch?query=${query}&page=${page}&perPage=${perPage}`);
       const data = await fetch(
-        `/api/anilist/advanceSearch?${route}&page=${page}&perPage=${perPage}`
+        `/api/anilist/advanceSearch?${route}&page=${page}&perPage=${perPage}`,
       );
       const res = await data.json();
       setLoading(false);
       if (res.success) {
-        setSearchResults((preVal) => ([...preVal, ...res.results]));
+        if(page == 1){}
+        page == 1 ? setSearchResults(res.results) : setSearchResults((preVal) => [...preVal, ...res.results]);
         setHasMore(res.hasNextPage);
+        setPage(res.currentPage)
         const data = {
           currentPage: res.currentPage,
           hasNextPage: res.hasNextPage,
@@ -53,7 +54,7 @@ const FetchSearch = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const searchAnime = useAppSelector(
-    (state) => state.utilityReducer.value.searchAnime
+    (state) => state.utilityReducer.value.searchAnime,
   );
   useEffect(() => {
     if (searchAnime) {
@@ -64,24 +65,22 @@ const FetchSearch = () => {
   }, []);
 
   useEffect(() => {
-    if ((searchAnime && page == 1) || searchAnime?.currentPage == page) {
-      return;
-    } else {
-      setLoading(true);
-      const debounce = setTimeout(() => {
-        fetchSearchResults();
-      }, 1000);
-      return () => clearTimeout(debounce);
-    }
-  }, [page]);
-
+    setLoading(true);
+    const debounce = setTimeout(() => {
+      console.log("working");
+      fetchSearchResults();
+    }, 100);
+    return () => clearTimeout(debounce);
+  }, [page, route]);
 
   return (
     <div>
       <ListAnime id={pageId} animeList={searchResults} />
-      {
-        (searchResults.length == 0 && !loading) && <h2 className="text-center py-8 text-white text-6xl">No Results Found</h2>
-      }
+      {searchResults.length == 0 && !loading && (
+        <h2 className="py-8 text-center text-6xl text-white">
+          No Results Found
+        </h2>
+      )}
       {/* <FetchRandom /> */}
       <InfiniteScroll
         id={pageId}

@@ -1,48 +1,20 @@
+import { alphabets } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
-  const alphabets = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
-  ];
 
   return (
     <footer className="my-container flex h-fit min-[1100px]:flex-row flex-col min-h-[50vh] justify-between gap-8 bg-[#17024d] py-8 text-white">
       <div className="flex basis-1/4 flex-col justify-between gap-4 text-xs">
         <div>
-          {/* <h3 className="text-3xl font-medium">AniZone</h3> */}
           <Link href={"/home"}>
             <Image
               height={400}
               width={700}
               className="w-[160px]"
-              src={"/logo2.png"}
+              src={"/anizone.png"}
               alt="logo"
             />
           </Link>

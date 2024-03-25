@@ -5,7 +5,6 @@ export async function GET(req: NextRequest){
 
     try {
         const {searchParams} = new URL(req.url)
-
         const aName = searchParams.get('anime') || ""
         const anime = new META.Anilist();
         const {results} = await anime.search(aName )

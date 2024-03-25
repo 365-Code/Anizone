@@ -59,7 +59,7 @@ const Search = () => {
           height={400}
           width={700}
           className="w-[350px]"
-          src={"/logo2.png"}
+          src={"/anizone.png"}
           alt="logo"
         />
       </div>

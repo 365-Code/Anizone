@@ -8,6 +8,7 @@ import SearchBar from "@/components/SearchBar";
 import { setHomeAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { IAnimeResult } from "@consumet/extensions";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -15,8 +16,7 @@ const Page = () => {
   const fetchAnimeList = async () => {
     try {
       const data = await fetch(
-        // `/api/anilist/fetchPopularAnime?page=${page}&perPage=${perPage}`
-        `/api/anilist/advanceSearch?page=${page}&perPage=${perPage}`
+        `/api/anilist/advanceSearch?page=${page}&perPage=${perPage}`,
       );
       const res = await data.json();
       setLoading(false);
@@ -35,18 +35,15 @@ const Page = () => {
     }
   };
 
-
   const [animeList, setAnimeList] = useState<IAnimeResult[]>([]);
-  // console.log(animeList.length);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   const [page, setPage] = useState(1);
   const perPage = 20;
 
-  
   const dispatch = useDispatch<AppDispatch>();
   const homeAnime = useAppSelector(
-    (state) => state.utilityReducer.value.homeAnime
+    (state) => state.utilityReducer.value.homeAnime,
   );
   useEffect(() => {
     if (homeAnime) {
@@ -70,9 +67,6 @@ const Page = () => {
 
   return (
     <main>
-      {/* <div className="my-container max-w-full w-[600px]">
-        <SearchBar />
-      </div> */}
       <FetchRecentEpisodes />
       <ListAnime id={"homepage"} title="Home" animeList={animeList} />
       <InfiniteScroll

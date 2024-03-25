@@ -27,27 +27,23 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
           <div className="st-anime-card">
             <div className="st-anime-card-image">
               <img
-                // src="https://th.bing.com/th/id/OIP.H33BiuhCrb95ItvcmwoSmwHaLH?rs=1&pid=ImgDetMain"
                 src={anime.image}
-                className="w-full h-full object-center"
+                className="h-full w-full object-cover object-center"
                 alt=""
               />
             </div>
             <div className="st-anime-card-detail">
-              <h3 className="text-cyan-500 font-bold capitalize">
+              <h3 className="font-bold capitalize text-cyan-500">
                 {/* Attack on titan final season */}
                 {(animeTitle as string).slice(0, 146)}
               </h3>
               <p className="hyphens-auto">
-                {/* Known in japan as shingeki no kyojin, many years ago, the last
-          remnants of humanity were forced to retreat behind the towering walls
-          ..... */}
                 {removeChars(
                   anime.description?.slice(
                     0,
-                    146 - animeTitle.length
+                    146 - animeTitle.length,
                   ) as string,
-                  ["<br>", "<i>", "</i>"]
+                  ["<br>", "<i>", "</i>"],
                 )}
                 {(anime.description as string)?.length > 150 && (
                   <span>.....</span>

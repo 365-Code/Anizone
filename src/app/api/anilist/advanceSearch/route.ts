@@ -4,10 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    // const query = searchParams.get("query") ? (searchParams.get("query") != "All" ? searchParams.get("query") || "" : undefined)  : undefined;
-    // const type = searchParams.get("type") ? (searchParams.get("type") != "All" ? searchParams.get("type") || "": undefined) : undefined;
-    // const status = searchParams.get("status") ? (searchParams.get("status") != "All" ? searchParams.get("status") || "": undefined) : undefined;
-    // const season = searchParams.get("season") ? (searchParams.get("season") != "All" ? searchParams.get("season") || "": undefined) : undefined;
     const query =
       searchParams.get("query") != "All"
         ? searchParams.get("query") || undefined

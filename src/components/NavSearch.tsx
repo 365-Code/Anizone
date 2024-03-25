@@ -28,6 +28,7 @@ const NavSearch = () => {
       setRecentSearches(JSON.parse(data));
     }
   }, []);
+  
   return (
     <form
       onSubmit={handleSearch}
