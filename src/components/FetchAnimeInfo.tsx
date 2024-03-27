@@ -107,7 +107,7 @@ const FetchAnimeInfo = () => {
                 onClick={() => setMoreLess(!moreLess)}
               >
                 {Number(animeInfo.description?.length) > 260 &&
-                  (moreLess ? <span>...show more</span> : <span> hide</span>)}
+                  (moreLess ? <span>...show more</span> : <span>...hide</span>)}
               </button>
             </p>
           </div>

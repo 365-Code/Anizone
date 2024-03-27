@@ -72,6 +72,7 @@ const useHls = (src: string, options: Options | null) => {
         // "pip",
         "airplay",
         "fullscreen",
+        "keyboard"
       ];
 
       

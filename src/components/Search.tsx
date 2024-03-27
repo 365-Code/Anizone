@@ -24,7 +24,7 @@ const Search = () => {
     "Kimetsu no Yaiba-Swordsmith Village",
     "ArcMashle: Magic and Muscles",
     "Naruto: Shippuden",
-    "Hell&apos;s Paradise",
+    "Hell's Paradise",
     "Demon Slayer: Kimetsu no Yaiba",
     "Naruto-Boruto: Naruto Next Genrerations"
   ] 
