@@ -13,8 +13,6 @@ const FetchEpisodes = () => {
   const basePath = pathname.split("/episode-")[0];
   const currentEpisode = pathname.split("/episode-")[1];
 
-  const epRef = useRef<HTMLButtonElement>(null);
-
   const aId = (params["animeId"] as string) || "";
   const animId = aId.slice(aId.lastIndexOf("-") + 1);
 
@@ -44,16 +42,6 @@ const FetchEpisodes = () => {
       : fetchEpisodeInfo();
   }, [currentAnime]);
 
-  useEffect(() => {
-    if (epRef.current) {
-      const curEp = epRef.current.innerText.split(" ").at(-1);
-      if (curEp == currentEpisode) {
-        epRef.current?.scrollIntoView(true);
-        window.scrollTo(0, 0);
-      }
-    }
-  });
-
   return (
     <>
       {Number(episodes) > 1 && (
@@ -68,7 +56,6 @@ const FetchEpisodes = () => {
                   defaultValue={i + 1}
                 >
                   <button
-                  ref={(Number(currentEpisode) == i + 1) ? epRef : null}
                     className={`${
                       Number(currentEpisode) == i + 1
                         ? "snap-start btn-primary-sm"

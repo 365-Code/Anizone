@@ -32,7 +32,6 @@ const Search = () => {
   return (
     <section className="min-h-[55vh] my-container py-8 gradient-bg flex text-white">
       <div className="sm:basis-1/2 flex-col flex gap-6 h-full">
-        {/* <h2 className="text-3xl">Stream. Explore. Anime.</h2> */}
         <Image
           height={400}
           width={700}
