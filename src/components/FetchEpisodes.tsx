@@ -58,9 +58,9 @@ const FetchEpisodes = () => {
                   href={basePath + "/episode-" + (i + 1)}
                   className={`${
                     Number(currentEpisode) == i + 1
-                      ? "btn-primary-sm"
-                      : "btn-secondary-sm"
-                  } btn-sm text-sm transition-all sm:text-base`}
+                      ? "bg-[#6200cf] hover:bg-[#6200cf]/90"
+                      : "bg-[#ffffff] text-black hover:bg-[#ffffff]/90"
+                  } text-sm sm:text-base`}
                   key={"episode-" + (i + 1)}
                 >
                   {"Episode " + (i + 1)}

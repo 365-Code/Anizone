@@ -186,15 +186,15 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
 }
 
 .btn {
-  @apply rounded-xl p-4 text-center transition-all sm:min-w-fit sm:p-6;
+  @apply rounded-xl p-4 text-center transition-all sm:min-w-fit sm:p-6 sm:w-[200px];
 }
 
 .btn-primary {
-  @apply bg-[#6200cf] hover:bg-[#6200cf]/90 sm:w-[200px];
+  @apply bg-[#6200cf] hover:bg-[#6200cf]/90 ;
 }
 
 .btn-secondary {
-  @apply  bg-[#ffffff] text-black hover:bg-[#ffffff]/90 sm:w-[200px];
+  @apply  bg-[#ffffff] text-black hover:bg-[#ffffff]/90;
 }
 
 .btn-sm {
