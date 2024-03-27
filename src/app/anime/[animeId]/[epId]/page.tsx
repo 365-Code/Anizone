@@ -4,10 +4,7 @@ import React from "react";
 
 const Page = () => {
   return (
-    <>
-      <Watch />
-      <FetchEpisodes/>
-    </>
+    <Watch />
   );
 };
 

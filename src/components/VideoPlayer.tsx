@@ -101,7 +101,7 @@ const CustomPlyrInstance = React.forwardRef<
     ...useHls(hlsSource, options),
     source,
   }) as React.MutableRefObject<HTMLVideoElement>;
-  return <video ref={raptorRef} className="plyr-react" />;
+  return <video ref={raptorRef} className="plyr-react plyr" />;
 });
 
 /**  The `PlyrComponent` is a functional component that renders a video player using the Plyr library and

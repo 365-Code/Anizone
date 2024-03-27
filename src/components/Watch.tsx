@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { IAnimeInfo, IVideo } from "@consumet/extensions";
 import Loader from "./Loader";
 import Image from "next/image";
+import FetchEpisodes from "./FetchEpisodes";
 
 const Watch = () => {
   const fetchEpisode = async () => {
@@ -64,7 +65,7 @@ const Watch = () => {
           }
         />
       ) : (
-        <div className="my-container overflow-hidden w-full h-[600px] relative">
+        <div className="overflow-hidden w-full h-[589px] relative">
           <div className="px-4 sm:px-12 md:px-20 absolute top-0 left-0 w-full h-full">
             <img
               src={currentAnime?.image}
@@ -77,7 +78,7 @@ const Watch = () => {
             alt=""
             className="backdrop-blur-sm w-full h-full object-contain object-center bg-transparent relative"
           />
-          <div className={`mx-auto w-full left-0 sm:w-[86.8%] sm:left-auto absolute top-0 h-full flex flex-col justify-center ${!currentAnime?.image && "bg-black"}`}>
+          <div className={`mx-auto left-0 w-full sm:left-auto absolute top-0 h-full flex flex-col justify-center ${!currentAnime?.image && "bg-black"}`}>
             <div className="mx-auto">
             <Image width={300} height={300} alt="logo" src='/anizone.png' className="w-[100px] sm:w-[160px] min-[1100px]:w-[300px]" />
             </div>
@@ -85,6 +86,7 @@ const Watch = () => {
           </div>
         </div>
       )}
+      <FetchEpisodes />
     </section>
   );
 };
