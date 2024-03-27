@@ -51,7 +51,7 @@ const FetchEpisodes = () => {
       {Number(episodes) > 1 && (
         <section className="my-container bg-[#17024d] py-4 ">
           <h2 className="py-4 text-3xl font-normal text-white">Episodes</h2>
-          <div className="custom-scrollbar flex h-[130px] flex-wrap gap-2 overflow-y-scroll py-4 sm:gap-4">
+          <div className="custom-scrollbar flex items-start h-[130px] flex-wrap gap-2 overflow-y-scroll py-4 sm:gap-4">
             {Number(episodes) > 1 &&
               [...Array(Number(episodes))].map((v, i) => (
                 <Link
