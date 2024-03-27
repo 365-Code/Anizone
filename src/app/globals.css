@@ -227,7 +227,7 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
   @apply h-1 w-1;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply h-2 w-2 rounded-full bg-slate-600;
+  @apply h-1 w-1 rounded-full bg-slate-600;
 }
 .no-scrollbar::-webkit-scrollbar {
   @apply h-0 w-0;
