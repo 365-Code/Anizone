@@ -23,6 +23,7 @@ const FetchEpisodes = () => {
       const data = await fetch("/api/anilist/fetchAnimeInfo?anime=" + animId);
       const res = await data.json();
       if (res.success) {
+        setEpisodes(res.animeData.currentEpisode || res.animeData.totalEpisodes)
         dispatch(setCurrentAnime(res.animeData));
       }
     } catch (error) {
@@ -36,11 +37,14 @@ const FetchEpisodes = () => {
 
   const [episodes, setEpisodes] = useState(0);
 
+
+
+
   useEffect(() => {
     currentAnime
       ? setEpisodes(currentAnime.currentEpisode || currentAnime.totalEpisodes)
       : fetchEpisodeInfo();
-  }, [currentAnime]);
+  }, []);
 
   return (
     <>
@@ -56,7 +60,7 @@ const FetchEpisodes = () => {
                     Number(currentEpisode) == i + 1
                       ? "btn-primary-sm"
                       : "btn-secondary-sm"
-                  } btn-sm text-sm sm:text-base`}
+                  } btn-sm text-sm transition-all sm:text-base`}
                   key={"episode-" + (i + 1)}
                 >
                   {"Episode " + (i + 1)}
