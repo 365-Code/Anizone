@@ -56,7 +56,7 @@ const Watch = () => {
   }, []);
 
   return (
-    <section className="bg-[#17024d] py-8 h-fit [650px]">
+    <section className="bg-[#17024d] py-8 my-container">
       {epSources.length > 0 ? (
         <Player
           source={
