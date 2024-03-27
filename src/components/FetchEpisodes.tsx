@@ -54,15 +54,18 @@ const FetchEpisodes = () => {
             {Number(episodes) > 1 &&
               [...Array(Number(episodes))].map((v, i) => (
                 <Link
-                  className={`${
-                    (Number(currentEpisode) == i + 1)
-                      ? "bg-[#6200cf] text-white hover:bg-[#6200cf]/90"
-                      : "bg-[#ffffff] text-slate-900 hover:bg-[#ffffff]/90"
-                  } btn-sm text-sm sm:text-base`}
                   href={basePath + "/episode-" + (i + 1)}
                   key={"episode-" + (i + 1)}
                 >
-                  {"Episode " + (i + 1)}
+                  <span
+                    className={`${
+                      (Number(currentEpisode) == (i + 1))
+                        ? "bg-[#6200cf] text-white"
+                        : "bg-[#ffffff] text-slate-900 hover:text-white hover:bg-[#6200cf]"
+                    } btn-sm text-sm sm:text-base`}
+                  >
+                    {"Episode " + (i + 1)}
+                  </span>
                 </Link>
               ))}
           </div>

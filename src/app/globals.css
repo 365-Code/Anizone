@@ -198,7 +198,7 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
 }
 
 .btn-sm {
-  @apply min-w-fit rounded-xl px-4 py-2 text-center transition-all;
+  @apply w-fit rounded-xl px-4 py-2 text-center transition-all;
 }
 
 .btn-primary-sm {
