@@ -24,15 +24,8 @@ const utilitySlice = createSlice({
   name: "utilites",
   initialState,
   reducers: {
-    loadCurrentAnime: (state) => {
-      const data = localStorage.getItem("currentAnime");
-      if (data) {
-        state.value.currentAnime = JSON.parse(data);
-      }
-    },
     setCurrentAnime: (state, action: PayloadAction<IAnimeInfo>) => {
       state.value.currentAnime = action.payload;
-      localStorage.setItem("currentAnime", JSON.stringify(action.payload));
     },
     setRecentSearches: (state) => {
       const data = localStorage.getItem("recentSearches");
@@ -76,7 +69,6 @@ const utilitySlice = createSlice({
 const utilityReducer = utilitySlice.reducer;
 export default utilityReducer;
 export const {
-  loadCurrentAnime,
   setCurrentAnime,
   setRecentSearches,
   addToRecentSearches,

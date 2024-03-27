@@ -39,10 +39,6 @@ body {
 body::-webkit-scrollbar {
   @apply h-0 w-0;
 }
-/* 
-main{
-  @apply bg-[#230149];
-} */
 
 section {
   @apply gbg relative;
@@ -58,7 +54,6 @@ section {
 
 .nav-link-selected::before {
   content: "";
-  /* @apply w-full absolute -bottom-2 left-0 h-[3px] bg-[#230149]; */
   @apply absolute -bottom-2 left-0 h-[3px] w-full bg-current;
 }
 
@@ -68,7 +63,6 @@ section {
 
 .nav-link::before {
   content: "";
-  /* @apply w-full absolute -bottom-2 left-0 h-[0] bg-[#230149] transition-all; */
   @apply absolute -bottom-2 left-0 h-0 w-full bg-current transition-all;
 }
 
@@ -98,13 +92,11 @@ section {
 
 .anime-card-detail h3 {
   @apply max-h-[102px] min-h-fit text-left;
-  /* line-height: 25px; Height / no. of lines to display */
   overflow: hidden;
 }
 
 .anime-card-img {
   @apply hidden sm:block sm:basis-[38%];
-  /* -webkit-clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%); */
   clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
 }
 

@@ -5,6 +5,7 @@ import { AppDispatch, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { setRecentSearches } from "@/redux/features/utilitySlice";
 import Image from "next/image";
+import Link from "next/link";
 
 const Search = () => {
   const recentSearches = useAppSelector(
@@ -14,6 +15,19 @@ const Search = () => {
   useEffect(() => {
     dispatch(setRecentSearches());
   }, []); 
+
+  const recSearches = [
+    "Black Clover: Sword of the Wizard King",
+    "One Piece",
+    "Black Clover",
+    "Demon Slayer",
+    "Kimetsu no Yaiba-Swordsmith Village",
+    "ArcMashle: Magic and Muscles",
+    "Naruto: Shippuden",
+    "Hell&apos;s Paradise",
+    "Demon Slayer: Kimetsu no Yaiba",
+    "Naruto-Boruto: Naruto Next Genrerations"
+  ] 
 
   return (
     <section className="min-h-[55vh] my-container py-8 gradient-bg flex text-white">
@@ -44,12 +58,7 @@ const Search = () => {
                 )
             )
           ) : (
-            <span>
-              Black Clover: Sword of the Wizard King, One Piece, Black Clover,
-              Demon Slayer, Kimetsu no Yaiba-Swordsmith Village, ArcMashle:
-              Magic and Muscles, Naruto: Shippuden, Hell&apos;s Paradise, Demon
-              Slayer: Kimetsu no Yaiba, Naruto-Boruto: Naruto Next Genrerations
-            </span>
+              recSearches.map((s, i) => <Link key={i} href={"/search/results?query="+ s}>{s + ", "}</Link>)
           )}
         </p>
       </div>
