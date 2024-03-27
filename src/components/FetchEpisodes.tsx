@@ -11,7 +11,8 @@ const FetchEpisodes = () => {
   const pathname = usePathname();
   const params = useParams();
   const basePath = pathname.split("/episode-")[0];
-  const currentEpisode = pathname.split("/episode-")[1];
+
+  const currentEpisode = Number(pathname.split("/episode-")[1])
 
   const aId = (params["animeId"] as string) || "";
   const animId = aId.slice(aId.lastIndexOf("-") + 1);
@@ -46,32 +47,27 @@ const FetchEpisodes = () => {
   }, []);
 
   return (
-    <>
+    <section className="my-container bg-[#17024d] py-4 ">
       {Number(episodes) > 1 && (
-        <section className="my-container bg-[#17024d] py-4 ">
+        <>
           <h2 className="py-4 text-3xl font-normal text-white">Episodes</h2>
-          <div className="custom-scrollbar flex h-[150px] flex-wrap items-start gap-2 overflow-y-scroll py-4 sm:gap-4">
-            {Number(episodes) > 1 &&
+          <div className="custom-scrollbar h-[150px] flex flex-wrap items-start gap-2 overflow-y-scroll py-4 sm:gap-3">
+            {episodes > 1 &&
               [...Array(Number(episodes))].map((v, i) => (
                 <Link
                   href={basePath + "/episode-" + (i + 1)}
                   key={"episode-" + (i + 1)}
+                  className="min-w-fit min-h-fit"
                 >
-                  <span
-                    className={`${
-                      (Number(currentEpisode) == (i + 1))
-                        ? "bg-[#6200cf] text-white"
-                        : "bg-[#ffffff] text-slate-900 hover:text-white hover:bg-[#6200cf]"
-                    } btn-sm text-sm sm:text-base`}
-                  >
+                    <button className={` ${currentEpisode == i+1 ? "btn-primary-sm" : "btn-secondary-sm"} btn-sm rounded-xl`}>
                     {"Episode " + (i + 1)}
-                  </span>
+                    </button>
                 </Link>
               ))}
           </div>
-        </section>
+        </>
       )}
-    </>
+    </section>
   );
 };
 

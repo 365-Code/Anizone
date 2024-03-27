@@ -1,11 +1,12 @@
 "use client"
 import React from 'react'
+import FetchEpisodes from '../FetchEpisodes'
 
 const Test = () => {
 
 
   return (
-    <Test />
+    <FetchEpisodes />
   )
 }
 
