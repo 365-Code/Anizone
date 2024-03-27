@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { setTrendingAnime } from "@/redux/features/utilitySlice";
 
+
 const FetchTrending = () => {
   const fetchTrending = async () => {
     try {

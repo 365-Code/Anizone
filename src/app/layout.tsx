@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, Montserrat } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ReduxProvider from "@/redux/provider";
 
-// const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ani Zone",
-  description: "Created By ANOS",
+  title: "AniZone - Your Gateway to Animated Worlds",
+  description: "Welcome to AniZone! Explore a universe of captivating animated content. From classic series to trending hits, we've got it all. Dive into the magic of Japanese animation!",
+  keywords: ["anime", "animation", "series", "episodes", "streaming", "Japanese", "otaku"]
 };
 
 export default function RootLayout({
