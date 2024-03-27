@@ -75,14 +75,14 @@ const FetchAnimeInfo = () => {
             <div className=" flex flex-1 flex-col items-center justify-between gap-4 py-8 sm:flex-row md:flex-col">
               <div className="flex justify-center gap-2 sm:flex-row sm:gap-4 md:flex-col">
                 <Link
-                  className="btn-primary"
+                  className="btn btn-primary"
                   href={
                     "/anime/" + (params["animeId"] as string) + "/episode-1"
                   }
                 >
                   Watch Now
                 </Link>
-                <button className="btn-secondary">Add to watchlist</button>
+                <button className="btn btn-secondary">Add to watchlist</button>
               </div>
             </div>
           </div>

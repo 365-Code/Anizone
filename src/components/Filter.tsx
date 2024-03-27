@@ -189,10 +189,10 @@ const Filter = () => {
               </div>
             </div>
           </div>
-          <button onClick={handleFilter} className="btn-primary-sm w-fit">
+          <button onClick={handleFilter} className="btn-sm btn-primary-sm w-fit">
             Filter Here
           </button>
-          <button onClick={handleRandom} className="flex items-center gap-2 btn-secondary-sm w-fit">
+          <button onClick={handleRandom} className="flex items-center gap-2 btn-sm btn-secondary-sm w-fit">
             <span>Get Random</span>
             {
               rLoading ?

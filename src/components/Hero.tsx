@@ -41,7 +41,6 @@ const Hero = () => {
             handpicked selection of the finest anime series, ready to transport
             you to worlds beyond your wildest dreams.
           </p>
-          {/* <button className="btn-primary-sm capitalize">Read More</button> */}
         </div>
       </div>
     </section>

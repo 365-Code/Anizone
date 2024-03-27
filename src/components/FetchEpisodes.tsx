@@ -58,9 +58,9 @@ const FetchEpisodes = () => {
                   <button
                     className={`${
                       Number(currentEpisode) == i + 1
-                        ? "snap-start btn-primary-sm"
+                        ? "btn-primary-sm"
                         : "btn-secondary-sm"
-                    } text-sm sm:text-base`}
+                    } text-sm btn-sm sm:text-base`}
                   >
                     {"Episode " + (i + 1)}
                   </button>

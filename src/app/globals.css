@@ -190,11 +190,11 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
 }
 
 .btn-primary {
-  @apply btn bg-[#6200cf] hover:bg-[#6200cf]/90 sm:w-[200px];
+  @apply bg-[#6200cf] hover:bg-[#6200cf]/90 sm:w-[200px];
 }
 
 .btn-secondary {
-  @apply btn bg-[#ffffff] text-black hover:bg-[#ffffff]/90 sm:w-[200px];
+  @apply bg-[#ffffff] text-black hover:bg-[#ffffff]/90 sm:w-[200px];
 }
 
 .btn-sm {
@@ -202,11 +202,11 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
 }
 
 .btn-primary-sm {
-  @apply btn-sm bg-[#6200cf] text-white hover:bg-[#6200cf]/80;
+  @apply bg-[#6200cf] text-white hover:bg-[#6200cf]/80;
 }
 
 .btn-secondary-sm {
-  @apply btn-sm bg-[#ffffff] text-black hover:bg-[#fff]/80 ;
+  @apply bg-[#ffffff] text-black hover:bg-[#fff]/80 ;
 }
 
 .gbg::before {
