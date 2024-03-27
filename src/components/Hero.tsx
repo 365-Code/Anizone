@@ -9,7 +9,7 @@ const Hero = () => {
         // src="https://www.itl.cat/pngfile/big/8-83033_naruto-vs-sasuke-4k-wallpaper-photo-naruto-sasuke.jpg"
         width={1000}
         height={1000}
-        src="/bg7.jpg"
+        src="/bg3.jpg"
         alt="bg"
         className="w-full h-full object-cover md:object-fill object-top opacity-40"
       />
