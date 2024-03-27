@@ -23,7 +23,9 @@ const FetchEpisodes = () => {
       const data = await fetch("/api/anilist/fetchAnimeInfo?anime=" + animId);
       const res = await data.json();
       if (res.success) {
-        setEpisodes(res.animeData.currentEpisode || res.animeData.totalEpisodes)
+        setEpisodes(
+          res.animeData.currentEpisode || res.animeData.totalEpisodes,
+        );
         dispatch(setCurrentAnime(res.animeData));
       }
     } catch (error) {
@@ -37,9 +39,6 @@ const FetchEpisodes = () => {
 
   const [episodes, setEpisodes] = useState(0);
 
-
-
-
   useEffect(() => {
     currentAnime
       ? setEpisodes(currentAnime.currentEpisode || currentAnime.totalEpisodes)
@@ -51,16 +50,16 @@ const FetchEpisodes = () => {
       {Number(episodes) > 1 && (
         <section className="my-container bg-[#17024d] py-4 ">
           <h2 className="py-4 text-3xl font-normal text-white">Episodes</h2>
-          <div className="custom-scrollbar flex items-start h-[130px] flex-wrap gap-2 overflow-y-scroll py-4 sm:gap-4">
+          <div className="custom-scrollbar flex h-[150px] flex-wrap items-start gap-2 overflow-y-scroll py-4 sm:gap-4">
             {Number(episodes) > 1 &&
               [...Array(Number(episodes))].map((v, i) => (
                 <Link
-                  href={basePath + "/episode-" + (i + 1)}
                   className={`${
-                    Number(currentEpisode) == i + 1
-                      ? "bg-[#6200cf] hover:bg-[#6200cf]/90"
-                      : "bg-[#ffffff] text-black hover:bg-[#ffffff]/90"
-                  } text-sm sm:text-base`}
+                    (Number(currentEpisode) == i + 1)
+                      ? "bg-[#6200cf] text-white hover:bg-[#6200cf]/90"
+                      : "bg-[#ffffff] text-slate-900 hover:bg-[#ffffff]/90"
+                  } btn-sm text-sm sm:text-base`}
+                  href={basePath + "/episode-" + (i + 1)}
                   key={"episode-" + (i + 1)}
                 >
                   {"Episode " + (i + 1)}
