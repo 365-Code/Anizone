@@ -44,6 +44,9 @@ const useHls = (src: string, options: Options | null) => {
       if (hasQuality.current) return; // early quit if already set
 
       const levels = hls.current.levels;
+
+      
+      
       const quality: Options["quality"] = {
         default: levels[levels.length - 1].height,
         options: levels.map((level) => level.height),
@@ -69,10 +72,8 @@ const useHls = (src: string, options: Options | null) => {
         "captions",
         "settings",
         "fast-forward",
-        // "pip",
         "airplay",
         "fullscreen",
-        "keyboard"
       ];
 
       
@@ -80,7 +81,7 @@ const useHls = (src: string, options: Options | null) => {
         plyrControls = plyrControls.filter((c) => c!= "volume")
       }
 
-      setPlyrOptions({ ...plyrOptions, controls: plyrControls, quality });
+      setPlyrOptions({ ...plyrOptions, controls: plyrControls, quality,keyboard: {global: true, focused: true}, storage: {enabled: false} } );
       hasQuality.current = true;
     });
   });
@@ -100,7 +101,7 @@ const CustomPlyrInstance = React.forwardRef<
     ...useHls(hlsSource, options),
     source,
   }) as React.MutableRefObject<HTMLVideoElement>;
-  return <video ref={raptorRef} className="plyr-react plyr" />;
+  return <video ref={raptorRef} className="plyr-react" />;
 });
 
 /**  The `PlyrComponent` is a functional component that renders a video player using the Plyr library and

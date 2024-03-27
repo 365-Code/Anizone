@@ -46,24 +46,20 @@ const FetchEpisodes = () => {
     <>
       {Number(episodes) > 1 && (
         <section className="my-container bg-[#17024d] py-4 ">
-          <h2 className="text-3xl font-normal text-white py-4">Episodes</h2>
+          <h2 className="py-4 text-3xl font-normal text-white">Episodes</h2>
           <div className="custom-scrollbar flex h-[130px] flex-wrap gap-2 overflow-y-scroll py-4 sm:gap-4">
             {Number(episodes) > 1 &&
               [...Array(Number(episodes))].map((v, i) => (
                 <Link
                   href={basePath + "/episode-" + (i + 1)}
+                  className={`${
+                    Number(currentEpisode) == i + 1
+                      ? "btn-primary-sm"
+                      : "btn-secondary-sm"
+                  } btn-sm text-sm sm:text-base`}
                   key={"episode-" + (i + 1)}
-                  defaultValue={i + 1}
                 >
-                  <button
-                    className={`${
-                      Number(currentEpisode) == i + 1
-                        ? "btn-primary-sm"
-                        : "btn-secondary-sm"
-                    } text-sm btn-sm sm:text-base`}
-                  >
-                    {"Episode " + (i + 1)}
-                  </button>
+                  {"Episode " + (i + 1)}
                 </Link>
               ))}
           </div>
