@@ -58,7 +58,6 @@ const Watch = () => {
 
   return (
     <section className="bg-[#17024d] py-8 my-container">
-      <FetchEpisodes/>
       {epSources.length > 0 ? (
         <Player
           source={
