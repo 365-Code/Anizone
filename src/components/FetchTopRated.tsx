@@ -68,7 +68,7 @@ const FetchTopRated = () => {
     <main>
       <div
         id="topRated"
-        className="no-scrollbar max-h-[85vh] overflow-y-scroll"
+        className="no-scrollbar max-h-[600px] overflow-y-scroll"
       >
         {topRated?.map((topRatedList, ind) => (
           <DisplayAnime key={ind} animeList={topRatedList} />

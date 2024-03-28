@@ -19,14 +19,19 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
         animeTitle.romaji ||
         animeTitle.english ||
         animeTitle.userPreferred ||
-        animeTitle.native)?.toString().toLowerCase();
+        animeTitle.native
+      )
+        ?.toString()
+        .toLowerCase();
       const data = await fetch(`/api/gogo/searchAnime?anime=${animeId}`);
       const res = await data.json();
 
+      dispatch(setCurrentAnime(anime));
       if (res.success && res.result) {
-        dispatch(setCurrentAnime(anime));
         const animeId = res.result.id;
         nav.push("/anime/" + animeId + "-" + anime.id);
+      } else {
+        nav.push("/anime/" + toAnimeId(animeTitle) + "-" + anime.id);
       }
     } catch (error) {
       console.log(error);
@@ -36,13 +41,7 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
   return (
     <>
       {anime && (
-        // <Link href={"/anime/" + anime.id}>
-        // <Link
-        //   onClick={() => dispatch(setCurrentAnime(anime))}
-        //   href={"/anime/" + animeId + "-" + anime.id}
-        // >
-        <button onClick={searchAnimeInfo}>
-          <div className="st-anime-card">
+          <div onClick={searchAnimeInfo} className="cursor-pointer st-anime-card">
             <div className="st-anime-card-image">
               <img
                 src={anime.image}
@@ -80,8 +79,6 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
               </p>
             </div>
           </div>
-          {/* </Link> */}
-        </button>
       )}
     </>
   );

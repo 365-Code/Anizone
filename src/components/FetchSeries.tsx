@@ -66,7 +66,7 @@ const FetchSeries = () => {
 
   return (
     <main>
-      <div id="series" className="no-scrollbar overflow-y-scroll max-h-[85vh]">
+      <div id="series" className="no-scrollbar overflow-y-scroll max-h-[600px]">
       {  
         series?.map((seriesList, ind) => 
           <DisplayAnime key={ind} animeList={seriesList} />

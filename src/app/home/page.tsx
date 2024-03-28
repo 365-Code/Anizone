@@ -15,8 +15,9 @@ import { useDispatch } from "react-redux";
 const Page = () => {
   const fetchAnimeList = async () => {
     try {
+      const sort = ["TRENDING_DESC"]
       const data = await fetch(
-        `/api/anilist/advanceSearch?page=${page}&perPage=${perPage}`,
+        `/api/anilist/advanceSearch?page=${page}&perPage=${perPage}&sort=${sort}`,
       );
       const res = await data.json();
       setLoading(false);

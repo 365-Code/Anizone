@@ -8,6 +8,7 @@ const PlayNowCard = ({
   animeInfo: IAnimeInfo;
   animeTitle: ITitle;
 }) => {
+
   return (
     <div className="play-now-card">
         <img

@@ -55,6 +55,7 @@ const FetchAnimeInfo = () => {
       animeId && fetchAnime(animeId);
     }
   }, [currentAnime]);
+  
 
   return (
     // <!-- Play Now -->
@@ -74,14 +75,21 @@ const FetchAnimeInfo = () => {
             <PlayNowCard animeInfo={animeInfo} animeTitle={animeTitle || {}} />
             <div className=" flex flex-1 flex-col items-center justify-between gap-4 py-8 sm:flex-row md:flex-col">
               <div className="flex justify-center gap-2 sm:flex-row sm:gap-4 md:flex-col">
-                <Link
+                {
+                  Number(currentAnime?.totalEpisodes) > 0 ? 
+                  <Link
                   className="btn btn-primary"
                   href={
                     "/anime/" + (params["animeId"] as string) + "/episode-1"
                   }
-                >
+                  >
                   Watch Now
                 </Link>
+                :
+                <button className="btn btn-primary">
+                  Not Yet Aired
+                </button>
+                }
                 <button className="btn btn-secondary">Add to watchlist</button>
               </div>
             </div>

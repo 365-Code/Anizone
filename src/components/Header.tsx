@@ -18,22 +18,26 @@ const Header = () => {
   ];
 
   const [showNav, setShowNav] = useState(false);
-  let imgSrc = "/anizone.png"
-  pathname.includes("movies") ? (imgSrc = "/movies.png")
-  : pathname.includes("episode") ? (imgSrc = "/playing.png")
-  : pathname.includes("anime") ? (imgSrc = "/playNow.png")
-  : pathname.includes("trending") ? (imgSrc = "/trending.png")
-  : pathname.includes("series") ? (imgSrc = "/series.png")
-  : pathname.includes("top-rated") ? (imgSrc = "/topRated.png")
-  : pathname.includes("search") ? (imgSrc = "/results.png")
-  : (imgSrc = "/anizone.png")
+  let imgSrc = "/anizone.png";
+  pathname.includes("movies")
+    ? (imgSrc = "/movies.png")
+    : pathname.includes("episode")
+      ? (imgSrc = "/playing.png")
+      : pathname.includes("anime")
+        ? (imgSrc = "/playNow.png")
+        : pathname.includes("trending")
+          ? (imgSrc = "/trending.png")
+          : pathname.includes("series")
+            ? (imgSrc = "/series.png")
+            : pathname.includes("top-rated")
+              ? (imgSrc = "/topRated.png")
+              : pathname.includes("search")
+                ? (imgSrc = "/results.png")
+                : (imgSrc = "/anizone.png");
 
   return (
-    // <!-- Header -->
-    // <!-- my-container => fixed-nav later remove -->
     <header className="relative">
       <nav className="flex flex-wrap items-center justify-between gap-2 px-4 py-8 text-white">
-        {/* <h2 className="text-5xl text-[#230149] font-semibold"> */}
         <div className="relative flex items-center">
           <button
             onClick={() => setShowNav(!showNav)}
@@ -46,7 +50,7 @@ const Header = () => {
             <Image
               height={400}
               width={700}
-              className="w-[90px] sm:w-[130px] min-[1100px]:w-[180px]"
+              className="w-[110px] sm:w-[140px] min-[1100px]:w-[180px]"
               src={imgSrc}
               alt="logo"
             />

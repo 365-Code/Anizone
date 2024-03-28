@@ -19,16 +19,29 @@ const FetchSearch = () => {
     status || "All"
   }&season=${season || "All"}&genres=${genres || "All"}`;
 
+  
+  const [searchResults, setSearchResults] = useState<IAnimeResult[]>([]);
+
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const [page, setPage] = useState(1);
+  const perPage = 20;
+  const pageId = "searchResults";
+
+  const dispatch = useDispatch<AppDispatch>();
+  const searchAnime = useAppSelector(
+    (state) => state.utilityReducer.value.searchAnime,
+  );
+
   const fetchSearchResults = async () => {
     try {
-      // const data = await fetch(`/api/anilist/advanceSearch?query=${query}&page=${page}&perPage=${perPage}`);
+      const sort = ["TRENDING_DESC"]
       const data = await fetch(
-        `/api/anilist/advanceSearch?${route}&page=${page}&perPage=${perPage}`,
+        `/api/anilist/advanceSearch?${route}&page=${page}&perPage=${perPage}&sort=${sort}`,
       );
       const res = await data.json();
       setLoading(false);
       if (res.success) {
-        if(page == 1){}
         page == 1 ? setSearchResults(res.results) : setSearchResults((preVal) => [...preVal, ...res.results]);
         setHasMore(res.hasNextPage);
         setPage(res.currentPage)
@@ -44,18 +57,6 @@ const FetchSearch = () => {
     }
   };
 
-  const [searchResults, setSearchResults] = useState<IAnimeResult[]>([]);
-
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(false);
-  const [page, setPage] = useState(1);
-  const perPage = 20;
-  const pageId = "searchResults";
-
-  const dispatch = useDispatch<AppDispatch>();
-  const searchAnime = useAppSelector(
-    (state) => state.utilityReducer.value.searchAnime,
-  );
   useEffect(() => {
     if (searchAnime) {
       setSearchResults(searchAnime.results);
@@ -66,11 +67,22 @@ const FetchSearch = () => {
 
   useEffect(() => {
     setLoading(true);
+    setPage(1)
     const debounce = setTimeout(() => {
       fetchSearchResults();
     }, 100);
     return () => clearTimeout(debounce);
-  }, [page, route]);
+  }, [route]);
+
+  useEffect(() => {
+    setLoading(true);
+    const debounce = setTimeout(() => {
+      fetchSearchResults();
+    }, 100);
+    return () => clearTimeout(debounce);
+  }, [page]);
+
+
 
   return (
     <div>
