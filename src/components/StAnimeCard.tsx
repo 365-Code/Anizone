@@ -9,25 +9,29 @@ import { useDispatch } from "react-redux";
 
 const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const animeTitle = anime.title as ITitle
+  const animeTitle = anime.title as ITitle;
 
-  const nav = useRouter()
+  const nav = useRouter();
 
-    const searchAnimeInfo = async () => {
+  const searchAnimeInfo = async () => {
     try {
-      const data = await fetch(`/api/gogo/searchAnime?anime=${animeTitle.english || animeTitle.romaji || animeTitle.userPreferred || animeTitle.native}`)
-      const res = await data.json()
-      if(res.success){
-        dispatch(setCurrentAnime(anime))
-        const animeId = res.result.id
-        nav.push('/anime/' + animeId + "-" + anime.id)
+      const animeId = (
+        animeTitle.romaji ||
+        animeTitle.english ||
+        animeTitle.userPreferred ||
+        animeTitle.native)?.toString().toLowerCase();
+      const data = await fetch(`/api/gogo/searchAnime?anime=${animeId}`);
+      const res = await data.json();
+
+      if (res.success && res.result) {
+        dispatch(setCurrentAnime(anime));
+        const animeId = res.result.id;
+        nav.push("/anime/" + animeId + "-" + anime.id);
       }
     } catch (error) {
       console.log(error);
     }
-  }
-
-  const animeId = toAnimeId(anime.title as ITitle);
+  };
 
   return (
     <>
@@ -49,13 +53,24 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
             <div className="st-anime-card-detail">
               <h3 className="font-bold capitalize text-cyan-500">
                 {/* Attack on titan final season */}
-                {((animeTitle.english || animeTitle.romaji || animeTitle.userPreferred || animeTitle.native) as string).slice(0, 146)}
+                {(
+                  (animeTitle.english ||
+                    animeTitle.romaji ||
+                    animeTitle.userPreferred ||
+                    animeTitle.native) as string
+                ).slice(0, 146)}
               </h3>
               <p className="hyphens-auto">
                 {removeChars(
                   anime.description?.slice(
                     0,
-                    146 - ((animeTitle.english || animeTitle.romaji || animeTitle.userPreferred || animeTitle.native) as string).length,
+                    146 -
+                      (
+                        (animeTitle.english ||
+                          animeTitle.romaji ||
+                          animeTitle.userPreferred ||
+                          animeTitle.native) as string
+                      ).length,
                   ) as string,
                   ["<br>", "<i>", "</i>"],
                 )}
@@ -65,7 +80,7 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
               </p>
             </div>
           </div>
-        {/* </Link> */}
+          {/* </Link> */}
         </button>
       )}
     </>

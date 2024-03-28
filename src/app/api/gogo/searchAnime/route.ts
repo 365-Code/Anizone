@@ -5,7 +5,7 @@ export async function GET(req: NextRequest){
 
     try {
         const {searchParams} = new URL(req.url)
-        const aName = searchParams.get('anime') || ""
+        const aName = (searchParams.get('anime') || "").toString()
         const anime = new ANIME.Gogoanime();
         const {results} = await anime.search(aName)
         return NextResponse.json({result: results[0], success: true}, {status: 200})
