@@ -67,7 +67,6 @@ const FetchSearch = () => {
   useEffect(() => {
     setLoading(true);
     const debounce = setTimeout(() => {
-      console.log("working");
       fetchSearchResults();
     }, 100);
     return () => clearTimeout(debounce);

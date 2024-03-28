@@ -6,7 +6,6 @@ const Hero = () => {
   return (
     <section className="sm:min-h-fit h-[500px] sm:max-h-[65vh] overflow-hidden w-full relative text-white">
       <Image
-        // src="https://www.itl.cat/pngfile/big/8-83033_naruto-vs-sasuke-4k-wallpaper-photo-naruto-sasuke.jpg"
         width={1000}
         height={1000}
         src="/bg3.jpg"

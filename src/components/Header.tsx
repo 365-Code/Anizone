@@ -26,7 +26,7 @@ const Header = () => {
   : pathname.includes("series") ? (imgSrc = "/series.png")
   : pathname.includes("top-rated") ? (imgSrc = "/topRated.png")
   : pathname.includes("search") ? (imgSrc = "/results.png")
-  : pathname.includes("/") && (imgSrc = "/anizone.png")
+  : (imgSrc = "/anizone.png")
 
   return (
     // <!-- Header -->

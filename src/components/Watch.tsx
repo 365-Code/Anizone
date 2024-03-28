@@ -11,7 +11,7 @@ const Watch = () => {
   const fetchEpisode = async () => {
     try {
       const data = await fetch(
-        `/api/gogo/fetchEpSource?epId=${animeId + "-" + epId}`
+        `/api/gogo/fetchEpSource?epId=${animeId + "-" + epId}`,
       );
       const res = await data.json();
       if (res.success) {
@@ -46,7 +46,6 @@ const Watch = () => {
   const [epHeader, setEpHeader] = useState({
     Referer: "",
   });
-  
 
   useEffect(() => {
     const debounce = setTimeout(() => {
@@ -57,30 +56,36 @@ const Watch = () => {
   }, []);
 
   return (
-    <section className="bg-[#17024d] py-8 my-container">
+    <section className="my-container bg-[#17024d] py-8">
       {epSources.length > 0 ? (
         <Player
-          source={
-            String(epSources.find((s) => s.quality == "default")?.url)
-          }
+          source={String(epSources.find((s) => s.quality == "default")?.url)}
         />
       ) : (
-        <div className="overflow-hidden w-full h-[589px] relative">
-          <div className="px-4 sm:px-12 md:px-20 absolute top-0 left-0 w-full h-full">
+        <div className="relative h-[589px] w-full overflow-hidden">
+          <div className="absolute left-0 top-0 h-full w-full px-4 sm:px-12 md:px-20">
             <img
               src={currentAnime?.image}
               alt=""
-              className="w-full h-full object-cover object-center opacity-50"
+              className="h-full w-full object-cover object-center opacity-50"
             />
           </div>
           <img
             src={currentAnime?.image}
             alt=""
-            className="backdrop-blur-sm w-full h-full object-contain object-center bg-transparent relative"
+            className="relative h-full w-full bg-transparent object-contain object-center backdrop-blur-sm"
           />
-          <div className={`mx-auto left-0 w-full sm:left-auto absolute top-0 h-full flex flex-col justify-center ${!currentAnime?.image && "bg-black"}`}>
+          <div
+            className={`absolute left-0 top-0 mx-auto flex h-full w-full flex-col justify-center sm:left-auto ${!currentAnime?.image && "bg-black"}`}
+          >
             <div className="mx-auto">
-            <Image width={300} height={300} alt="logo" src='/anizone.png' className="w-[100px] sm:w-[160px] min-[1100px]:w-[300px]" />
+              <Image
+                width={300}
+                height={300}
+                alt="logo"
+                src="/anizone.png"
+                className="w-[100px] sm:w-[160px] min-[1100px]:w-[300px]"
+              />
             </div>
             <Loader />
           </div>
