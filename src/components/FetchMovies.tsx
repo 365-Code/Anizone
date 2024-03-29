@@ -15,9 +15,10 @@ const FetchMovies = () => {
         `/api/anilist/advanceSearch?type=MOVIE&page=${page}&perPage=${perPage}`
       );
       const res = await data.json();
-      setLoading(false);
+      if(page % 2 == 0 || !hasMore){
+        setLoading(false);
+      }
       if (res.success) {
-        // if(movies.length == 0){
         if (page % 2 == 1) {
           setPage((preVal) => preVal + 1);
         }

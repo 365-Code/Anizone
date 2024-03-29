@@ -1,4 +1,6 @@
+import { toAnimeId } from "@/utils";
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
+import Image from "next/image";
 import React from "react";
 
 const PlayNowCard = ({
@@ -11,9 +13,11 @@ const PlayNowCard = ({
 
   return (
     <div className="play-now-card">
-        <img
-          src={animeInfo?.image}
-          alt=""
+        <Image
+          width={600}
+          height={600}
+          src={animeInfo?.image || ""}
+          alt={toAnimeId(animeTitle) || ""}
           className="w-full h-full object-cover object-center absolute top-0 left-0 opacity-35 sm:opacity-10 sm:blur-sm -z-10"
         />
       <div className="play-now-card-detail">
@@ -55,8 +59,10 @@ const PlayNowCard = ({
         </div>
       </div>
       <div className="play-now-card-img ">
-        <img
-          src={animeInfo?.image}
+        <Image
+          width={600}
+          height={600}
+          src={animeInfo?.image || ""}
           alt=""
           className="w-full h-full object-cover object-center"
         />

@@ -8,9 +8,9 @@ const Hero = () => {
       <Image
         width={1000}
         height={1000}
-        src="/bg3.jpg"
+        src="/bg2.jpg"
         alt="bg"
-        className="w-full h-full object-cover md:object-fill object-top opacity-40"
+        className="w-full h-full object-cover md:object-fill object-top opacity-50"
       />
 
       <div className="w-full h-full  absolute top-0 left-0 flex flex-col justify-center items-center">

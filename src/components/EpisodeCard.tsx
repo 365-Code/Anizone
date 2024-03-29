@@ -2,6 +2,7 @@ import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch } from "@/redux/store";
 import { IEpisodeCard, toAnimeId } from "@/utils";
 import { IAnimeResult, ITitle } from "@consumet/extensions";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -31,7 +32,9 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
       <div className="group/epCard st-anime-card relative transition-all">
         <div className="st-anime-card-image">
           <img
-            src={anime.image}
+            width={600}
+            height={600}
+            src={anime.image || ""}
             className="h-full w-full object-cover object-center opacity-40 transition-all group-hover/epCard:opacity-100"
             alt=""
           />

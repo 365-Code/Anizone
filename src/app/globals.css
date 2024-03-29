@@ -127,7 +127,7 @@ section {
 
 .st-anime-card-image {
   box-shadow: 25px 20px 100px 0px #000000;
-  @apply h-[300px] w-full text-xs sm:h-[320px] sm:max-w-[220px];
+  @apply h-[300px] w-full text-xs sm:h-[320px] sm:w-[220px];
   /* @apply w-[200px] h-[320px] text-xs; */
 }
 

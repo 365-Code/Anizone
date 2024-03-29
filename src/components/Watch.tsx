@@ -64,14 +64,18 @@ const Watch = () => {
       ) : (
         <div className="relative h-[589px] w-full overflow-hidden">
           <div className="absolute left-0 top-0 h-full w-full px-4 sm:px-12 md:px-20">
-            <img
-              src={currentAnime?.image}
+            <Image
+            width={600}
+            height={600}
+              src={currentAnime?.image || ""}
               alt=""
               className="h-full w-full object-cover object-center opacity-50"
             />
           </div>
-          <img
-            src={currentAnime?.image}
+          <Image
+          width={600}
+          height={600}
+            src={currentAnime?.image || ""}
             alt=""
             className="relative h-full w-full bg-transparent object-contain object-center backdrop-blur-sm"
           />

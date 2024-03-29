@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch } from "@/redux/store";
 import { toAnimeId } from "@/utils";
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -10,38 +11,43 @@ import { useDispatch } from "react-redux";
 const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
   const dispatch = useDispatch<AppDispatch>();
   const animeTitle = anime.title as ITitle;
-  
-  const nav = useRouter()
+
+  const nav = useRouter();
   const searchAnimeInfo = async () => {
-  try {
-    
-    const animeId = (
-      animeTitle.romaji ||
-      animeTitle.english ||
-      animeTitle.userPreferred ||
-      animeTitle.native)?.toString().toLowerCase();
-    const data = await fetch(`/api/gogo/searchAnime?anime=${animeId}`)
-    const res = await data.json()
-    
-    dispatch(setCurrentAnime(anime));
-    if(res.success && res.result){
-      const animeId = res.result.id
-      nav.push('/anime/' + animeId + "-" + anime.id)
-    }else{
-      nav.push("/anime/" + toAnimeId(animeTitle) + '-' + anime.id )
-    } 
-  } catch (error) {
-    console.log(error);
-  }
-}
+    try {
+      const animeId = (
+        animeTitle.romaji ||
+        animeTitle.english ||
+        animeTitle.userPreferred ||
+        animeTitle.native
+      )
+        ?.toString()
+        .toLowerCase();
+      const data = await fetch(`/api/gogo/searchAnime?anime=${animeId}`);
+      const res = await data.json();
+
+      dispatch(setCurrentAnime(anime));
+      if (res.success && res.result) {
+        const animeId = res.result.id;
+        nav.push("/anime/" + animeId + "-" + anime.id);
+      } else {
+        nav.push("/anime/" + toAnimeId(animeTitle) + "-" + anime.id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const animeId = toAnimeId(animeTitle);
+
   return (
     <div className="snap-start pl-3 pt-3">
       <div className="anime-card">
-        <img
-          src={anime?.image}
-          alt=""
+        <Image
+          width={400}
+          height={400}
+          src={anime?.image || ""}
+          alt={animeId}
           className="absolute left-0 top-0 -z-10 h-full w-full object-cover object-center opacity-50 sm:opacity-10 sm:blur-sm"
         />
         <div className="anime-tag">
@@ -81,7 +87,7 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
                     anime.title) as string
                 }
               </h3>
-              </button>
+            </button>
             {/* </Link> */}
 
             <p className="text-sm font-medium text-orange-500">
@@ -107,9 +113,11 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
           </div>
         </div>
         <div className="anime-card-img ">
-          <img
-            src={anime.image}
-            alt=""
+          <Image
+            width={500}
+            height={500}
+            src={anime.image || ""}
+            alt={animeId}
             className="h-full w-full object-cover object-center"
           />
         </div>

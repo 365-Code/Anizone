@@ -2,6 +2,7 @@ import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch } from "@/redux/store";
 import { removeChars, toAnimeId } from "@/utils";
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -43,8 +44,10 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
       {anime && (
           <div onClick={searchAnimeInfo} className="cursor-pointer st-anime-card">
             <div className="st-anime-card-image">
-              <img
-                src={anime.image}
+              <Image
+              width={600}
+              height={600}
+                src={anime.image || ""}
                 className="h-full w-full object-cover object-center"
                 alt=""
               />
