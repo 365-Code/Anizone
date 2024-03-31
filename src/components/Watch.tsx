@@ -56,8 +56,7 @@ const Watch = () => {
   }, []);
 
   return (
-    <section className="my-container bg-[#17024d] py-8">
-      <FetchEpisodes />
+    <section className="my-container bg-[#17024d] py-8 relative">
       {epSources.length > 0 ? (
         <Player
           source={String(epSources.find((s) => s.quality == "default")?.url)}
@@ -96,7 +95,6 @@ const Watch = () => {
           </div>
         </div>
       )}
-      {/* <FetchEpisodes /> */}
     </section>
   );
 };

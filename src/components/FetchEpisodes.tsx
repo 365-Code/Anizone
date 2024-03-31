@@ -47,7 +47,7 @@ const FetchEpisodes = () => {
   }, []);
 
   return (
-    <section className="bg-[#17024d] py-8 ">
+    <section className="bg-[#17024d] py-8 my-container">
       {Number(episodes) > 1 && (
         <>
           <h2 className="py-4 text-3xl font-normal text-white">Episodes</h2>
