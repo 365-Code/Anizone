@@ -36,9 +36,20 @@ body {
   @apply fixed left-0 top-0 z-50 w-full px-60;
 }
 
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
   @apply h-0 w-0;
+} */
+
+
+/* .custom-scrollbar::-webkit-scrollbar {
+  @apply h-1 w-1;
 }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply h-1 w-1 rounded-full bg-slate-600;
+}
+.no-scrollbar::-webkit-scrollbar {
+  @apply h-0 w-0;
+} */
 
 section {
   @apply gbg relative;
@@ -132,24 +143,11 @@ section {
 }
 
 .st-anime-card-detail {
-  /* @apply rounded-r-xl w-[240px] text-[0.58rem] bg-[#230149] text-white py-2 px-4; */
   @apply absolute text-left bottom-0 left-0 w-full rounded-none bg-opacity-70 sm:bg-opacity-100 px-4 py-2 text-[0.7rem] text-white sm:static sm:max-w-[240px] sm:rounded-r-xl bg-[#230149];
   height: 70px;
   line-height: 15px; /* Height / no. of lines to display */
   overflow: hidden;
-  /* @apply rounded-r-xl w-[230px] text-[0.60rem] bg-[#230149] text-white py-2 px-4 h-full; */
 }
-
-/* .st-anime-card-detail p{
-    height:45px;
-    line-height:15px;
-    overflow:hidden;
-  } */
-/* @apply rounded-r-xl w-[230px] text-[0.60rem] bg-[#230149] text-white py-2 px-4 h-full; */
-
-/* .st-anime-card-detail h3 {
-  @apply text-[0.55rem];
-} */
 
 .bg-shadow {
   @apply shadow-2xl shadow-black/50;
@@ -160,14 +158,6 @@ section {
 }
 
 .gradient-bg {
-  /* @apply bg-gradient-to-r via-[#4500ff]/90 to-[#230149]/50 from-[#6200cf]/50; */
-
-  /* background: rgb(79,0,85);
-background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.7) 50%, rgba(35,1,73,0.9) 100%); */
-
-  /* background: rgb(79,0,85);
-background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924027814251) 50%, rgba(35,1,73,0.9) 100%); */
-
   background: rgb(79, 0, 85);
   background: linear-gradient(
     90deg,
@@ -223,23 +213,6 @@ background: linear-gradient(90deg, rgba(79,0,85,0.8) 0%, rgba(98,0,207,0.5685924
   @apply gradient-bg h-full w-full basis-1/2 py-10;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  @apply h-1 w-1;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply h-1 w-1 rounded-full bg-slate-600;
-}
-.no-scrollbar::-webkit-scrollbar {
-  @apply h-0 w-0;
-}
-
-video {
-  @apply relative;
-}
-
-video[poster] {
-  @apply h-full w-full object-scale-down object-center;
-}
 
 input[type="search"]::-webkit-search-cancel-button {
   display: none;
