@@ -17,10 +17,7 @@ const FetchRandom = () => {
   };
   
   useEffect(() => {
-    //   const debounce = setTimeout(() => {
           fetchRandomAnime();
-        // }, 100);
-        // () => clearTimeout(debounce)
     }, []);
     
     const [random, setRandom] = useState<IEpisodeCard[]>([]);

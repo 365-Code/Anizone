@@ -60,12 +60,18 @@ const useHls = (src: string, options: Options | null) => {
         "fullscreen",
       ];
 
-      
-      if(window.innerWidth <= 600){
-        plyrControls = plyrControls.filter((c) => c!= "volume")
+      if (window.innerWidth <= 600) {
+        plyrControls = plyrControls.filter((c) => c != "volume");
       }
 
-      setPlyrOptions({ ...plyrOptions, controls: plyrControls, quality, seekTime: 5,keyboard: {global: true, focused: true}, storage: {enabled: false} } );
+      setPlyrOptions({
+        ...plyrOptions,
+        controls: plyrControls,
+        quality,
+        seekTime: 5,
+        keyboard: { global: true, focused: true },
+        storage: { enabled: false },
+      });
       hasQuality.current = true;
     });
   });
@@ -107,5 +113,4 @@ const Player = ({ source }: { source: string }) => {
 
 export default Player;
 
-
-CustomPlyrInstance.displayName = 'PlayerInstance';
+CustomPlyrInstance.displayName = "PlayerInstance";

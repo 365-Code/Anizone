@@ -26,6 +26,7 @@ const FetchAnime = ({ animeId }: { animeId: string }) => {
 
     return () => clearTimeout(debounce);
   }, []);
+  
   const [anime, setAnime] = useState();
 
   return (

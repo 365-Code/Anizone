@@ -59,7 +59,7 @@ const FetchEpisodes = () => {
                 className="min-w-fit"
               >
                 <button
-                  className={` ${currentEpisode == i + 1 ? "btn-primary-sm" : "btn-secondary-sm"} btn-sm rounded-xl`}
+                  className={` ${currentEpisode == i + 1 ? "btn-primary-sm" : "btn-secondary-sm"} btn-sm`}
                 >
                   {"Episode " + (i + 1)}
                 </button>

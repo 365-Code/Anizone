@@ -47,15 +47,15 @@ const Watch = () => {
   });
 
   useEffect(() => {
-    const debounce = setTimeout(() => {
-      epId && animeId && fetchEpisode();
-      animId && fetchCurrentAnime();
-    }, 100);
-    return () => clearTimeout(debounce);
-  }, []);
+    epId && animeId && fetchEpisode();
+  }, [epId, animeId]);
+
+  useEffect(() => {
+    animId && fetchCurrentAnime();
+  }, [animId]);
 
   return (
-    <section className="my-container bg-[#17024d] py-8 relative">
+    <section className="my-container relative bg-[#17024d] py-8">
       {epSources.length > 0 ? (
         <Player
           source={String(epSources.find((s) => s.quality == "default")?.url)}
@@ -64,16 +64,16 @@ const Watch = () => {
         <div className="relative h-[589px] w-full overflow-hidden">
           <div className="absolute left-0 top-0 h-full w-full px-4 sm:px-12 md:px-20">
             <Image
-            width={600}
-            height={600}
+              width={600}
+              height={600}
               src={currentAnime?.image || ""}
               alt=""
               className="h-full w-full object-cover object-center opacity-50"
             />
           </div>
           <Image
-          width={600}
-          height={600}
+            width={600}
+            height={600}
             src={currentAnime?.image || ""}
             alt=""
             className="relative h-full w-full bg-transparent object-contain object-center backdrop-blur-sm"

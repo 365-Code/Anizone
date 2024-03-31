@@ -31,10 +31,7 @@ const FetchRecentEpisodes = () => {
     if (recentEpisodes) {
       setRecents(recentEpisodes);
     } else {
-      // const debounce = setTimeout(() => {
       fetchRecentEpisodes();
-      // }, 100);
-      // return () => clearTimeout(debounce);
     }
   }, []);
 

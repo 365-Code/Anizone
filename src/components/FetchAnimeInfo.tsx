@@ -54,7 +54,7 @@ const FetchAnimeInfo = () => {
     } else {
       animeId && fetchAnime(animeId);
     }
-  }, [currentAnime]);
+  }, [currentAnime, animeId]);
   
 
   return (
