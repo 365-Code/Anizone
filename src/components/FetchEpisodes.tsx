@@ -51,13 +51,13 @@ const FetchEpisodes = () => {
       {Number(episodes) > 1 && (
         <>
           <h2 className="py-4 text-3xl font-normal text-white">Episodes</h2>
-          <div className="custom-scrollbar h-[150px] flex flex-wrap items-start gap-2 overflow-y-scroll py-4 sm:gap-3">
+          <div className="custom-scrollbar max-h-[150px] flex items-start gap-2 overflow-y-scroll py-4 sm:gap-3">
             {episodes > 1 &&
               [...Array(Number(episodes))].map((v, i) => (
                 <Link
                   href={basePath + "/episode-" + (i + 1)}
                   key={"episode-" + (i + 1)}
-                  className="min-w-fit min-h-fit"
+                  className="min-w-fit"
                 >
                     <button className={` ${currentEpisode == i+1 ? "btn-primary-sm" : "btn-secondary-sm"} btn-sm rounded-xl`}>
                     {"Episode " + (i + 1)}
