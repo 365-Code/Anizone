@@ -12,7 +12,7 @@ const FetchEpisodes = () => {
   const params = useParams();
   const basePath = pathname.split("/episode-")[0];
 
-  const currentEpisode = Number(pathname.split("/episode-")[1])
+  const currentEpisode = Number(pathname.split("/episode-")[1]);
 
   const aId = (params["animeId"] as string) || "";
   const animId = aId.slice(aId.lastIndexOf("-") + 1);
@@ -47,23 +47,24 @@ const FetchEpisodes = () => {
   }, []);
 
   return (
-    <section className="bg-[#17024d] py-8 my-container">
+    <section className="my-container bg-[#17024d] py-8">
       {Number(episodes) > 1 && (
         <>
           <h2 className="py-4 text-3xl font-normal text-white">Episodes</h2>
-          <div className="custom-scrollbar max-h-[150px] flex items-start gap-2 overflow-y-scroll py-4 sm:gap-3">
-            {episodes > 1 &&
-              [...Array(Number(episodes))].map((v, i) => (
-                <Link
-                  href={basePath + "/episode-" + (i + 1)}
-                  key={"episode-" + (i + 1)}
-                  className="min-w-fit"
+          <div className="custom-scrollbar flex max-h-[150px] items-start gap-2 overflow-y-scroll py-4 sm:gap-3">
+            {[...Array(Number(episodes))].map((v, i) => (
+              <Link
+                href={basePath + "/episode-" + (i + 1)}
+                key={"episode-" + (i + 1)}
+                className="min-w-fit"
+              >
+                <button
+                  className={` ${currentEpisode == i + 1 ? "btn-primary-sm" : "btn-secondary-sm"} btn-sm rounded-xl`}
                 >
-                    <button className={` ${currentEpisode == i+1 ? "btn-primary-sm" : "btn-secondary-sm"} btn-sm rounded-xl`}>
-                    {"Episode " + (i + 1)}
-                    </button>
-                </Link>
-              ))}
+                  {"Episode " + (i + 1)}
+                </button>
+              </Link>
+            ))}
           </div>
         </>
       )}

@@ -5,8 +5,8 @@ import React from "react";
 const Page = () => {
   return (
     <main>
-    <Watch />
-    <FetchEpisodes />
+      <Watch />
+      <FetchEpisodes />
     </main>
   );
 };

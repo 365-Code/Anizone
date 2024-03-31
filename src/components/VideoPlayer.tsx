@@ -30,30 +30,14 @@ const useHls = (src: string, options: Options | null) => {
 
   React.useEffect(() => {
     hls.current.loadSource(src);
-    // NOTE: although it is more reactive to use the ref, but it seems that plyr wants to use the old as lazy process
     hls.current.attachMedia(document.querySelector(".plyr-react")!);
-    /**
-     * You can all your custom event listener here
-     * For this example we iterate over the qualities and pass them to plyr player
-     * ref.current.plyr.play() ❌
-     * console.log.bind(console, 'MANIFEST_PARSED') ✅
-     * NOTE: you can only start play the audio here
-     * Uncaught (in promise) DOMException: play() failed because the user didn't interact with the document first.
-     */
     hls.current.on(Hls.Events.MANIFEST_PARSED, () => {
       if (hasQuality.current) return; // early quit if already set
-
       const levels = hls.current.levels;
-
-      
-      
       const quality: Options["quality"] = {
         default: levels[levels.length - 1].height,
         options: levels.map((level) => level.height),
         forced: true,
-        /* `onChange` is a callback function that gets triggered when the user changes the quality of
-       the video. It takes in a `newQuality` parameter which is the new quality selected by the
-       user. */
         onChange: (newQuality: number) => {
           levels.forEach((level, levelIndex) => {
             if (level.height === newQuality) {
@@ -89,9 +73,6 @@ const useHls = (src: string, options: Options | null) => {
   return { options: plyrOptions };
 };
 
-/** `CustomPlyrInstance` is a custom React component that renders a video player using the Plyr library
-and supports HLS video streaming. It is created using the `React.forwardRef` function, which allows
-the component to receive a `ref` to the player instance as a prop. */
 const CustomPlyrInstance = React.forwardRef<
   APITypes,
   PlyrProps & { hlsSource: string }
@@ -104,9 +85,6 @@ const CustomPlyrInstance = React.forwardRef<
   return <video ref={raptorRef} className="plyr-react plyr" />;
 });
 
-/**  The `PlyrComponent` is a functional component that renders a video player using the Plyr library and
-supports HLS video streaming. If it is supported, it renders the `CustomPlyrInstance` component passing in the `ref`,
-`source`, `options`, and `hlsSource` props. If HLS is not supported, it renders a message saying so. */
 const Player = ({ source }: { source: string }) => {
   const ref = React.useRef<APITypes>(null);
   const supported = Hls.isSupported();
@@ -114,8 +92,6 @@ const Player = ({ source }: { source: string }) => {
   return (
     <div className="wrapper">
       {supported ? (
-        /**  `<CustomPlyrInstance>` is a custom React component that renders a video player using the
-        Plyr library and supports HLS video streaming. It takes in several props: */
         <CustomPlyrInstance
           ref={ref}
           source={videoSource}

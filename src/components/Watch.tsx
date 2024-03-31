@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import { IAnimeInfo, IVideo } from "@consumet/extensions";
 import Loader from "./Loader";
 import Image from "next/image";
-import FetchEpisodes from "./FetchEpisodes";
 
 const Watch = () => {
   const fetchEpisode = async () => {
