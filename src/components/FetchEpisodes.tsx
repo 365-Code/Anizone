@@ -1,7 +1,7 @@
 "use client";
 import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import { IAnimeInfo } from "@consumet/extensions";
+import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import Link from "next/link";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
@@ -37,21 +37,23 @@ const FetchEpisodes = () => {
   const currentAnime = useAppSelector(
     (state) => state.utilityReducer.value.currentAnime,
   ) as IAnimeInfo;
-
   const [episodes, setEpisodes] = useState(0);
+
 
   useEffect(() => {
     currentAnime
       ? setEpisodes(currentAnime.currentEpisode || currentAnime.totalEpisodes)
       : fetchEpisodeInfo();
   }, []);
+  const animeTitle = currentAnime ? (currentAnime?.title as ITitle).english || (currentAnime?.title as ITitle).romaji || (currentAnime?.title as ITitle).userPreferred || (currentAnime?.title as ITitle).native : ""
 
   return (
     <section className="my-container bg-[#17024d] py-8">
+      <Link href={'/anime/' + aId} className="text-3xl text-white py-8">{animeTitle}</Link>
       {Number(episodes) > 1 && (
         <>
           <h2 className="py-4 text-3xl font-normal text-white">Episodes</h2>
-          <div className="custom-scrollbar flex max-h-[150px] items-start gap-2 overflow-y-scroll py-4 sm:gap-3">
+          <div className="custom-scrollbar flex items-start gap-2 overflow-y-scroll py-4 sm:gap-3">
             {[...Array(Number(episodes))].map((v, i) => (
               <Link
                 href={basePath + "/episode-" + (i + 1)}

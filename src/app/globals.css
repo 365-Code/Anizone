@@ -36,16 +36,23 @@ body {
   @apply fixed left-0 top-0 z-50 w-full px-60;
 }
 
+.fixed-nav-space {
+  @apply h-[106px] ;
+}
+
 body::-webkit-scrollbar {
   @apply h-0 w-0;
 }
 
+/* main:first-child::before{
+  @apply h-[106px] border;
+} */
 
 .custom-scrollbar::-webkit-scrollbar {
   @apply h-1 w-1;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply h-1 w-1 rounded-full bg-slate-600;
+  @apply rounded-full bg-slate-600;
 }
 .no-scrollbar::-webkit-scrollbar {
   @apply h-0 w-0;

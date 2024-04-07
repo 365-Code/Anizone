@@ -70,7 +70,7 @@ const FetchAnimeInfo = () => {
       )}
       {animeInfo && (
         <>
-          <h2 className="invisible text-5xl">Play Now</h2>
+          {/* <h2 className="invisible text-5xl">Play Now</h2> */}
           <div className="flex flex-col justify-between gap-4 md:flex-row">
             <PlayNowCard animeInfo={animeInfo} animeTitle={animeTitle || {}} />
             <div className=" flex flex-1 flex-col items-center justify-between gap-4 py-8 sm:flex-row md:flex-col">

@@ -1,10 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Player from "./VideoPlayer";
+// import Player from "./VideoPlayer";
 import { useParams } from "next/navigation";
-import { IAnimeInfo, IVideo } from "@consumet/extensions";
+import { IAnimeInfo, ITitle, IVideo } from "@consumet/extensions";
 import Loader from "./Loader";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const Watch = () => {
   const fetchEpisode = async () => {
@@ -42,9 +44,6 @@ const Watch = () => {
   const animeId = aId.slice(0, aId.lastIndexOf("-"));
   const animId = aId.slice(aId.lastIndexOf("-") + 1);
   const [epSources, setEpSources] = useState<IVideo[]>([]);
-  const [epHeader, setEpHeader] = useState({
-    Referer: "",
-  });
 
   useEffect(() => {
     epId && animeId && fetchEpisode();
@@ -54,12 +53,17 @@ const Watch = () => {
     animId && fetchCurrentAnime();
   }, [animId]);
 
+  
+const Player = dynamic(() => import('../components/VideoPlayer'), { ssr: false })
+
   return (
     <section className="my-container relative bg-[#17024d] py-8">
       {epSources.length > 0 ? (
+        <>
         <Player
           source={String(epSources.find((s) => s.quality == "default")?.url)}
-        />
+          />
+        </>
       ) : (
         <div className="relative h-[589px] w-full overflow-hidden">
           <div className="absolute left-0 top-0 h-full w-full px-4 sm:px-12 md:px-20">
