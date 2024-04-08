@@ -11,13 +11,12 @@ import Loader from "../Loader";
 import PlayNowCard from "../PlayNowCard";
 import PlayNowCardSkeleton from "../skeleton/PlayNowCardSkeleton";
 import FetchAnimeInfoSkeleton from "../skeleton/FetchAnimeInfoSkeleton";
+import AnimeCardSkeleton from "../skeleton/AnimeCardSkeleton";
 
 const Test = () => {
   return (
     // <!-- Play Now -->
-    <div>
-      <FetchAnimeInfoSkeleton/>
-    </div>
+    <AnimeCardSkeleton/>
   );
 };
 

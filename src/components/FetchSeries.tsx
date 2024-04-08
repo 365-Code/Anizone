@@ -6,29 +6,30 @@ import DisplayAnime from "./DisplayAnime";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { setSeriesAnime } from "@/redux/features/utilitySlice";
+import DisplayAnimeSkeleton from "./skeleton/DisplayAnimeSkeleton";
 
 const FetchSeries = () => {
   const fetchSeries = async () => {
     try {
       const data = await fetch(
-        `/api/anilist/advanceSearch?type=TV&page=${page}&perPage=${perPage}`
+        `/api/anilist/advanceSearch?type=TV&page=${page}&perPage=${perPage}`,
       );
       const res = await data.json();
-      if(page % 2 == 0 || !hasMore){
+      if (page % 2 == 0 || !hasMore) {
         setLoading(false);
       }
       if (res.success) {
-        if(page%2 == 1){
-          setPage((preVal) => preVal+1)
+        if (page % 2 == 1) {
+          setPage((preVal) => preVal + 1);
         }
         setHasMore(res.hasNextPage);
         setSeries((preVal) => [...preVal, res.results]);
         const data = {
           currentPage: res.currentPage,
           hasNextPage: res.hasNextPage,
-          results: [...series, res.results]
-        }
-        dispatch(setSeriesAnime(data))
+          results: [...series, res.results],
+        };
+        dispatch(setSeriesAnime(data));
       }
     } catch (error) {
       console.log(error);
@@ -40,18 +41,18 @@ const FetchSeries = () => {
   const [page, setPage] = useState(1);
   const perPage = 20;
 
-  
   const dispatch = useDispatch<AppDispatch>();
-  const seriesAnime = useAppSelector((state) => state.utilityReducer.value.series)
+  const seriesAnime = useAppSelector(
+    (state) => state.utilityReducer.value.series,
+  );
 
   useEffect(() => {
     if (seriesAnime) {
       setSeries(seriesAnime.results);
       setPage(seriesAnime.currentPage);
-      setHasMore(seriesAnime.hasNextPage)
+      setHasMore(seriesAnime.hasNextPage);
     }
   }, []);
-  
 
   useEffect(() => {
     if ((seriesAnime && page == 1) || seriesAnime?.currentPage == page) {
@@ -64,16 +65,15 @@ const FetchSeries = () => {
       return () => clearTimeout(debounce);
     }
   }, [page]);
-  
 
   return (
     <main>
-      <div id="series" className="no-scrollbar overflow-y-scroll max-h-[600px]">
-      {  
-        series?.map((seriesList, ind) => 
+      <div id="series" className="no-scrollbar max-h-[600px] overflow-y-scroll">
+        <DisplayAnimeSkeleton show={series.length == 0} />
+
+        {series?.map((seriesList, ind) => (
           <DisplayAnime key={ind} animeList={seriesList} />
-        )
-      }
+        ))}
       </div>
       <InfiniteScroll
         id="series"

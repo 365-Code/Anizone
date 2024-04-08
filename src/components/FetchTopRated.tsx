@@ -6,6 +6,7 @@ import DisplayAnime from "./DisplayAnime";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { setPopularAnime } from "@/redux/features/utilitySlice";
+import DisplayAnimeSkeleton from "./skeleton/DisplayAnimeSkeleton";
 
 const FetchTopRated = () => {
   const fetchTopRated = async () => {
@@ -14,7 +15,7 @@ const FetchTopRated = () => {
         `/api/anilist/fetchPopularAnime?page=${page}&perPage=${perPage}`,
       );
       const res = await data.json();
-      if(page % 2 == 0 || !hasMore){
+      if (page % 2 == 0 || !hasMore) {
         setLoading(false);
       }
       if (res.success) {
@@ -72,6 +73,7 @@ const FetchTopRated = () => {
         id="topRated"
         className="no-scrollbar max-h-[600px] overflow-y-scroll"
       >
+        <DisplayAnimeSkeleton show={topRated.length == 0} />
         {topRated?.map((topRatedList, ind) => (
           <DisplayAnime key={ind} animeList={topRatedList} />
         ))}

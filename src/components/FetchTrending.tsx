@@ -6,30 +6,30 @@ import DisplayAnime from "./DisplayAnime";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { setTrendingAnime } from "@/redux/features/utilitySlice";
-
+import DisplayAnimeSkeleton from "./skeleton/DisplayAnimeSkeleton";
 
 const FetchTrending = () => {
   const fetchTrending = async () => {
     try {
       const data = await fetch(
-        `/api/anilist/fetchTrendingAnime?page=${page}&perPage=${perPage}`
+        `/api/anilist/fetchTrendingAnime?page=${page}&perPage=${perPage}`,
       );
       const res = await data.json();
-      if(page % 2 == 0 || !hasMore){
+      if (page % 2 == 0 || !hasMore) {
         setLoading(false);
       }
       if (res.success) {
-        if(page%2 == 1){
-          setPage((preVal) => preVal+1)
+        if (page % 2 == 1) {
+          setPage((preVal) => preVal + 1);
         }
         setHasMore(res.hasNextPage);
         setTrending((preVal) => [...preVal, res.results]);
         const data = {
           currentPage: res.currentPage,
           hasNextPage: res.hasNextPage,
-          results: [...trending, res.results]
-        }
-        dispatch(setTrendingAnime(data))
+          results: [...trending, res.results],
+        };
+        dispatch(setTrendingAnime(data));
       }
     } catch (error) {
       console.log(error);
@@ -41,18 +41,19 @@ const FetchTrending = () => {
   const [hasMore, setHasMore] = useState(false);
   const [page, setPage] = useState(1);
   const perPage = 20;
-  
+
   const dispatch = useDispatch<AppDispatch>();
-  const trendingAnime = useAppSelector((state) => state.utilityReducer.value.trending)
+  const trendingAnime = useAppSelector(
+    (state) => state.utilityReducer.value.trending,
+  );
 
   useEffect(() => {
     if (trendingAnime) {
       setTrending(trendingAnime.results);
       setPage(trendingAnime.currentPage);
-      setHasMore(trendingAnime.hasNextPage)
+      setHasMore(trendingAnime.hasNextPage);
     }
   }, []);
-  
 
   useEffect(() => {
     if ((trendingAnime && page == 1) || trendingAnime?.currentPage == page) {
@@ -70,8 +71,9 @@ const FetchTrending = () => {
     <main>
       <div
         id="trending"
-        className="no-scrollbar overflow-y-scroll max-h-[600px]"
+        className="no-scrollbar max-h-[600px] overflow-y-scroll"
       >
+        <DisplayAnimeSkeleton show={trending.length == 0} />
         {trending?.map((trendingList, ind) => (
           <DisplayAnime key={ind} animeList={trendingList} />
         ))}

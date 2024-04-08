@@ -7,15 +7,17 @@ import { AppDispatch, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { setMovieAnime } from "@/redux/features/utilitySlice";
 import Background from "./Background";
+import AnimeCardSkeleton from "./skeleton/AnimeCardSkeleton";
+import DisplayAnimeSkeleton from "./skeleton/DisplayAnimeSkeleton";
 
 const FetchMovies = () => {
   const fetchMovies = async () => {
     try {
       const data = await fetch(
-        `/api/anilist/advanceSearch?type=MOVIE&page=${page}&perPage=${perPage}`
+        `/api/anilist/advanceSearch?type=MOVIE&page=${page}&perPage=${perPage}`,
       );
       const res = await data.json();
-      if(page % 2 == 0 || !hasMore){
+      if (page % 2 == 0 || !hasMore) {
         setLoading(false);
       }
       if (res.success) {
@@ -43,7 +45,7 @@ const FetchMovies = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const movieAnime = useAppSelector(
-    (state) => state.utilityReducer.value.movies
+    (state) => state.utilityReducer.value.movies,
   );
 
   useEffect(() => {
@@ -68,7 +70,8 @@ const FetchMovies = () => {
 
   return (
     <main>
-      <div id="movies" className="no-scrollbar overflow-y-scroll max-h-[600px]">
+      <div id="movies" className="no-scrollbar max-h-[600px] overflow-y-scroll">
+        <DisplayAnimeSkeleton show={movies.length == 0} />
         {movies?.map((movieList, ind) => (
           <DisplayAnime key={ind} title="" animeList={movieList} />
         ))}

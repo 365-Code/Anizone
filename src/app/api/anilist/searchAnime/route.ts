@@ -9,6 +9,7 @@ export async function GET(req: NextRequest){
         const anime = new META.Anilist();
         const {results} = await anime.search(aName )
         const animeData = results[0]
+        
         return NextResponse.json({animeData, success: true}, {status: 200})
     } catch (error: any) {
         return NextResponse.json({error: error.message},{status: 500, statusText: "Internal Server Error in SearchAnime"})
