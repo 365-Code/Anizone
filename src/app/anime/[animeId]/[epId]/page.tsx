@@ -5,7 +5,7 @@ import React from "react";
 const Page = () => {
   return (
     <main>
-      <FetchEpisodes />
+      {/* <FetchEpisodes /> */}
       <Watch />
     </main>
   );

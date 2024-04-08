@@ -16,7 +16,7 @@ const PlayNowCard = ({
         <Image
           width={600}
           height={600}
-          src={animeInfo?.image || ""}
+          src={animeInfo.image || ""}
           alt={toAnimeId(animeTitle) || ""}
           className="w-full h-full object-cover object-center absolute top-0 left-0 opacity-35 sm:opacity-10 sm:blur-sm -z-10"
         />
@@ -50,7 +50,7 @@ const PlayNowCard = ({
             </span>
           </p>
           <ul className="flex items-center gap-2 text-xs font-medium flex-wrap">
-            {animeInfo?.genres?.map((g, i) => (
+            {animeInfo.genres?.map((g, i) => (
               <li key={i} className="bg-white/20 py-1 px-4 rounded-full">
                 {g}
               </li>
@@ -62,8 +62,8 @@ const PlayNowCard = ({
         <Image
           width={600}
           height={600}
-          src={animeInfo?.image || ""}
-          alt=""
+          src={animeInfo.image || ""}
+          alt={toAnimeId(animeTitle) || ""}
           className="w-full h-full object-cover object-center"
         />
       </div>

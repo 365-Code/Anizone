@@ -7,7 +7,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import Loader2 from "./Loader2";
 const Filter = () => {
-
   const genreList = [
     "Action",
     "Adventure",
@@ -30,7 +29,7 @@ const Filter = () => {
   ];
 
   const [selectedGenres, setSelectedGenres] = useState<boolean[]>(
-    genreList.map(() => false)
+    genreList.map(() => false),
   );
 
   const seasons = ["All", "WINTER", "SPRING", "SUMMER", "FALL"];
@@ -69,24 +68,23 @@ const Filter = () => {
     nav.push("/search/results?" + route);
   };
 
-  const dispatch = useDispatch<AppDispatch>()
-  const [rLoading, setRLoading] = useState(false)
+  const dispatch = useDispatch<AppDispatch>();
+  const [rLoading, setRLoading] = useState(false);
   const handleRandom = async () => {
-    setRLoading(true)
+    setRLoading(true);
     try {
-      const data = await fetch("/api/anilist/fetchRandomAnime")
-      const res = await data.json()
-      if(res.success){
-        setRLoading(false)
-        dispatch(setCurrentAnime(res.result))
-        const animeId = toAnimeId(res.result.title) + '-' + res.result.id
-        nav.push('/anime/'+animeId)
+      const data = await fetch("/api/anilist/fetchRandomAnime");
+      const res = await data.json();
+      if (res.success) {
+        setRLoading(false);
+        dispatch(setCurrentAnime(res.result));
+        const animeId = toAnimeId(res.result.title) + "-" + res.result.id;
+        nav.push("/anime/" + animeId);
       }
     } catch (error) {
       console.log(error);
     }
-
-  }
+  };
 
   const handleGenre = (genre: string, ind: number) => {
     const index = filter.genres.findIndex((g) => g == genre);
@@ -106,37 +104,45 @@ const Filter = () => {
   };
 
   return (
-    <section className="my-container bg-[#1c073f] py-8 pb-16 flex flex-col gap-8 text-white">
+    <section className="my-container flex flex-col gap-8 bg-[#1c073f] py-8 pb-16 text-white">
       <h2 className="text-4xl">Filter</h2>
       <div className="flex flex-col gap-4">
-        <h3 className="text-cyan-400 font-medium text-xl">Genre</h3>
-        <ul id="genre" className="md:grid flex-wrap flex md:grid-cols-5 gap-4">
-          {genreList?.map((g, i) => (
-            <li key={g}>
-              <button
-                onClick={() => handleGenre(g, i)}
-                className={`${
-                  selectedGenres[i] ? "border-b" : "border-b border-transparent"
-                } transition-all`}
-              >
-                {g}
-              </button>
-            </li>
-          ))}
-        </ul>
-        <div className="md:grid md:grid-cols-5 flex flex-wrap gap-4">
-          <div className="flex items-center gap-2 font-semibold">
-            <p className="gradient-bg px-2 py-1 rounded-lg w-fit">Type</p>
-            <div className="relative flex-1 group/filterTypes">
-              <p className="w-full justify-center flex items-center">
+        <div className="flex flex-col gap-4">
+          <h3 className="text-xl font-medium text-cyan-400">Genre</h3>
+          <ul
+            id="genre"
+            className="flex flex-wrap gap-4 md:grid md:grid-cols-5"
+          >
+            {genreList?.map((g, i) => (
+              <li key={g}>
+                <button
+                  onClick={() => handleGenre(g, i)}
+                  className={`${
+                    selectedGenres[i]
+                      ? "border-b"
+                      : "border-b border-transparent"
+                  } transition-all`}
+                >
+                  {g}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="flex flex-wrap gap-4 md:grid md:grid-cols-5">
+          <div className="flex w-full items-center gap-2 font-semibold sm:w-auto">
+            <p className="gradient-bg w-fit rounded-lg px-2 py-1">Type</p>
+            <div className="group/filterTypes relative flex-1">
+              <p className="flex w-full items-center justify-center">
                 <span className="flex-1 text-center">{filter.type}</span>
                 <i className="fi fi-sr-angle-small-down" />
               </p>
-              <div className="focus:h-0 group-hover/filterTypes:h-[70px] overflow-y-scroll custom-scrollbar overflow-hidden transition-all h-0 absolute text-sm flex flex-col right-0 bg-[#2c073f] w-full">
+              <div className="min-w-fit custom-scrollbar absolute right-0 flex h-0 w-full flex-col overflow-hidden overflow-y-scroll bg-[#2c073f] text-sm transition-all focus:h-0 group-hover/filterTypes:z-10 group-hover/filterTypes:h-[70px]">
                 {types.map((type, i) => (
                   <button
                     onClick={() => setFilter((preVal) => ({ ...preVal, type }))}
-                    className="hover:bg-[#230149] px-4 py-1"
+                    className="px-4 py-1 hover:bg-[#230149]"
                     key={i}
                   >
                     {type}
@@ -145,20 +151,21 @@ const Filter = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2 font-semibold">
-            <p className="gradient-bg px-2 py-1 rounded-lg w-fit">Status</p>
-            <div className="relative flex-1 group/filterStatuses">
-              <p className="w-full justify-center flex items-center">
+          <div className="flex w-full items-center gap-2 font-semibold sm:w-auto">
+            <p className="gradient-bg w-fit rounded-lg px-2 py-1">Status</p>
+            <div className="group/filterStatuses relative flex-1">
+              <p className="flex items-center justify-center">
                 <span className="flex-1 text-center">{filter.status}</span>
                 <i className="fi fi-sr-angle-small-down" />
               </p>
-              <div className="focus:h-0 group-hover/filterStatuses:h-[70px] overflow-y-scroll custom-scrollbar overflow-hidden transition-all h-0 absolute text-sm flex flex-col right-0 bg-[#2c073f] w-full">
+              <div className="min-w-fit custom-scrollbar absolute right-0 flex h-0 w-full flex-col overflow-hidden overflow-y-scroll bg-[#2c073f] text-sm transition-all focus:h-0 group-hover/filterStatuses:z-10 group-hover/filterStatuses:h-[70px]">
+                {/* <div className="custom-scrollbar absolute left-0 w-fit sm:right-0 flex h-0 sm:w-full flex-col overflow-hidden overflow-y-scroll bg-[#2c073f] text-sm transition-all focus:h-0 group-hover/filterStatuses:h-[70px]"> */}
                 {stauses.map((status, i) => (
                   <button
                     onClick={() =>
                       setFilter((preVal) => ({ ...preVal, status }))
                     }
-                    className="hover:bg-[#230149] px-4 py-1"
+                    className="px-4 py-1 hover:bg-[#230149]"
                     key={i}
                   >
                     {status}
@@ -167,20 +174,20 @@ const Filter = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2 font-semibold">
-            <p className="gradient-bg px-2 py-1 rounded-lg w-fit">Season</p>
-            <div className="relative flex-1 group/filterSeasons">
-              <p className="w-full justify-center flex items-center">
+          <div className="w-full sm:w-auto flex items-center gap-2 font-semibold">
+            <p className="gradient-bg w-fit rounded-lg px-2 py-1">Season</p>
+            <div className="group/filterSeasons relative flex-1">
+              <p className="flex w-full items-center justify-center">
                 <span className="flex-1 text-center">{filter.season}</span>
                 <i className="fi fi-sr-angle-small-down" />
               </p>
-              <div className="focus:h-0 group-hover/filterSeasons:h-[70px] overflow-y-scroll custom-scrollbar overflow-hidden transition-all h-0 absolute text-sm flex flex-col right-0 bg-[#2c073f] w-full">
+              <div className="min-w-fit custom-scrollbar absolute right-0 flex h-0 w-full flex-col overflow-hidden overflow-y-scroll bg-[#2c073f] text-sm transition-all focus:h-0 group-hover/filterSeasons:z-10 group-hover/filterSeasons:h-[70px]">
                 {seasons.map((season, i) => (
                   <button
                     onClick={() =>
                       setFilter((preVal) => ({ ...preVal, season }))
                     }
-                    className="hover:bg-[#230149] px-4 py-1"
+                    className="px-4 py-1 hover:bg-[#230149]"
                     key={i}
                   >
                     {season}
@@ -189,17 +196,22 @@ const Filter = () => {
               </div>
             </div>
           </div>
-          <button onClick={handleFilter} className="btn-sm btn-primary-sm w-fit">
+          <button
+            onClick={handleFilter}
+            className="btn-sm btn-primary-sm w-fit"
+          >
             Filter Here
           </button>
-          <button onClick={handleRandom} className="flex items-center gap-2 btn-sm btn-secondary-sm w-fit">
+          <button
+            onClick={handleRandom}
+            className="btn-sm btn-secondary-sm flex w-fit items-center gap-2"
+          >
             <span>Get Random</span>
-            {
-              rLoading ?
+            {rLoading ? (
               <i className="fi fi-sr-spinner animate-spin" />
-              :
+            ) : (
               <i className="fi fi-sr-shuffle" />
-            }
+            )}
           </button>
         </div>
       </div>

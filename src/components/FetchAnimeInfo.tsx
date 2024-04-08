@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import Loader from "./Loader";
+import Watch from "./Watch";
+import FetchAnimeInfoSkeleton from "./skeleton/FetchAnimeInfoSkeleton";
 
 const FetchAnimeInfo = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -55,36 +57,51 @@ const FetchAnimeInfo = () => {
       animeId && fetchAnime(animeId);
     }
   }, [currentAnime, animeId]);
+
+  const [playing, setPlaying] = useState(false)
   
 
   return (
     // <!-- Play Now -->
-    <section className="my-container relative flex flex-col gap-8 py-4 text-white sm:py-8">
+    <section className={`${!loading ? "my-container" : "" } relative flex flex-col gap-8 py-4 text-white sm:py-8`}>
       {loading && (
-        <div className="fixed left-0 top-0 z-10 flex h-screen w-screen flex-col items-center justify-center bg-black/40 bg-opacity-25">
-          <Loader />
-          <h3 className="py-2 text-2xl font-bold text-[#09f]">
-            Please Wait for a few...
-          </h3>
-        </div>
+        // <div className="fixed left-0 top-0 z-10 flex h-screen w-screen flex-col items-center justify-center bg-black/40 bg-opacity-25">
+        //   <Loader />
+        //   <h3 className="py-2 text-2xl font-bold text-[#09f]">
+        //     Please Wait for a few...
+        //   </h3>
+        // </div>
+        <FetchAnimeInfoSkeleton />
       )}
       {animeInfo && (
         <>
           {/* <h2 className="invisible text-5xl">Play Now</h2> */}
           <div className="flex flex-col justify-between gap-4 md:flex-row">
-            <PlayNowCard animeInfo={animeInfo} animeTitle={animeTitle || {}} />
+
+            {
+              playing?
+              <Watch />
+              :
+              <PlayNowCard animeInfo={animeInfo} animeTitle={animeTitle || {}} />
+            }
+
             <div className=" flex flex-1 flex-col items-center justify-between gap-4 py-8 sm:flex-row md:flex-col">
               <div className="flex justify-center gap-2 sm:flex-row sm:gap-4 md:flex-col">
                 {
                   Number(currentAnime?.totalEpisodes) > 0 ? 
-                  <Link
-                  className="btn btn-primary"
-                  href={
-                    "/anime/" + (params["animeId"] as string) + "/episode-1"
+                //   <Link
+                //   className="btn btn-primary"
+                //   href={
+                //     "/anime/" + (params["animeId"] as string) + "/episode-1"
+                //   }
+                //   >
+                //   Watch Now
+                // </Link>
+                <button className="btn btn-primary" onClick={()=>setPlaying(true)}>
+                  {
+                    playing ? "Playing..." : "Watch Now"
                   }
-                  >
-                  Watch Now
-                </Link>
+                </button>
                 :
                 <button className="btn btn-primary">
                   Not Yet Aired

@@ -37,7 +37,7 @@ body {
 }
 
 .fixed-nav-space {
-  @apply h-[106px] ;
+  @apply h-[106px];
 }
 
 body::-webkit-scrollbar {
@@ -105,7 +105,7 @@ section {
 }
 
 .anime-card-detail {
-  @apply relative text-left flex flex-col justify-between px-2 pb-6 pt-10 text-white sm:flex-1 pl-4 sm:pl-6;
+  @apply relative flex flex-col justify-between px-2 pb-6 pl-4 pt-10 text-left text-white sm:flex-1 sm:pl-6;
 }
 
 .anime-card-detail h3 {
@@ -150,10 +150,15 @@ section {
 }
 
 .st-anime-card-detail {
-  @apply absolute text-left bottom-0 left-0 w-full rounded-none bg-opacity-70 sm:bg-opacity-100 px-4 py-2 text-[0.7rem] text-white sm:static sm:max-w-[240px] sm:rounded-r-xl bg-[#230149];
+  @apply absolute bottom-0 left-0 w-full rounded-none bg-[#230149] bg-opacity-70 px-4 py-2 text-left text-[0.7rem] text-white sm:static sm:max-w-[240px] sm:rounded-r-xl sm:bg-opacity-100;
   height: 70px;
   line-height: 15px; /* Height / no. of lines to display */
   overflow: hidden;
+}
+
+.video-card {
+  @apply bg-shadow relative flex max-h-[380px] max-w-[720px] flex-col items-center justify-center rounded-br-3xl bg-black/40 backdrop-blur-sm sm:rounded-none
+  md:min-w-[720px];
 }
 
 .bg-shadow {
@@ -183,15 +188,15 @@ section {
 }
 
 .btn {
-  @apply rounded-xl p-4 text-center transition-all sm:min-w-fit sm:p-6 sm:w-[200px];
+  @apply rounded-xl p-4 text-center transition-all sm:w-[200px] sm:min-w-fit sm:p-6;
 }
 
 .btn-primary {
-  @apply bg-[#6200cf] hover:bg-[#6200cf]/90 ;
+  @apply bg-[#6200cf] hover:bg-[#6200cf]/90;
 }
 
 .btn-secondary {
-  @apply  bg-[#ffffff] text-black hover:bg-[#ffffff]/90;
+  @apply bg-[#ffffff] text-black hover:bg-[#ffffff]/90;
 }
 
 .btn-sm {
@@ -203,7 +208,7 @@ section {
 }
 
 .btn-secondary-sm {
-  @apply bg-[#ffffff] text-black hover:bg-[#fff]/80 ;
+  @apply bg-[#ffffff] text-black hover:bg-[#fff]/80;
 }
 
 .gbg::before {
@@ -220,7 +225,6 @@ section {
   @apply gradient-bg h-full w-full basis-1/2 py-10;
 }
 
-
 input[type="search"]::-webkit-search-cancel-button {
   display: none;
 }
@@ -233,7 +237,8 @@ input[type="search"]::-webkit-search-cancel-button {
 @keyframes bounceH {
   0% {
     @apply translate-x-0;
-  } 100%{
+  }
+  100% {
     @apply -translate-x-2;
   }
 }

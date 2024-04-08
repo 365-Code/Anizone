@@ -74,7 +74,7 @@ const useHls = (src: string, options: Options | null) => {
       });
       hasQuality.current = true;
     });
-  });
+  }, [src]);
 
   return { options: plyrOptions };
 };
@@ -94,9 +94,9 @@ const CustomPlyrInstance = React.forwardRef<
 const Player = ({ source }: { source: string }) => {
   const ref = React.useRef<APITypes>(null);
   const supported = Hls.isSupported();
-
+  
   return (
-    <div className="wrapper">
+    <div className="wrapper w-full h-full">
       {supported ? (
         <CustomPlyrInstance
           ref={ref}

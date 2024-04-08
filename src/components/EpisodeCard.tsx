@@ -11,6 +11,7 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
   const animeTitle = anime.title as ITitle;
   const animeId = toAnimeId(animeTitle);
   const dispatch = useDispatch<AppDispatch>();
+
   return (
     <Link
       onClick={() =>
@@ -18,13 +19,14 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
           setCurrentAnime({ ...anime, totalEpisodes: anime.episodeNumber }),
         )
       }
-      href={
+      href={  
         "/anime/" +
         animeId +
         "-" +
-        anime.id +
-        "/" +
-        anime.episodeTitle.toLowerCase().replaceAll(" ", "-") 
+        anime.id 
+        // +
+        // "/" +
+        // anime.episodeTitle.toLowerCase().replaceAll(" ", "-") 
         // + "?total=" +
         // anime.episodeNumber
       }

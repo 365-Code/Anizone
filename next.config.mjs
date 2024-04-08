@@ -8,6 +8,9 @@ const nextConfig = {
             {
                 hostname: 'gogocdn.net'
             },
+            {
+                hostname: 'media.kitsu.io'
+            },
         ]
     }
 };  
