@@ -63,7 +63,7 @@ const FetchEpisodes = ({ep, setEp}: {ep: number, setEp: Dispatch<SetStateAction<
     {/* <section> */}
       {currentAnime?.type != "MOVIE" && (
       <div className='flex items-center gap-2 text-white'>
-        <button onClick={() => handleEpisode(-1)} className='hover:text-slate-400 transition-all flex items-center gap-2'>
+        <button onClick={() => handleEpisode(-1)} className='hover:text-green-500 transition-all flex items-center gap-2'>
           <i className="text-2xl fi fi-sr-caret-square-left_1" />
           <span className="hidden sm:block">Prev</span>
         </button>
@@ -86,7 +86,7 @@ const FetchEpisodes = ({ep, setEp}: {ep: number, setEp: Dispatch<SetStateAction<
                 ))}
               </div>
             </div>
-        <button onClick={() => handleEpisode(1)} className='hover:text-slate-400 transition-all flex items-center gap-2'>
+        <button onClick={() => handleEpisode(1)} className='hover:text-green-500 transition-all flex items-center gap-2'>
           <span className="hidden sm:block">Next</span>
         <i className="text-2xl fi fi-sr-caret-square-right" />
         </button>
