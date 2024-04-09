@@ -21,7 +21,7 @@ const PlayNowCard = ({
           className="w-full h-full object-cover object-center absolute top-0 left-0 opacity-35 sm:opacity-10 sm:blur-sm -z-10"
         />
       <div className="play-now-card-detail">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 max-h-full overflow-hidden">
           <p className="flex items-center text-xs gap-2">
             { (animeInfo.season || animeInfo.type == "TV") && (
                 <>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useState } from "react";
 
@@ -10,12 +11,11 @@ const NavSearch = () => {
 
   const handleSearch = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSearch("")
+    setSearch("");
     nav.push("/search/results?query=" + search);
-    // nav.push("/test?query=" + search);
     localStorage.setItem(
       "recentSearches",
-      JSON.stringify([search, ...recentSearches])
+      JSON.stringify([search, ...recentSearches]),
     );
     setRecentSearches((preVal) => [search, ...preVal]);
   };
@@ -28,22 +28,26 @@ const NavSearch = () => {
       setRecentSearches(JSON.parse(data));
     }
   }, []);
-  
+
   return (
     <form
       onSubmit={handleSearch}
-      className="ml-auto flex-1 flex justify-end justify-self-end items-center group/navSearch transition-all delay-200"
+      className="group/navSearch ml-auto flex flex-1 items-center justify-end justify-self-end transition-all delay-200"
     >
       <input
         onChange={handleChange}
         value={search}
         type="search"
+        id="navSearchInput"
+        name="navSearchInput"
         placeholder="Search Anime..."
         // className="bg-transparent focus-within:w-full group-hover/navSearch:w-full delay-200 border-b border-b-white w-0 transition-all outline-none"
-        className="bg-transparent focus-within:w-full group-hover/navSearch:w-full sm:w-full delay-200 border-b border-b-white w-0 transition-all outline-none"
+        className="w-0 border-b border-b-white bg-transparent outline-none transition-all delay-200 focus-within:w-full group-hover/navSearch:w-full sm:w-full"
         // className="bg-transparent w-full delay-200 border-b border-b-white transition-all outline-none"
       />
-      <i className="fi fi-sr-search py-1 px-2" />
+      <Link href={"/search/results"} className="rounded-lg p-1 transition-all hover:bg-black/70">
+          <i className="fi fi-sr-search px-2 py-1" />
+      </Link>
     </form>
   );
 };

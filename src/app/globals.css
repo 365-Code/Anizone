@@ -130,9 +130,11 @@ section {
   @apply bg-shadow relative flex h-[380px] max-w-[720px] rounded-br-3xl bg-black/40 backdrop-blur-sm sm:rounded-none
   md:min-w-[720px];
 }
+
 .play-now-card-detail {
-  @apply relative flex flex-col justify-between pb-8 pl-8 pt-10 text-white sm:flex-1;
+  @apply relative flex flex-col justify-between pb-4 sm:pb-6 pl-4 sm:pl-8 pt-6 sm:pt-10 text-white sm:flex-1;
 }
+
 .play-now-card-img {
   @apply hidden sm:block sm:basis-[38%];
   /* -webkit-clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%); */

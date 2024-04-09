@@ -13,7 +13,6 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
   const animeTitle = anime.title as ITitle;
 
   const nav = useRouter();
-
   const searchAnimeInfo = async () => {
     try {
       const animeId = (
@@ -27,7 +26,7 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
       const data = await fetch(`/api/gogo/searchAnime?anime=${animeId}`);
       const res = await data.json();
 
-      dispatch(setCurrentAnime(anime));
+      // dispatch(setCurrentAnime(anime));
       if (res.success && res.result) {
         const animeId = res.result.id;
         nav.push("/anime/" + animeId + "-" + anime.id);

@@ -51,12 +51,12 @@ const FetchAnimeInfo = () => {
 
   useEffect(() => {
     setLoading(true);
-    if (currentAnime) {
-      setResources(currentAnime);
-    } else {
+    // if (currentAnime) {
+      // setResources(currentAnime);
+    // } else {
       animeId && fetchAnime(animeId);
-    }
-  }, [currentAnime, animeId]);
+    // }
+  }, [animeId]);
 
   const [playing, setPlaying] = useState(false)
   
