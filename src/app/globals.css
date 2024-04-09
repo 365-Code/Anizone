@@ -159,7 +159,7 @@ section {
 }
 
 .video-card {
-  @apply bg-shadow relative flex max-h-[380px] max-w-[720px] flex-col items-center justify-center rounded-br-3xl bg-black/40 backdrop-blur-sm sm:rounded-none
+  @apply bg-shadow relative flex h-auto max-w-[720px] flex-col items-center justify-center rounded-br-3xl bg-black/40 backdrop-blur-sm sm:rounded-none
   md:min-w-[720px];
 }
 

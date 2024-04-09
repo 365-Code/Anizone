@@ -55,7 +55,7 @@ const FetchEpisodes = ({ep, setEp}: {ep: number, setEp: Dispatch<SetStateAction<
 
   return (
     // <section className="bg-[#17024d] py-4 flex items-center justify-between">
-    <section className="py-2 sm:py-4 flex items-center justify-between">
+    <section className="bg-black/30 p-2 flex items-center justify-between">
       {/* <div>
       <Link href={'/anime/' + aId} className="text-3xl text-white py-8">{animeTitle}</Link>
       </div>
@@ -63,22 +63,22 @@ const FetchEpisodes = ({ep, setEp}: {ep: number, setEp: Dispatch<SetStateAction<
     {/* <section> */}
       {currentAnime?.type != "MOVIE" && (
       <div className='flex items-center gap-2 text-white'>
-        <button onClick={() => handleEpisode(-1)} className='hover:text-white/40 md:hover:text-green-500 transition-all flex items-center gap-2'>
+        <button onClick={() => handleEpisode(-1)} className='hover:text-slate-400 transition-all flex items-center gap-2'>
           <i className="text-2xl fi fi-sr-caret-square-left_1" />
           <span className="hidden sm:block">Prev</span>
         </button>
         <div className=" group/episodes relative">
-              <p className=" bg-black/40 rounded-xl gap-2 py-2 px-4 flex w-fit items-center justify-center">
-                <span className="text-center text-sm">Episode - {ep}</span>
+              <p className=" bg-black/40 rounded-t-xl gap-2 py-2 px-4 flex w-fit items-center justify-center">
+                <span className="text-center text-sm"><span className="hidden sm:inline-block">Episode</span><span className="sm:hidden">Ep</span> - {ep}</span>
                 <i className="fi fi-sr-angle-small-down" />
               </p>
-              <div className="custom-scrollbar w-full absolute right-0 flex h-0 flex-col overflow-hidden overflow-y-scroll bg-[#2c073f] text-sm transition-all focus:h-0 group-hover/episodes:z-10 group-hover/episodes:h-fit max-h-[100px]">
+              <div className="no-scrollbar w-full absolute right-0 flex flex-col overflow-hidden overflow-y-scroll bg-black/40 text-sm transition-all focus:h-0 group-hover/episodes:z-10 group-hover/episodes:h-auto h-0 max-h-[95px]">
                 {[...Array(Number(episodes))].map((episode, i) => (
                   <button
                   onClick={() =>
                     setEp(i+1)
                   }
-                    className={`px-4 py-2 hover:bg-[#230149] ${ep == i+1 ? "bg-[#230149]" : ""}`}
+                    className={`transition-all px-4 py-2 hover:bg-black/80 ${ep == i+1 ? "bg-black/80" : ""}`}
                     key={i+1}
                   >
                     Ep - {i+1}
@@ -86,7 +86,7 @@ const FetchEpisodes = ({ep, setEp}: {ep: number, setEp: Dispatch<SetStateAction<
                 ))}
               </div>
             </div>
-        <button onClick={() => handleEpisode(1)} className='hover:text-white/40 md:hover:text-green-500 transition-all flex items-center gap-2'>
+        <button onClick={() => handleEpisode(1)} className='hover:text-slate-400 transition-all flex items-center gap-2'>
           <span className="hidden sm:block">Next</span>
         <i className="text-2xl fi fi-sr-caret-square-right" />
         </button>

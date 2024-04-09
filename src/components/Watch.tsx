@@ -7,6 +7,7 @@ import Loader from "./Loader";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import FetchEpisodes from "./FetchEpisodes";
+import Loader2 from "./Loader2";
 
 const Watch = () => {
   const fetchEpisode = async () => {
@@ -15,6 +16,7 @@ const Watch = () => {
         `/api/gogo/fetchEpSource?epId=${animeId + "-" + epId}`,
       );
       const res = await data.json();
+      setEpLoading(false);
       if (res.success) {
         setEpSources(res.sources);
         const epHeader = res.headers;
@@ -52,13 +54,17 @@ const Watch = () => {
 
   const [ep, setEp] = useState<number>(1);
   const [epId, setEpId] = useState<string>("episode-1");
+  const [epLoading, setEpLoading] = useState(true);
 
   useEffect(() => {
     setEpId("episode-" + ep);
   }, [ep]);
 
   useEffect(() => {
-    epId && animeId && fetchEpisode();
+    if (epId && animeId) {
+      setEpLoading(true);
+      fetchEpisode();
+    }
   }, [epId, animeId]);
 
   useEffect(() => {
@@ -70,9 +76,14 @@ const Watch = () => {
   return (
     // <section className="my-container relative bg-[#17024d] py-8">
     <section className="video-card relative">
-      <div className="absolute right-2 top-0 z-10 sm:right-4 sm:top-2">
+      <div className="absolute right-0 top-0 z-10 ">
         <FetchEpisodes ep={ep} setEp={setEp} />
       </div>
+      {epLoading && (
+        <div className="absolute left-0 top-0 z-10 flex h-full max-h-[480px] w-full flex-col items-center justify-center bg-black/70">
+          <Loader2 />
+        </div>
+      )}
       <Player
         source={String(epSources.find((s) => s.quality == "default")?.url)}
       />
