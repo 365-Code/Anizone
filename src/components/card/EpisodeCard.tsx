@@ -19,17 +19,7 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
           setCurrentAnime({ ...anime, totalEpisodes: anime.episodeNumber }),
         )
       }
-      href={  
-        "/anime/" +
-        animeId +
-        "-" +
-        anime.id 
-        // +
-        // "/" +
-        // anime.episodeTitle.toLowerCase().replaceAll(" ", "-") 
-        // + "?total=" +
-        // anime.episodeNumber
-      }
+      href={"/anime/" + animeId + "-" + anime.id}
     >
       <div className="group/epCard st-anime-card relative transition-all">
         <div className="st-anime-card-image">
@@ -63,18 +53,3 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
 };
 
 export default EpisodeCard;
-
-// <Link
-//               onClick={() => dispatch(setCurrentAnime(anime))}
-//               href={"/anime/" + animeId + "-" + anime.id}
-//             >
-//               <h3 id="anime-card-title" className="hyphens-auto text-3xl font-semibold">
-//                 {
-//                   (animeTitle.english ||
-//                     animeTitle.romaji ||
-//                     animeTitle.userPreferred ||
-//                     animeTitle.native ||
-//                     anime.title) as string
-//                 }
-//               </h3>
-//             </Link>

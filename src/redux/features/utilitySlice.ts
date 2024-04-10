@@ -5,7 +5,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 type utilites = {
   currentAnime: IAnimeInfo;
   recentSearches: string[];
-  recentEpisodes: IEpisodeCard[]
+  recentEpisodes: IEpisodeCard[];
   homeAnime: ISearch<IAnimeResult>;
   movies: ISearchResults;
   series: ISearchResults;
@@ -13,7 +13,6 @@ type utilites = {
   popular: ISearchResults;
   searchAnime: ISearch<IAnimeResult>;
   episodeAnime: IAnimeInfo;
-  // searchAnime: ISearchResults;
 };
 
 const initialState = {
@@ -40,10 +39,10 @@ const utilitySlice = createSlice({
       ];
     },
     setRecentEpisodes: (state, action: PayloadAction<IEpisodeCard[]>) => {
-      state.value.recentEpisodes = action.payload
+      state.value.recentEpisodes = action.payload;
     },
     setHomeAnime: (state, action: PayloadAction<ISearch<IAnimeResult>>) => {
-      state.value.homeAnime = action.payload
+      state.value.homeAnime = action.payload;
     },
     setMovieAnime: (state, action: PayloadAction<ISearchResults>) => {
       state.value.movies = action.payload;
@@ -58,10 +57,10 @@ const utilitySlice = createSlice({
       state.value.popular = action.payload;
     },
     setSearchAnime: (state, action: PayloadAction<ISearch<IAnimeResult>>) => {
-      state.value.searchAnime = action.payload
+      state.value.searchAnime = action.payload;
     },
     setEpisodeAnime: (state, action: PayloadAction<IAnimeInfo>) => {
-      state.value.episodeAnime = action.payload
+      state.value.episodeAnime = action.payload;
     },
   },
 });
@@ -79,5 +78,5 @@ export const {
   setTrendingAnime,
   setPopularAnime,
   setSearchAnime,
-  setEpisodeAnime
+  setEpisodeAnime,
 } = utilitySlice.actions;

@@ -1,23 +1,25 @@
 "use client";
-import { IAnimeInfo, ITitle } from "@consumet/extensions";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "next/navigation";
-import { removeChars, toAnimeId } from "@/utils";
-import { useDispatch } from "react-redux";
-import { AppDispatch, useAppSelector } from "@/redux/store";
-import { setCurrentAnime } from "@/redux/features/utilitySlice";
-import Loader from "../Loader";
-import PlayNowCard from "../PlayNowCard";
-import PlayNowCardSkeleton from "../skeleton/PlayNowCardSkeleton";
-import FetchAnimeInfoSkeleton from "../skeleton/FetchAnimeInfoSkeleton";
+import Image from "next/image";
 import AnimeCardSkeleton from "../skeleton/AnimeCardSkeleton";
+import Link from "next/link";
 
 const Test = () => {
   return (
-    // <!-- Play Now -->
-    <AnimeCardSkeleton/>
+    <div>
+      TEST
+    </div>
   );
 };
 
 export default Test;
+
+{
+  /* <main className="flex flex-col gap-4 text-white items-center justify-center">
+        <Image width={500} height={500} src={'/404bg.png'} alt="404" className="-z-10 absolute top-0 left-0 opacity-10 w-full h-full object-contain object-center" />
+      <div className="w-[180px]">
+        <Image width={500} height={500} src={'/404.png'} alt="404" className="w-full h-full object-contain object-center" />
+      </div>
+      <h1>HMM... THIS PAGE DOES NOT EXIST, NO WORRIES!</h1>
+      <Link href={'/home'} className="w-fit p-4 bg-black rounded-full">GO BACK HOME</Link>
+    </main> */
+}

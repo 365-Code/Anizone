@@ -9,13 +9,7 @@ const Header = () => {
   const pathname = usePathname();
   const nav = useRouter();
 
-  const navLinks = [
-    // "home",
-    "movies",
-    "series",
-    "trending",
-    "top rated",
-  ];
+  const navLinks = ["movies", "series", "trending", "top rated"];
 
   const [showNav, setShowNav] = useState(false);
   let imgSrc = "/anizone.png";

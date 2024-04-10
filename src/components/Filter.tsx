@@ -138,7 +138,7 @@ const Filter = () => {
                 <span className="flex-1 text-center">{filter.type}</span>
                 <i className="fi fi-sr-angle-small-down" />
               </p>
-              <div className="min-w-fit custom-scrollbar absolute right-0 flex h-0 w-full flex-col overflow-hidden overflow-y-scroll bg-[#2c073f] text-sm transition-all focus:h-0 group-hover/filterTypes:z-10 group-hover/filterTypes:h-[70px]">
+              <div className="custom-scrollbar absolute right-0 flex h-0 w-full min-w-fit flex-col overflow-hidden overflow-y-scroll bg-[#2c073f] text-sm transition-all focus:h-0 group-hover/filterTypes:z-10 group-hover/filterTypes:h-[70px]">
                 {types.map((type, i) => (
                   <button
                     onClick={() => setFilter((preVal) => ({ ...preVal, type }))}
@@ -158,8 +158,7 @@ const Filter = () => {
                 <span className="flex-1 text-center">{filter.status}</span>
                 <i className="fi fi-sr-angle-small-down" />
               </p>
-              <div className="min-w-fit custom-scrollbar absolute right-0 flex h-0 w-full flex-col overflow-hidden overflow-y-scroll bg-[#2c073f] text-sm transition-all focus:h-0 group-hover/filterStatuses:z-10 group-hover/filterStatuses:h-[70px]">
-                {/* <div className="custom-scrollbar absolute left-0 w-fit sm:right-0 flex h-0 sm:w-full flex-col overflow-hidden overflow-y-scroll bg-[#2c073f] text-sm transition-all focus:h-0 group-hover/filterStatuses:h-[70px]"> */}
+              <div className="custom-scrollbar absolute right-0 flex h-0 w-full min-w-fit flex-col overflow-hidden overflow-y-scroll bg-[#2c073f] text-sm transition-all focus:h-0 group-hover/filterStatuses:z-10 group-hover/filterStatuses:h-[70px]">
                 {stauses.map((status, i) => (
                   <button
                     onClick={() =>
@@ -174,14 +173,14 @@ const Filter = () => {
               </div>
             </div>
           </div>
-          <div className="w-full sm:w-auto flex items-center gap-2 font-semibold">
+          <div className="flex w-full items-center gap-2 font-semibold sm:w-auto">
             <p className="gradient-bg w-fit rounded-lg px-2 py-1">Season</p>
             <div className="group/filterSeasons relative flex-1">
               <p className="flex w-full items-center justify-center">
                 <span className="flex-1 text-center">{filter.season}</span>
                 <i className="fi fi-sr-angle-small-down" />
               </p>
-              <div className="min-w-fit custom-scrollbar absolute right-0 flex h-0 w-full flex-col overflow-hidden overflow-y-scroll bg-[#2c073f] text-sm transition-all focus:h-0 group-hover/filterSeasons:z-10 group-hover/filterSeasons:h-[70px]">
+              <div className="custom-scrollbar absolute right-0 flex h-0 w-full min-w-fit flex-col overflow-hidden overflow-y-scroll bg-[#2c073f] text-sm transition-all focus:h-0 group-hover/filterSeasons:z-10 group-hover/filterSeasons:h-[70px]">
                 {seasons.map((season, i) => (
                   <button
                     onClick={() =>

@@ -1,4 +1,4 @@
-import FetchSeries from '@/components/FetchSeries'
+import FetchSeries from '@/components/fetch/FetchSeries'
 import { Metadata } from 'next';
 import React from 'react'
 

@@ -2,17 +2,19 @@
 import InfiniteScroll from "@/components/InfiniteScroll";
 import { IAnimeResult } from "@consumet/extensions";
 import React, { useEffect, useState } from "react";
-import DisplayAnime from "./DisplayAnime";
-import { useDispatch } from "react-redux";
+import DisplayAnime from "../DisplayAnime";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import { setPopularAnime } from "@/redux/features/utilitySlice";
-import DisplayAnimeSkeleton from "./skeleton/DisplayAnimeSkeleton";
+import { useDispatch } from "react-redux";
+import { setMovieAnime } from "@/redux/features/utilitySlice";
+import Background from "../Background";
+import AnimeCardSkeleton from "../skeleton/AnimeCardSkeleton";
+import DisplayAnimeSkeleton from "../skeleton/DisplayAnimeSkeleton";
 
-const FetchTopRated = () => {
-  const fetchTopRated = async () => {
+const FetchMovies = () => {
+  const fetchMovies = async () => {
     try {
       const data = await fetch(
-        `/api/anilist/fetchPopularAnime?page=${page}&perPage=${perPage}`,
+        `/api/anilist/advanceSearch?type=MOVIE&page=${page}&perPage=${perPage}`,
       );
       const res = await data.json();
       if (page % 2 == 0 || !hasMore) {
@@ -23,45 +25,44 @@ const FetchTopRated = () => {
           setPage((preVal) => preVal + 1);
         }
         setHasMore(res.hasNextPage);
-        setTopRated((preVal) => [...preVal, res.results]);
+        setMovies((preVal) => [...preVal, res.results]);
         const data = {
           currentPage: res.currentPage,
           hasNextPage: res.hasNextPage,
-          results: [...topRated, res.results],
+          results: [...movies, res.results],
         };
-        dispatch(setPopularAnime(data));
+        dispatch(setMovieAnime(data));
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  const [topRated, setTopRated] = useState<Array<IAnimeResult[]>>([]);
+  const [movies, setMovies] = useState<Array<IAnimeResult[]>>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   const [page, setPage] = useState(1);
   const perPage = 20;
 
   const dispatch = useDispatch<AppDispatch>();
-  const topRatedAnime = useAppSelector(
-    (state) => state.utilityReducer.value.popular,
+  const movieAnime = useAppSelector(
+    (state) => state.utilityReducer.value.movies,
   );
 
   useEffect(() => {
-    if (topRatedAnime) {
-      setTopRated(topRatedAnime.results);
-      setPage(topRatedAnime.currentPage);
-      setHasMore(topRatedAnime.hasNextPage);
+    if (movieAnime) {
+      setMovies(movieAnime.results);
+      setPage(movieAnime.currentPage);
+      setHasMore(movieAnime.hasNextPage);
     }
   }, []);
 
   useEffect(() => {
-    if ((topRatedAnime && page == 1) || topRatedAnime?.currentPage == page) {
+    if ((movieAnime && page == 1) || movieAnime?.currentPage == page) {
       return;
     } else {
       setLoading(true);
       const debounce = setTimeout(() => {
-        fetchTopRated();
+        fetchMovies();
       }, 1000);
       return () => clearTimeout(debounce);
     }
@@ -69,17 +70,14 @@ const FetchTopRated = () => {
 
   return (
     <main>
-      <div
-        id="topRated"
-        className="no-scrollbar max-h-[600px] overflow-y-scroll"
-      >
-        <DisplayAnimeSkeleton show={topRated.length == 0} />
-        {topRated?.map((topRatedList, ind) => (
-          <DisplayAnime key={ind} animeList={topRatedList} />
+      <div id="movies" className="no-scrollbar max-h-[600px] overflow-y-scroll">
+        <DisplayAnimeSkeleton show={movies.length == 0} />
+        {movies?.map((movieList, ind) => (
+          <DisplayAnime key={ind} title="" animeList={movieList} />
         ))}
       </div>
       <InfiniteScroll
-        id="topRated"
+        id="movies"
         page={page}
         setPage={setPage}
         hasMore={hasMore}
@@ -90,4 +88,4 @@ const FetchTopRated = () => {
   );
 };
 
-export default FetchTopRated;
+export default FetchMovies;

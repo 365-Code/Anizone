@@ -1,6 +1,6 @@
 import { IAnimeResult, ITitle } from "@consumet/extensions";
 import React, { useEffect, useState } from "react";
-import EpisodeCard from "./EpisodeCard";
+import EpisodeCard from "../card/EpisodeCard";
 import { IEpisodeCard } from "@/utils";
 
 const FetchRandom = () => {

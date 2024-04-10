@@ -1,4 +1,4 @@
-import FetchTopRated from '@/components/FetchTopRated'
+import FetchTopRated from '@/components/fetch/FetchTopRated'
 import { Metadata } from 'next';
 import React from 'react'
 

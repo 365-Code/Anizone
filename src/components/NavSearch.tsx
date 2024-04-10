@@ -41,12 +41,13 @@ const NavSearch = () => {
         id="navSearchInput"
         name="navSearchInput"
         placeholder="Search Anime..."
-        // className="bg-transparent focus-within:w-full group-hover/navSearch:w-full delay-200 border-b border-b-white w-0 transition-all outline-none"
         className="w-0 border-b border-b-white bg-transparent outline-none transition-all delay-200 focus-within:w-full group-hover/navSearch:w-full sm:w-full"
-        // className="bg-transparent w-full delay-200 border-b border-b-white transition-all outline-none"
       />
-      <Link href={"/search/results"} className="rounded-lg p-1 transition-all hover:bg-black/70">
-          <i className="fi fi-sr-search px-2 py-1" />
+      <Link
+        href={"/search/results"}
+        className="rounded-lg p-1 transition-all hover:bg-black/70"
+      >
+        <i className="fi fi-sr-search px-2 py-1" />
       </Link>
     </form>
   );

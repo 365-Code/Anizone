@@ -2,11 +2,11 @@
 import InfiniteScroll from "@/components/InfiniteScroll";
 import { IAnimeResult } from "@consumet/extensions";
 import React, { useEffect, useState } from "react";
-import DisplayAnime from "./DisplayAnime";
+import DisplayAnime from "../DisplayAnime";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { setSeriesAnime } from "@/redux/features/utilitySlice";
-import DisplayAnimeSkeleton from "./skeleton/DisplayAnimeSkeleton";
+import DisplayAnimeSkeleton from "../skeleton/DisplayAnimeSkeleton";
 
 const FetchSeries = () => {
   const fetchSeries = async () => {

@@ -1,9 +1,9 @@
 "use client";
 import { IAnimeResult } from "@consumet/extensions";
 import React from "react";
-import StAnimeCard from "./StAnimeCard";
+import StAnimeCard from "./card/StAnimeCard";
 import Background from "./Background";
-import StAnimeCardSkeleton from "./StAnimeCardSkeleton";
+import StAnimeCardSkeleton from "./skeleton/StAnimeCardSkeleton";
 
 const ListAnime = ({
   title,

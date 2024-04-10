@@ -1,9 +1,6 @@
 import { IAnimeResult } from "@consumet/extensions";
 import React, { useRef } from "react";
-import FetchAnime from "./FetchAnime";
-import AnimeCard from "./AnimeCard";
-import { Smooch } from "next/font/google";
-import AnimeCardSkeleton from "./skeleton/AnimeCardSkeleton";
+import AnimeCard from "./card/AnimeCard";
 
 const DisplayAnime = ({
   animeList,
@@ -40,10 +37,7 @@ const DisplayAnime = ({
         ref={scrollRef}
         className="no-scrollbar relative flex w-full snap-x snap-mandatory items-center gap-6 overflow-x-scroll rounded-r-2xl"
       >
-        {animeList?.map((anime) => (
-          // <FetchAnime key={anime.id} animeId={anime.id} />
-          <AnimeCard key={anime.id} anime={anime} />
-        ))}
+        {animeList?.map((anime) => <AnimeCard key={anime.id} anime={anime} />)}
       </div>
 
       <button

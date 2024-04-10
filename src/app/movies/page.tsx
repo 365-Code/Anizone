@@ -1,4 +1,4 @@
-import FetchMovies from '@/components/FetchMovies'
+import FetchMovies from '@/components/fetch/FetchMovies'
 import { Metadata } from 'next';
 import React from 'react'
 

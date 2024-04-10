@@ -2,19 +2,17 @@
 import InfiniteScroll from "@/components/InfiniteScroll";
 import { IAnimeResult } from "@consumet/extensions";
 import React, { useEffect, useState } from "react";
-import DisplayAnime from "./DisplayAnime";
-import { AppDispatch, useAppSelector } from "@/redux/store";
+import DisplayAnime from "../DisplayAnime";
 import { useDispatch } from "react-redux";
-import { setMovieAnime } from "@/redux/features/utilitySlice";
-import Background from "./Background";
-import AnimeCardSkeleton from "./skeleton/AnimeCardSkeleton";
-import DisplayAnimeSkeleton from "./skeleton/DisplayAnimeSkeleton";
+import { AppDispatch, useAppSelector } from "@/redux/store";
+import { setTrendingAnime } from "@/redux/features/utilitySlice";
+import DisplayAnimeSkeleton from "../skeleton/DisplayAnimeSkeleton";
 
-const FetchMovies = () => {
-  const fetchMovies = async () => {
+const FetchTrending = () => {
+  const fetchTrending = async () => {
     try {
       const data = await fetch(
-        `/api/anilist/advanceSearch?type=MOVIE&page=${page}&perPage=${perPage}`,
+        `/api/anilist/fetchTrendingAnime?page=${page}&perPage=${perPage}`,
       );
       const res = await data.json();
       if (page % 2 == 0 || !hasMore) {
@@ -25,44 +23,45 @@ const FetchMovies = () => {
           setPage((preVal) => preVal + 1);
         }
         setHasMore(res.hasNextPage);
-        setMovies((preVal) => [...preVal, res.results]);
+        setTrending((preVal) => [...preVal, res.results]);
         const data = {
           currentPage: res.currentPage,
           hasNextPage: res.hasNextPage,
-          results: [...movies, res.results],
+          results: [...trending, res.results],
         };
-        dispatch(setMovieAnime(data));
+        dispatch(setTrendingAnime(data));
       }
     } catch (error) {
       console.log(error);
     }
   };
-  const [movies, setMovies] = useState<Array<IAnimeResult[]>>([]);
+
+  const [trending, setTrending] = useState<Array<IAnimeResult[]>>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   const [page, setPage] = useState(1);
   const perPage = 20;
 
   const dispatch = useDispatch<AppDispatch>();
-  const movieAnime = useAppSelector(
-    (state) => state.utilityReducer.value.movies,
+  const trendingAnime = useAppSelector(
+    (state) => state.utilityReducer.value.trending,
   );
 
   useEffect(() => {
-    if (movieAnime) {
-      setMovies(movieAnime.results);
-      setPage(movieAnime.currentPage);
-      setHasMore(movieAnime.hasNextPage);
+    if (trendingAnime) {
+      setTrending(trendingAnime.results);
+      setPage(trendingAnime.currentPage);
+      setHasMore(trendingAnime.hasNextPage);
     }
   }, []);
 
   useEffect(() => {
-    if ((movieAnime && page == 1) || movieAnime?.currentPage == page) {
+    if ((trendingAnime && page == 1) || trendingAnime?.currentPage == page) {
       return;
     } else {
       setLoading(true);
       const debounce = setTimeout(() => {
-        fetchMovies();
+        fetchTrending();
       }, 1000);
       return () => clearTimeout(debounce);
     }
@@ -70,14 +69,17 @@ const FetchMovies = () => {
 
   return (
     <main>
-      <div id="movies" className="no-scrollbar max-h-[600px] overflow-y-scroll">
-        <DisplayAnimeSkeleton show={movies.length == 0} />
-        {movies?.map((movieList, ind) => (
-          <DisplayAnime key={ind} title="" animeList={movieList} />
+      <div
+        id="trending"
+        className="no-scrollbar max-h-[600px] overflow-y-scroll"
+      >
+        <DisplayAnimeSkeleton show={trending.length == 0} />
+        {trending?.map((trendingList, ind) => (
+          <DisplayAnime key={ind} animeList={trendingList} />
         ))}
       </div>
       <InfiniteScroll
-        id="movies"
+        id="trending"
         page={page}
         setPage={setPage}
         hasMore={hasMore}
@@ -88,4 +90,4 @@ const FetchMovies = () => {
   );
 };
 
-export default FetchMovies;
+export default FetchTrending;

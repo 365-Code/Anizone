@@ -1,4 +1,4 @@
-import FetchSearch from '@/components/FetchSearch'
+import FetchSearch from '@/components/fetch/FetchSearch'
 import Filter from '@/components/Filter'
 import React from 'react'
 const Page = () => {

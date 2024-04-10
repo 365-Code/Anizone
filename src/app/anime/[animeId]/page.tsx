@@ -1,4 +1,4 @@
-import FetchAnimeInfo from '@/components/FetchAnimeInfo'
+import FetchAnimeInfo from '@/components/fetch/FetchAnimeInfo'
 import React from 'react'
 
 const Page = () => {

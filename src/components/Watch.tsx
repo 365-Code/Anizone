@@ -6,7 +6,7 @@ import { IAnimeInfo, ITitle, IVideo } from "@consumet/extensions";
 import Loader from "./Loader";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import FetchEpisodes from "./FetchEpisodes";
+import FetchEpisodes from "./fetch/FetchEpisodes";
 import Loader2 from "./Loader2";
 
 const Watch = () => {
@@ -41,7 +41,6 @@ const Watch = () => {
   const [currentAnime, setCurrentAnime] = useState<IAnimeInfo>();
 
   const params = useParams();
-  // const epId = (params["epId"] as string) || "";
   const aId = (params["animeId"] as string) || "";
   const animeId = aId.slice(0, aId.lastIndexOf("-"));
   const animId = aId.slice(aId.lastIndexOf("-") + 1);
@@ -71,10 +70,7 @@ const Watch = () => {
     animId && fetchCurrentAnime();
   }, [animId]);
 
-  // const Player = dynamic(() => import('../components/VideoPlayer'), { ssr: false })
-
   return (
-    // <section className="my-container relative bg-[#17024d] py-8">
     <section className="video-card relative">
       <div className="absolute right-0 top-0 z-10 ">
         <FetchEpisodes ep={ep} setEp={setEp} />

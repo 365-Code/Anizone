@@ -41,46 +41,45 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
   return (
     <>
       {anime && (
-          <div onClick={searchAnimeInfo} className="cursor-pointer st-anime-card">
-            <div className="st-anime-card-image">
-              <Image
+        <div onClick={searchAnimeInfo} className="st-anime-card cursor-pointer">
+          <div className="st-anime-card-image">
+            <Image
               width={600}
               height={600}
-                src={anime.image || ""}
-                className="h-full w-full object-cover object-center"
-                alt=""
-              />
-            </div>
-            <div className="st-anime-card-detail">
-              <h3 className="font-bold capitalize text-cyan-500">
-                {/* Attack on titan final season */}
-                {(
-                  (animeTitle.english ||
-                    animeTitle.romaji ||
-                    animeTitle.userPreferred ||
-                    animeTitle.native) as string
-                ).slice(0, 146)}
-              </h3>
-              <p className="hyphens-auto">
-                {removeChars(
-                  anime.description?.slice(
-                    0,
-                    146 -
-                      (
-                        (animeTitle.english ||
-                          animeTitle.romaji ||
-                          animeTitle.userPreferred ||
-                          animeTitle.native) as string
-                      ).length,
-                  ) as string,
-                  ["<br>", "<i>", "</i>"],
-                )}
-                {(anime.description as string)?.length > 150 && (
-                  <span>.....</span>
-                )}
-              </p>
-            </div>
+              src={anime.image || ""}
+              className="h-full w-full object-cover object-center"
+              alt=""
+            />
           </div>
+          <div className="st-anime-card-detail">
+            <h3 className="font-bold capitalize text-cyan-500">
+              {(
+                (animeTitle.english ||
+                  animeTitle.romaji ||
+                  animeTitle.userPreferred ||
+                  animeTitle.native) as string
+              ).slice(0, 146)}
+            </h3>
+            <p className="hyphens-auto">
+              {removeChars(
+                anime.description?.slice(
+                  0,
+                  146 -
+                    (
+                      (animeTitle.english ||
+                        animeTitle.romaji ||
+                        animeTitle.userPreferred ||
+                        animeTitle.native) as string
+                    ).length,
+                ) as string,
+                ["<br>", "<i>", "</i>"],
+              )}
+              {(anime.description as string)?.length > 150 && (
+                <span>.....</span>
+              )}
+            </p>
+          </div>
+        </div>
       )}
     </>
   );

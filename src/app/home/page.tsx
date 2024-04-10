@@ -1,5 +1,5 @@
 "use client";
-import FetchRecentEpisodes from "@/components/FetchRecentEpisodes";
+import FetchRecentEpisodes from "@/components/fetch/FetchRecentEpisodes";
 import InfiniteScroll from "@/components/InfiniteScroll";
 import ListAnime from "@/components/ListAnime";
 import Loader from "@/components/Loader";

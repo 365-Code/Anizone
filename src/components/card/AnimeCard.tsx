@@ -25,7 +25,6 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
         .toLowerCase();
       const data = await fetch(`/api/gogo/searchAnime?anime=${animeId}`);
       const res = await data.json();
-
       // dispatch(setCurrentAnime(anime));
       if (res.success && res.result) {
         const animeId = res.result.id;
@@ -88,8 +87,6 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
                 }
               </h3>
             </button>
-            {/* </Link> */}
-
             <p className="text-sm font-medium text-orange-500">
               {(anime.studios && anime.studios[0]) ||
                 anime.status ||

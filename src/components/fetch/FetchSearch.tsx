@@ -1,8 +1,8 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import ListAnime from "./ListAnime";
-import InfiniteScroll from "./InfiniteScroll";
+import ListAnime from "../ListAnime";
+import InfiniteScroll from "../InfiniteScroll";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { IAnimeResult } from "@consumet/extensions";
@@ -19,7 +19,6 @@ const FetchSearch = () => {
     status || "All"
   }&season=${season || "All"}&genres=${genres || "All"}`;
 
-  
   const [searchResults, setSearchResults] = useState<IAnimeResult[]>([]);
 
   const [loading, setLoading] = useState(false);
@@ -35,16 +34,18 @@ const FetchSearch = () => {
 
   const fetchSearchResults = async () => {
     try {
-      const sort = ["TRENDING_DESC"]
+      const sort = ["TRENDING_DESC"];
       const data = await fetch(
         `/api/anilist/advanceSearch?${route}&page=${page}&perPage=${perPage}&sort=${sort}`,
       );
       const res = await data.json();
       setLoading(false);
       if (res.success) {
-        page == 1 ? setSearchResults(res.results) : setSearchResults((preVal) => [...preVal, ...res.results]);
+        page == 1
+          ? setSearchResults(res.results)
+          : setSearchResults((preVal) => [...preVal, ...res.results]);
         setHasMore(res.hasNextPage);
-        setPage(res.currentPage)
+        setPage(res.currentPage);
         const data = {
           currentPage: res.currentPage,
           hasNextPage: res.hasNextPage,
@@ -67,7 +68,7 @@ const FetchSearch = () => {
 
   useEffect(() => {
     setLoading(true);
-    setPage(1)
+    setPage(1);
     const debounce = setTimeout(() => {
       fetchSearchResults();
     }, 100);
@@ -82,8 +83,6 @@ const FetchSearch = () => {
     return () => clearTimeout(debounce);
   }, [page]);
 
-
-
   return (
     <div>
       <ListAnime id={pageId} animeList={searchResults} />
@@ -92,7 +91,6 @@ const FetchSearch = () => {
           No Results Found
         </h2>
       )}
-      {/* <FetchRandom /> */}
       <InfiniteScroll
         id={pageId}
         page={page}

@@ -1,11 +1,10 @@
-import FetchEpisodes from "@/components/FetchEpisodes";
+import FetchEpisodes from "@/components/fetch/FetchEpisodes";
 import Watch from "@/components/Watch";
 import React from "react";
 
 const Page = () => {
   return (
     <main>
-      {/* <FetchEpisodes /> */}
       <Watch />
     </main>
   );

@@ -4,9 +4,8 @@ import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
-
   return (
-    <footer className="my-container flex h-fit min-[1100px]:flex-row flex-col min-h-[50vh] justify-between gap-8 bg-[#17024d] py-8 text-white">
+    <footer className="my-container flex h-fit min-h-[50vh] flex-col justify-between gap-8 bg-[#17024d] py-8 text-white min-[1100px]:flex-row">
       <div className="flex basis-1/4 flex-col justify-between gap-4 text-xs">
         <div>
           <Link href={"/home"}>
@@ -28,7 +27,7 @@ const Footer = () => {
           &copy; Blank 2023 All Rights Reserved
         </p>
       </div>
-      <div className="min-[1100px]:w-[1px] w-full border bg-white" />
+      <div className="w-full border bg-white min-[1100px]:w-[1px]" />
 
       <div className="flex basis-1/2 flex-col justify-between gap-4 text-xs">
         <div>
@@ -52,22 +51,24 @@ const Footer = () => {
           AniZone does not store any files on our server we only linked to the
           media which is hosted on 3rd party services.
         </p>
-        <p className="text-sm">@AniZone.com </p>
+        <p className="text-sm">@AniZone.com</p>
       </div>
 
-      <div className="min-[1100px]:w-[1px] border bg-white" />
+      <div className="border bg-white min-[1100px]:w-[1px]" />
 
       <div className="flex basis-1/5 flex-col justify-between gap-4 text-xs">
         <h3 className="text-2xl font-medium uppercase">Contacts</h3>
         <div>
-          <p>9384593475</p>
-          <p>3948539460</p>
+          <p>\/\/\/\/\/\</p>
+          <p>\/\/\/\/\/\</p>
           <p>AniZone@gmail.com</p>
         </div>
 
         <h3 className="text-xl font-medium uppercase">Follow</h3>
         <div className="flex flex-wrap items-center gap-4">
-          <span className="h-6 w-6 rounded-full bg-white"></span>
+          <span className="flex h-6 min-h-fit w-6 min-w-fit items-center justify-center rounded-full bg-white text-black transition-all hover:bg-black hover:text-white">
+            <i className="fi fi-brands-google " />
+          </span>
         </div>
       </div>
     </footer>

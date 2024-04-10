@@ -1,4 +1,4 @@
-import FetchTrending from '@/components/FetchTrending'
+import FetchTrending from '@/components/fetch/FetchTrending'
 import { Metadata } from 'next';
 import React from 'react'
 
