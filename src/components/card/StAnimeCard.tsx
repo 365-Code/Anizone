@@ -43,7 +43,7 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
       {anime && (
         <div onClick={searchAnimeInfo} className="st-anime-card cursor-pointer">
           <div className="st-anime-card-image">
-            <Image
+            <img
               width={600}
               height={600}
               src={anime.image || ""}

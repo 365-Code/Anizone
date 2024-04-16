@@ -4,6 +4,7 @@ import { IEpisodeCard, toAnimeId } from "@/utils";
 import { IAnimeResult, ITitle } from "@consumet/extensions";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useDispatch } from "react-redux";
 
@@ -12,14 +13,42 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
   const animeId = toAnimeId(animeTitle);
   const dispatch = useDispatch<AppDispatch>();
 
-  return (
-    <Link
-      onClick={() =>
+  const nav = useRouter();
+
+  const searchAnimeInfo = async () => {
+    try {
+      const animeId = (
+        animeTitle.romaji ||
+        animeTitle.english ||
+        animeTitle.userPreferred ||
+        animeTitle.native
+      )
+        ?.toString()
+        .toLowerCase();
+      const data = await fetch(`/api/gogo/searchAnime?anime=${animeId}`);
+      const res = await data.json();
+
+      // dispatch(setCurrentAnime(anime));
+      if (res.success && res.result) {
         dispatch(
           setCurrentAnime({ ...anime, totalEpisodes: anime.episodeNumber }),
-        )
+        );
+        const animeId = res.result.id;
+        console.log(anime.episodeNumber);
+        
+        nav.push("/anime/" + animeId + "-" + anime.id + "?episode=" + anime.episodeNumber );
+      } else {
+        nav.push("/anime/" + toAnimeId(animeTitle) + "-" + anime.id);
       }
-      href={"/anime/" + animeId + "-" + anime.id}
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div
+      onClick={searchAnimeInfo}
+      className="cursor-pointer"
     >
       <div className="group/epCard st-anime-card relative transition-all">
         <div className="st-anime-card-image">
@@ -48,7 +77,7 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
           </h3>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

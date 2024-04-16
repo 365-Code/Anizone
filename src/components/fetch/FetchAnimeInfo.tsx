@@ -2,7 +2,12 @@
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import React, { useEffect, useState } from "react";
 import PlayNowCard from "../card/PlayNowCard";
-import { useParams, useSearchParams } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { removeChars, toAnimeId } from "@/utils";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
@@ -32,9 +37,12 @@ const FetchAnimeInfo = () => {
         setResources(res.animeData);
         dispatch(setCurrentAnime(res.animeData));
         setLoading(false);
+      } else {
+        nav.push("/not-found");
       }
     } catch (error) {
       console.log(error);
+      nav.push("/not-found");
     }
   };
 
@@ -53,6 +61,25 @@ const FetchAnimeInfo = () => {
   }, [animeId]);
 
   const [playing, setPlaying] = useState(false);
+
+  const searchParams = useSearchParams();
+  const paramsEpId = searchParams.get("episode") as string;
+
+  useEffect(() => {
+    paramsEpId ? setPlaying(true) : setPlaying(false);
+  }, [paramsEpId]);
+
+  const nav = useRouter();
+  const animePath = usePathname();
+
+  const handlePlaying = () => {
+    setPlaying((prev) => {
+      if (prev) {
+        nav.push(animePath);
+      }
+      return !prev;
+    });
+  };
 
   return (
     <section
@@ -74,11 +101,8 @@ const FetchAnimeInfo = () => {
             <div className=" flex flex-1 flex-col items-center justify-between gap-4 py-8 sm:flex-row md:flex-col">
               <div className="flex justify-center gap-2 sm:flex-row sm:gap-4 md:flex-col">
                 {Number(currentAnime?.totalEpisodes) > 0 ? (
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => setPlaying(true)}
-                  >
-                    {playing ? "Playing..." : "Watch Now"}
+                  <button className="btn btn-primary" onClick={handlePlaying}>
+                    {playing ? "Anime Info" : "Watch Now"}
                   </button>
                 ) : (
                   <button className="btn btn-primary">Not Yet Aired</button>

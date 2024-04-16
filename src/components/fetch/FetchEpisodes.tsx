@@ -3,12 +3,11 @@ import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import Link from "next/link";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import React, {
   Dispatch,
   SetStateAction,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { useDispatch } from "react-redux";
@@ -56,16 +55,16 @@ const FetchEpisodes = ({
       : fetchEpisodeInfo();
   }, []);
 
-  const animeTitle = currentAnime
-    ? (currentAnime?.title as ITitle).english ||
-      (currentAnime?.title as ITitle).romaji ||
-      (currentAnime?.title as ITitle).userPreferred ||
-      (currentAnime?.title as ITitle).native
-    : "";
+  const nav = useRouter()
+  const handleEpPush = (ep: number)=>{
+    setEp((prev) => ep);
+    const epRoute = "/anime/" + (params["animeId"] as string) + "?episode=";
+    nav.push(epRoute + (ep))
+  }
 
   const handleEpisode = (leap: number) => {
     if (ep + leap > 0 && ep + leap <= Number(currentAnime?.totalEpisodes)) {
-      setEp((prev) => prev + leap);
+      handleEpPush(ep+leap)
     }
   };
 
@@ -91,7 +90,8 @@ const FetchEpisodes = ({
             <div className="no-scrollbar absolute right-0 flex h-0 max-h-[95px] w-full flex-col overflow-hidden overflow-y-scroll bg-black/40 text-sm transition-all focus:h-0 group-hover/episodes:z-10 group-hover/episodes:h-auto">
               {[...Array(Number(episodes))].map((episode, i) => (
                 <button
-                  onClick={() => setEp(i + 1)}
+                  // onClick={() => setEp(i + 1)}
+                  onClick={() => handleEpPush(i+1)}
                   className={`px-4 py-2 transition-all hover:bg-black/80 ${ep == i + 1 ? "bg-black/80" : ""}`}
                   key={i + 1}
                 >
