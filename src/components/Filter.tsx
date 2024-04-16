@@ -2,8 +2,8 @@
 import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch } from "@/redux/store";
 import { toAnimeId } from "@/utils";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Loader2 from "./Loader2";
 const Filter = () => {
@@ -27,6 +27,27 @@ const Filter = () => {
     "Supernatural",
     "Thriller",
   ];
+
+  const genreMap: { [index: string]: number } = {
+    Action: 0,
+    Adventure: 1,
+    Cars: 2,
+    Comedy: 3,
+    Drama: 4,
+    Fantasy: 5,
+    Horror: 6,
+    "Mahou Shoujo": 7,
+    Mecha: 8,
+    Music: 9,
+    Mystery: 10,
+    Psychological: 11,
+    Romance: 12,
+    "Sci-Fi": 13,
+    "Slice of Life": 14,
+    Sports: 15,
+    Supernatural: 16,
+    Thriller: 17,
+  };
 
   const [selectedGenres, setSelectedGenres] = useState<boolean[]>(
     genreList.map(() => false),
@@ -77,7 +98,6 @@ const Filter = () => {
       const res = await data.json();
       if (res.success) {
         setRLoading(false);
-        dispatch(setCurrentAnime(res.result));
         const animeId = toAnimeId(res.result.title) + "-" + res.result.id;
         nav.push("/anime/" + animeId);
       }
@@ -103,6 +123,20 @@ const Filter = () => {
     setSelectedGenres(nGr);
   };
 
+  const searchParams = useSearchParams();
+  const genreParams = (searchParams.get("genres") as string).split(
+    ",",
+  ) as string[];
+
+  useEffect(() => {
+    let selGenres = selectedGenres;
+    genreParams.forEach((gen: string) => {
+      const genreIndex = genreMap[gen] as number;
+      selGenres[genreIndex] = true;
+    });
+    setSelectedGenres((prev) => [...prev, ...selGenres]);
+  }, []);
+
   return (
     <section className="my-container flex flex-col gap-8 bg-[#1c073f] py-8 pb-16 text-white">
       <h2 className="text-4xl">Filter</h2>
@@ -118,10 +152,8 @@ const Filter = () => {
                 <button
                   onClick={() => handleGenre(g, i)}
                   className={`${
-                    selectedGenres[i]
-                      ? "border-b"
-                      : "border-b border-transparent"
-                  } transition-all`}
+                    selectedGenres[i] ? "" : "border-transparent"
+                  } border-b transition-all`}
                 >
                   {g}
                 </button>

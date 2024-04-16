@@ -10,14 +10,12 @@ const NavSearch = () => {
   };
 
   const handleSearch = (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSearch("");
     nav.push("/search/results?query=" + search);
-    localStorage.setItem(
-      "recentSearches",
-      JSON.stringify([search, ...recentSearches]),
-    );
-    setRecentSearches((preVal) => [search, ...preVal]);
+    const recSearches = recentSearches;
+    if(!recSearches.find((s) => s.toLowerCase() == (search.toLowerCase()) )){
+      localStorage.setItem("recentSearches", JSON.stringify([search, ...recentSearches]))
+      setRecentSearches((preVal) => [search, ...preVal])
+    }
   };
 
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
