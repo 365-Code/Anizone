@@ -34,9 +34,7 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
           setCurrentAnime({ ...anime, totalEpisodes: anime.episodeNumber }),
         );
         const animeId = res.result.id;
-        console.log(anime.episodeNumber);
-        
-        nav.push("/anime/" + animeId + "-" + anime.id + "?episode=" + anime.episodeNumber );
+        nav.push("/anime/" + animeId + "-" + anime.id );
       } else {
         nav.push("/anime/" + toAnimeId(animeTitle) + "-" + anime.id);
       }

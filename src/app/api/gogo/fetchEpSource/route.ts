@@ -6,7 +6,8 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const epId = searchParams.get("epId") || "";
     const anime = new ANIME.Gogoanime();
-    const {headers, sources} = await anime.fetchEpisodeSources(epId);
+    const { headers, sources } = await anime.fetchEpisodeSources(epId);
+
     if (!headers || !sources) {
       return NextResponse.json(
         { success: false },
@@ -14,10 +15,13 @@ export async function GET(req: NextRequest) {
       );
     }
     return NextResponse.json({ success: true, headers, sources });
-  } catch (error) {
-    return NextResponse.json({
-      status: 500,
-      statusText: "Internal Server Error in FetchAnimeInfo",
-    });
+  } catch (error: any) {
+    return NextResponse.json(
+      { success: false, error: error.message },
+      {
+        status: 500,
+        statusText: "Internal Server Error in FetchAnimeInfo",
+      },
+    );
   }
 }

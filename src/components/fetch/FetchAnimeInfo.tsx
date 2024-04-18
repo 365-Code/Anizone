@@ -16,10 +16,31 @@ import Watch from "../Watch";
 import FetchAnimeInfoSkeleton from "../skeleton/FetchAnimeInfoSkeleton";
 
 const FetchAnimeInfo = () => {
-  const dispatch = useDispatch<AppDispatch>();
+
+  // React
   const params = useParams();
   const animeId = (params["animeId"] as string).split("-").at(-1) || "";
+  const searchParams = useSearchParams();
+  const paramsEpId = searchParams.get("episode") as string;
+  
+  const nav = useRouter();
+  const animePath = usePathname();
+  
+  // Redux
+  const dispatch = useDispatch<AppDispatch>();
+  const currentAnime = useAppSelector(
+    (state) => state.utilityReducer.value.currentAnime,
+  ) as IAnimeInfo;
 
+  // UseState
+  const [animeInfo, setAnimeInfo] = useState<IAnimeInfo>();
+  const [animeTitle, setAnimeTitle] = useState<ITitle>();
+  const [moreLess, setMoreLess] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [playing, setPlaying] = useState(false);
+
+
+  // handles
   const setResources = (animeData: IAnimeInfo) => {
     setAnimeInfo(animeData);
     const animeTitle = animeData.title as ITitle;
@@ -28,7 +49,17 @@ const FetchAnimeInfo = () => {
       setLoading(false);
     }, 100);
   };
+  
+  const handlePlaying = () => {
+    setPlaying((prev) => {
+      if (prev) {
+        nav.push(animePath);
+      }
+      return !prev;
+    });
+  };
 
+  // Fetch API
   const fetchAnime = async (aName: string) => {
     try {
       const result = await fetch(`/api/anilist/fetchAnimeInfo?anime=${aName}`);
@@ -38,7 +69,9 @@ const FetchAnimeInfo = () => {
         dispatch(setCurrentAnime(res.animeData));
         setLoading(false);
       } else {
-        nav.push("/not-found");
+        if(!currentAnime)
+          nav.push("/not-found");
+        else setResources(currentAnime)
       }
     } catch (error) {
       console.log(error);
@@ -46,40 +79,18 @@ const FetchAnimeInfo = () => {
     }
   };
 
-  const currentAnime = useAppSelector(
-    (state) => state.utilityReducer.value.currentAnime,
-  ) as IAnimeInfo;
-
-  const [animeInfo, setAnimeInfo] = useState<IAnimeInfo>();
-  const [animeTitle, setAnimeTitle] = useState<ITitle>();
-  const [moreLess, setMoreLess] = useState(true);
-  const [loading, setLoading] = useState(true);
-
+  // UseEffect
   useEffect(() => {
     setLoading(true);
-    animeId && fetchAnime(animeId);
+    const debounce = setTimeout(() => {
+      animeId && fetchAnime(animeId);
+    }, 1000);
+    return () => clearTimeout(debounce);
   }, [animeId]);
 
-  const [playing, setPlaying] = useState(false);
-
-  const searchParams = useSearchParams();
-  const paramsEpId = searchParams.get("episode") as string;
-
-  useEffect(() => {
-    paramsEpId ? setPlaying(true) : setPlaying(false);
-  }, [paramsEpId]);
-
-  const nav = useRouter();
-  const animePath = usePathname();
-
-  const handlePlaying = () => {
-    setPlaying((prev) => {
-      if (prev) {
-        nav.push(animePath);
-      }
-      return !prev;
-    });
-  };
+  // useEffect(() => {
+  //   paramsEpId ? setPlaying(true) : setPlaying(false);
+  // }, [paramsEpId]);
 
   return (
     <section

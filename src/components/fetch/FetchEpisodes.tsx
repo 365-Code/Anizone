@@ -57,7 +57,8 @@ const FetchEpisodes = ({
 
   const nav = useRouter()
   const handleEpPush = (ep: number)=>{
-    setEp((prev) => ep);
+    // setEp((prev) => ep);
+    setEp(ep);
     const epRoute = "/anime/" + (params["animeId"] as string) + "?episode=";
     nav.push(epRoute + (ep))
   }

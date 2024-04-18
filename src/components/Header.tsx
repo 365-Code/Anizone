@@ -40,6 +40,10 @@ const Header = () => {
             <i className="fi fi-sr-menu-burger" />
           </button>
 
+          <button onClick={() => nav.back()} className="hidden sm:block text-4xl sm:text-5xl">
+            <i className="fi fi-rr-arrow-small-left sm:absolute sm:-left-16 sm:top-1/2 sm:-translate-y-1/2" />
+          </button>
+
           <Link href={"/home"} className="text-xl md:text-5xl">
             <Image
               height={400}
@@ -49,9 +53,6 @@ const Header = () => {
               alt="logo"
             />
           </Link>
-          <button onClick={() => nav.back()} className="text-5xl">
-            <i className="fi fi-rr-arrow-small-left absolute -left-16 top-1/2 -translate-y-1/2" />
-          </button>
         </div>
 
         <ul

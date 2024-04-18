@@ -10,12 +10,14 @@ const NavSearch = () => {
   };
 
   const handleSearch = (e: ChangeEvent<HTMLFormElement>) => {
-    nav.push("/search/results?query=" + search);
+    e.preventDefault()
     const recSearches = recentSearches;
     if(!recSearches.find((s) => s.toLowerCase() == (search.toLowerCase()) )){
       localStorage.setItem("recentSearches", JSON.stringify([search, ...recentSearches]))
       setRecentSearches((preVal) => [search, ...preVal])
     }
+    console.log(search);
+    nav.push("/search/results?query=" + search);
   };
 
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
@@ -43,7 +45,7 @@ const NavSearch = () => {
       />
       <Link
         href={"/search/results"}
-        className="rounded-lg p-1 transition-all hover:bg-black/70"
+        className="rounded-lg p-1 transition-all hover:bg-white/70 hover:text-black"
       >
         <i className="fi fi-sr-search px-2 py-1" />
       </Link>

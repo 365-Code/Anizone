@@ -124,9 +124,9 @@ const Filter = () => {
   };
 
   const searchParams = useSearchParams();
-  const genreParams = (searchParams.get("genres") as string).split(
+  const genreParams = searchParams.get("genres") ? (searchParams.get("genres") as string).split(
     ",",
-  ) as string[];
+  ) as string[] : [];
 
   useEffect(() => {
     let selGenres = selectedGenres;
@@ -153,7 +153,7 @@ const Filter = () => {
                   onClick={() => handleGenre(g, i)}
                   className={`${
                     selectedGenres[i] ? "" : "border-transparent"
-                  } border-b transition-all`}
+                  } border-b hover:border-white transition-all`}
                 >
                   {g}
                 </button>

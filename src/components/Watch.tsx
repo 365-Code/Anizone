@@ -7,9 +7,42 @@ import FetchEpisodes from "./fetch/FetchEpisodes";
 import Loader2 from "./Loader2";
 
 const Watch = () => {
+  // React
+  const params = useParams();
+  const aId = (params["animeId"] as string) || "";
+  const animeId = aId.slice(0, aId.lastIndexOf("-"));
+  const animId = aId.slice(aId.lastIndexOf("-") + 1);
+  const nav = useRouter();
+  const searchParams = useSearchParams();
+  const paramsEpId = (searchParams.get("episode") || 0) as number;
 
-  const [epFailed, setEpFailed] = useState(false)
+  // UseStates Variables
+  const [ep, setEp] = useState<number>(0);
+  const [epId, setEpId] = useState<string>("episode-1");
+  const [epLoading, setEpLoading] = useState(true);
+  const [epSources, setEpSources] = useState<IVideo[]>([
+    {
+      url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+      quality: "default",
+    },
+  ]);
+  const [epFailed, setEpFailed] = useState(false);
 
+
+  // Handles
+  const handleEpBackup = () => {
+    const data = localStorage.getItem("animeEp");
+    const epRoute = "/anime/" + (params["animeId"] as string) + "?episode=";
+    if (data) {
+      const animeEp = JSON.parse(data);
+      localStorage.setItem(
+        "animeEp",
+        JSON.stringify({ ...animeEp, [animId]: ep || 1 }),
+      );
+    }
+  };
+
+  // FetchApi
   const fetchEpisode = async () => {
     try {
       const data = await fetch(
@@ -20,34 +53,15 @@ const Watch = () => {
       if (res.success) {
         setEpSources(res.sources);
         const epHeader = res.headers;
-      } else{
-        setEpFailed(true)
+      } else {
+        setEpFailed(true);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const params = useParams();
-  const aId = (params["animeId"] as string) || "";
-  const animeId = aId.slice(0, aId.lastIndexOf("-"));
-  const animId = aId.slice(aId.lastIndexOf("-") + 1);
-  const [epSources, setEpSources] = useState<IVideo[]>([
-    {
-      url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
-      quality: "default",
-    },
-  ]);
-
-  const [ep, setEp] = useState<number>(0);
-  const [epId, setEpId] = useState<string>("episode-1");
-  const [epLoading, setEpLoading] = useState(true);
-
-  const nav = useRouter();
-
-  const searchParams = useSearchParams();
-  const paramsEpId = (searchParams.get("episode") || 0) as number;
-
+  // UseEffects
   useEffect(() => {
     if (paramsEpId) {
       setEp(paramsEpId);
@@ -68,18 +82,6 @@ const Watch = () => {
     }
   }, [paramsEpId]);
 
-  const handleEpBackup = () => {
-    const data = localStorage.getItem("animeEp");
-    const epRoute = "/anime/" + (params["animeId"] as string) + "?episode=";
-    if (data) {
-      const animeEp = JSON.parse(data);
-      localStorage.setItem(
-        "animeEp",
-        JSON.stringify({ ...animeEp, [animId]: ep || 1 }),
-      );
-    }
-  };
-
   useEffect(() => {
     if (ep) {
       setEpId("episode-" + ep);
@@ -88,10 +90,13 @@ const Watch = () => {
   }, [ep]);
 
   useEffect(() => {
-    if (epId && animeId) {
-      setEpLoading(true);
-      fetchEpisode();
-    }
+    const debounce = setTimeout(() => {
+      if (epId && animeId) {
+        setEpLoading(true);
+        fetchEpisode();
+      }
+    }, 1000);
+    return () => clearTimeout(debounce);
   }, [epId, animeId]);
 
   return (
@@ -107,10 +112,7 @@ const Watch = () => {
           <Loader2 />
         </div>
       )}
-      {
-        epFailed && 
-        <p>Couldn&apos;t Fetch Episode</p>
-      }
+      {epFailed && <p>Couldn&apos;t Fetch Episode</p>}
       <Player
         source={String(epSources.find((s) => s.quality == "default")?.url)}
       />
