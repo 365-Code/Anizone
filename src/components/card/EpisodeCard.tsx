@@ -33,7 +33,8 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
         dispatch(
           setCurrentAnime({ ...anime, totalEpisodes: anime.episodeNumber }),
         );
-        const animeId = res.result.id;
+        const resResult = res.result[0]
+        const animeId = resResult.id;
         nav.push("/anime/" + animeId + "-" + anime.id );
       } else {
         nav.push("/anime/" + toAnimeId(animeTitle) + "-" + anime.id);

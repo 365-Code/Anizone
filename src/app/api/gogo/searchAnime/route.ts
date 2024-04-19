@@ -8,7 +8,8 @@ export async function GET(req: NextRequest){
         const aName = (searchParams.get('anime') || "").toString()
         const anime = new ANIME.Gogoanime();
         const {results} = await anime.search(aName)
-        return NextResponse.json({result: results[0], success: true}, {status: 200})
+        // return NextResponse.json({result: results[0], success: true}, {status: 200})
+        return NextResponse.json({result: results, success: true}, {status: 200})
     } catch (error: any) {
         return NextResponse.json({error: error.message},{status: 500, statusText: "Internal Server Error in SearchAnime"})
     }

@@ -27,7 +27,8 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
       const res = await data.json();
       // dispatch(setCurrentAnime(anime));
       if (res.success && res.result) {
-        const animeId = res.result.id;
+        const resResult = res.result[0]
+        const animeId = resResult.id;
         nav.push("/anime/" + animeId + "-" + anime.id);
       } else {
         nav.push("/anime/" + toAnimeId(animeTitle) + "-" + anime.id);

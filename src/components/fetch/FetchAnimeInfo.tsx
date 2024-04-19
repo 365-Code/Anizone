@@ -102,7 +102,7 @@ const FetchAnimeInfo = () => {
       {loading && <FetchAnimeInfoSkeleton />}
       {animeInfo && (
         <>
-          <div className="flex flex-col justify-between gap-4 md:flex-row">
+          <div className="flex flex-col justify-between gap-4 min-[1100px]:flex-row">
             {playing ? (
               <Watch />
             ) : (
@@ -113,7 +113,7 @@ const FetchAnimeInfo = () => {
             )}
 
             <div className=" flex flex-1 flex-col items-center justify-between gap-4 py-8 sm:flex-row md:flex-col">
-              <div className="flex justify-center gap-2 sm:flex-row sm:gap-4 md:flex-col">
+              <div className="flex justify-center gap-2 sm:flex-row sm:gap-4 min-[1100px]:flex-col">
                 {Number(currentAnime?.totalEpisodes) > 0 ? (
                   <button className="btn btn-primary" onClick={handlePlaying}>
                     {playing ? "Anime Info" : "Watch Now"}

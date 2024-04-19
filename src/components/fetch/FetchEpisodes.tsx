@@ -18,8 +18,7 @@ const FetchEpisodes = ({
   subDub: boolean;
   setEp: Dispatch<SetStateAction<number>>;
   setSubDub: Dispatch<SetStateAction<boolean>>;
-  isDubbed: boolean
-  
+  isDubbed: boolean;
 }) => {
   const pathname = usePathname();
   const params = useParams();
@@ -61,7 +60,7 @@ const FetchEpisodes = ({
   const handleEpPush = (ep: number) => {
     setEp(ep);
     const epRoute = "/anime/" + (params["animeId"] as string) + "?episode=";
-    nav.push(epRoute + ep);
+    nav.push(epRoute + ep + "&subDub=" + subDub);
   };
 
   const handleEpisode = (leap: number) => {
@@ -71,32 +70,34 @@ const FetchEpisodes = ({
   };
 
   const handleSubDub = (sd: boolean) => {
+    const epRoute = "/anime/" + (params["animeId"] as string) + "?episode=";
     setSubDub(sd);
+    nav.push(epRoute + ep + "&subDub=" + sd);
   };
 
   return (
-    <section className="flex items-center justify-between bg-black/30 p-2">
-      {
-        isDubbed &&
-      <div className=" group/subDub relative">
-        <p className=" flex w-fit items-center justify-center gap-2 rounded-t-xl bg-black/40 px-4 py-2">
-          <span className="hidden sm:inline-block">{subDub ? "Dub" : "Sub"}bed</span>
-          <i className="fi fi-sr-angle-small-down" />
-        </p>
-        <div className="no-scrollbar absolute right-0 flex h-0 max-h-[95px] w-full flex-col overflow-hidden overflow-y-scroll bg-black/40 text-sm transition-all focus:h-0 group-hover/subDub:z-10 group-hover/subDub:h-auto">
-          {["sub", "dub"].map((sd, i) => (
-            <button
-              onClick={() => handleSubDub(Boolean(i))}
-              className={`px-4 py-2 transition-all hover:mix-blend-color-burn ${subDub == Boolean(i) ? "mix-blend-color-burn" : ""}`}
-              key={i + 1}
-            >
-              {sd}
-            </button>
-          ))}
+    <section className="flex items-center justify-between bg-black/30 p-2 gap-2">
+      {isDubbed == true && (
+        <div className=" group/subDub relative">
+          <p className=" flex w-fit items-center justify-center gap-2 rounded-t-xl bg-black/40 px-4 py-2">
+            <span className="hidden sm:inline-block">
+              {subDub ? "Dub" : "Sub"}
+            </span>
+            <i className="fi fi-sr-angle-small-down" />
+          </p>
+          <div className="no-scrollbar absolute right-0 flex h-0 max-h-[95px] w-full flex-col overflow-hidden overflow-y-scroll bg-black/40 text-sm transition-all focus:h-0 group-hover/subDub:z-10 group-hover/subDub:h-auto">
+            {["sub", "dub"].map((sd, i) => (
+              <button
+                onClick={() => handleSubDub(Boolean(i))}
+                className={`px-4 py-2 transition-all hover:mix-blend-color ${subDub == Boolean(i) ? "mix-blend-color" : ""}`}
+                key={i + 1}
+              >
+                {sd}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
-      }
-
+      )}
 
       {currentAnime?.type != "MOVIE" && (
         <div className="flex items-center gap-2 text-white">

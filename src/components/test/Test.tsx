@@ -2,6 +2,7 @@
 import Image from "next/image";
 import AnimeCardSkeleton from "../skeleton/AnimeCardSkeleton";
 import Link from "next/link";
+import FetchAnimeInfoSkeleton from "../skeleton/FetchAnimeInfoSkeleton";
 
 const Test = () => {
   return (

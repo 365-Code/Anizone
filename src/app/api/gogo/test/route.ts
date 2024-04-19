@@ -8,8 +8,10 @@ export async function GET(req: NextRequest){
         const aName = (searchParams.get('anime') || "").toString()
         const anime = new ANIME.Gogoanime();
         // const {results} = await anime.search(aName)
-        const results = await anime.fetchAnimeInfo(aName)
         // const results = await anime.fetchAnimeInfo(aName)
+        console.log(aName);
+        
+        const results = await anime.fetchEpisodeSources(aName)
 
         return NextResponse.json({result: results, success: true}, {status: 200})
     } catch (error: any) {
