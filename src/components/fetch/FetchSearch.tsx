@@ -71,6 +71,10 @@ const FetchSearch = () => {
     setPage(1);
     const debounce = setTimeout(() => {
       fetchSearchResults();
+      const searchResults = document.getElementById("FetchSearch");
+      if(searchResults){
+        searchResults.scrollIntoView({behavior: "smooth"});
+      }
     }, 100);
     return () => clearTimeout(debounce);
   }, [route]);
@@ -84,7 +88,7 @@ const FetchSearch = () => {
   }, [page]);
 
   return (
-    <div>
+    <div id="FetchSearch">
       <ListAnime id={pageId} animeList={searchResults} />
       {searchResults.length == 0 && !loading && (
         <h2 className="py-8 text-center text-6xl text-white">

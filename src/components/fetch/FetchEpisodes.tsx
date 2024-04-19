@@ -65,7 +65,7 @@ const FetchEpisodes = ({
 
   const handleEpisode = (leap: number) => {
     if (ep + leap > 0 && ep + leap <= Number(currentAnime?.totalEpisodes)) {
-      handleEpPush(ep+leap)
+      handleEpPush( Number(ep)+leap )
     }
   };
 

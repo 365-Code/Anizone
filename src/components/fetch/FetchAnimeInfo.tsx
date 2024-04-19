@@ -88,9 +88,9 @@ const FetchAnimeInfo = () => {
     return () => clearTimeout(debounce);
   }, [animeId]);
 
-  // useEffect(() => {
-  //   paramsEpId ? setPlaying(true) : setPlaying(false);
-  // }, [paramsEpId]);
+  useEffect(() => {
+    paramsEpId ? setPlaying(true) : setPlaying(false);
+  }, [paramsEpId]);
 
   return (
     <section

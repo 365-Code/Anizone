@@ -16,7 +16,6 @@ const NavSearch = () => {
       localStorage.setItem("recentSearches", JSON.stringify([search, ...recentSearches]))
       setRecentSearches((preVal) => [search, ...preVal])
     }
-    console.log(search);
     nav.push("/search/results?query=" + search);
   };
 
@@ -41,11 +40,11 @@ const NavSearch = () => {
         id="navSearchInput"
         name="navSearchInput"
         placeholder="Search Anime..."
-        className="w-0 border-b border-b-white bg-transparent outline-none transition-all delay-200 focus-within:w-full group-hover/navSearch:w-full sm:w-full"
+        className="p-1 w-0 border-b border-b-white bg-transparent outline-none transition-all delay-200 focus-within:w-full group-hover/navSearch:w-full sm:w-full"
       />
       <Link
         href={"/search/results"}
-        className="rounded-lg p-1 transition-all hover:bg-white/70 hover:text-black"
+        className="rounded-r-lg p-1 transition-all hover:bg-white/70 hover:text-black"
       >
         <i className="fi fi-sr-search px-2 py-1" />
       </Link>

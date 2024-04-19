@@ -8,7 +8,6 @@ export async function GET(req: NextRequest) {
     const anime = new ANIME.Gogoanime();
     
     const results = await anime.fetchAnimeInfo(aName);
-    console.log(results);
     return NextResponse.json({ results, success: true }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(
