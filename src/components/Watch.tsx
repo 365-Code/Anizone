@@ -27,7 +27,8 @@ const Watch = () => {
     },
   ]);
   const [epFailed, setEpFailed] = useState(false);
-
+  const [isDubbed, setIsDubbed] = useState(false);
+  const [subDub, setSubDub] = useState(false);
 
   // Handles
   const handleEpBackup = () => {
@@ -64,7 +65,7 @@ const Watch = () => {
   // UseEffects
   useEffect(() => {
     if (paramsEpId) {
-      setEp(paramsEpId);
+      setEp(Number(paramsEpId));
     } else {
       const data = localStorage.getItem("animeEp");
       const epRoute = "/anime/" + (params["animeId"] as string) + "?episode=";
@@ -74,7 +75,7 @@ const Watch = () => {
           handleEpBackup();
         }
         setEp((animeEp[animId] as number) || 1);
-        nav.push(epRoute + (animeEp[animId] || 1));
+        nav.push(epRoute + Number(animeEp[animId] || 1));
       } else {
         localStorage.setItem("animeEp", JSON.stringify({ [animId]: 1 }));
         setEp(1);
@@ -84,7 +85,7 @@ const Watch = () => {
 
   useEffect(() => {
     if (ep) {
-      setEpId("episode-" + ep);
+      setEpId("episode-" + (subDub ? "dub" : "") + ep);
       handleEpBackup();
     }
   }, [ep]);
@@ -105,6 +106,9 @@ const Watch = () => {
         <FetchEpisodes
           ep={ep as number}
           setEp={setEp as Dispatch<SetStateAction<number>>}
+          subDub={subDub}
+          setSubDub={setSubDub}
+          isDubbed={isDubbed}
         />
       </div>
       {epLoading && (

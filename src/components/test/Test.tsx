@@ -6,7 +6,9 @@ import Link from "next/link";
 const Test = () => {
   return (
     <div>
-      TEST
+      <button className="btn btn-primary">
+        TEST
+      </button>
     </div>
   );
 };

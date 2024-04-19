@@ -4,20 +4,22 @@ import { AppDispatch, useAppSelector } from "@/redux/store";
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const FetchEpisodes = ({
+  isDubbed,
+  subDub,
+  setSubDub,
   ep,
   setEp,
 }: {
   ep: number;
+  subDub: boolean;
   setEp: Dispatch<SetStateAction<number>>;
+  setSubDub: Dispatch<SetStateAction<boolean>>;
+  isDubbed: boolean
+  
 }) => {
   const pathname = usePathname();
   const params = useParams();
@@ -55,22 +57,47 @@ const FetchEpisodes = ({
       : fetchEpisodeInfo();
   }, []);
 
-  const nav = useRouter()
-  const handleEpPush = (ep: number)=>{
-    // setEp((prev) => ep);
+  const nav = useRouter();
+  const handleEpPush = (ep: number) => {
     setEp(ep);
     const epRoute = "/anime/" + (params["animeId"] as string) + "?episode=";
-    nav.push(epRoute + (ep))
-  }
+    nav.push(epRoute + ep);
+  };
 
   const handleEpisode = (leap: number) => {
     if (ep + leap > 0 && ep + leap <= Number(currentAnime?.totalEpisodes)) {
-      handleEpPush( Number(ep)+leap )
+      handleEpPush(Number(ep) + leap);
     }
+  };
+
+  const handleSubDub = (sd: boolean) => {
+    setSubDub(sd);
   };
 
   return (
     <section className="flex items-center justify-between bg-black/30 p-2">
+      {
+        isDubbed &&
+      <div className=" group/subDub relative">
+        <p className=" flex w-fit items-center justify-center gap-2 rounded-t-xl bg-black/40 px-4 py-2">
+          <span className="hidden sm:inline-block">{subDub ? "Dub" : "Sub"}bed</span>
+          <i className="fi fi-sr-angle-small-down" />
+        </p>
+        <div className="no-scrollbar absolute right-0 flex h-0 max-h-[95px] w-full flex-col overflow-hidden overflow-y-scroll bg-black/40 text-sm transition-all focus:h-0 group-hover/subDub:z-10 group-hover/subDub:h-auto">
+          {["sub", "dub"].map((sd, i) => (
+            <button
+              onClick={() => handleSubDub(Boolean(i))}
+              className={`px-4 py-2 transition-all hover:mix-blend-color-burn ${subDub == Boolean(i) ? "mix-blend-color-burn" : ""}`}
+              key={i + 1}
+            >
+              {sd}
+            </button>
+          ))}
+        </div>
+      </div>
+      }
+
+
       {currentAnime?.type != "MOVIE" && (
         <div className="flex items-center gap-2 text-white">
           <button
@@ -92,7 +119,7 @@ const FetchEpisodes = ({
               {[...Array(Number(episodes))].map((episode, i) => (
                 <button
                   // onClick={() => setEp(i + 1)}
-                  onClick={() => handleEpPush(i+1)}
+                  onClick={() => handleEpPush(i + 1)}
                   className={`px-4 py-2 transition-all hover:bg-black/80 ${ep == i + 1 ? "bg-black/80" : ""}`}
                   key={i + 1}
                 >

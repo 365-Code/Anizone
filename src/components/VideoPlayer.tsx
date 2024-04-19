@@ -55,6 +55,7 @@ const useHls = (src: string, options: Options | null) => {
         "volume",
         "captions",
         "settings",
+        "rewind",
         "fast-forward",
         "airplay",
         "fullscreen",
