@@ -1,6 +1,6 @@
 import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch } from "@/redux/store";
-import { IEpisodeCard, toAnimeId } from "@/utils";
+import { IEpisodeCard, toAnimeId, toAnimeTitle } from "@/utils";
 import { IAnimeResult, ITitle } from "@consumet/extensions";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,25 +17,18 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
 
   const searchAnimeInfo = async () => {
     try {
-      const animeId = (
-        animeTitle.romaji ||
-        animeTitle.english ||
-        animeTitle.userPreferred ||
-        animeTitle.native
-      )
-        ?.toString()
-        .toLowerCase();
+      const animeId = toAnimeTitle(animeTitle)?.toString().toLowerCase();
       const data = await fetch(`/api/gogo/searchAnime?anime=${animeId}`);
       const res = await data.json();
 
       // dispatch(setCurrentAnime(anime));
       if (res.success && res.result) {
         dispatch(
-          setCurrentAnime({ ...anime, totalEpisodes: anime.episodeNumber }),
+          setCurrentAnime({ ...anime, currentEpisode: anime.episodeNumber }),
         );
-        const resResult = res.result[0]
+        const resResult = res.result[0];
         const animeId = resResult.id;
-        nav.push("/anime/" + animeId + "-" + anime.id );
+        nav.push("/anime/" + animeId + "-" + anime.id);
       } else {
         nav.push("/anime/" + toAnimeId(animeTitle) + "-" + anime.id);
       }
@@ -45,10 +38,7 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
   };
 
   return (
-    <div
-      onClick={searchAnimeInfo}
-      className="cursor-pointer"
-    >
+    <div onClick={searchAnimeInfo} className="cursor-pointer">
       <div className="group/epCard st-anime-card relative transition-all">
         <div className="st-anime-card-image">
           <img

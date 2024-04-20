@@ -1,6 +1,6 @@
-import { setCurrentAnime } from "@/redux/features/utilitySlice";
+import { IAnimeInfo2, setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch } from "@/redux/store";
-import { removeChars, toAnimeId } from "@/utils";
+import { removeChars, toAnimeId, toAnimeTitle } from "@/utils";
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,27 +8,20 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo }) => {
+const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo2 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const animeTitle = anime.title as ITitle;
 
   const nav = useRouter();
   const searchAnimeInfo = async () => {
     try {
-      const animeId = (
-        animeTitle.romaji ||
-        animeTitle.english ||
-        animeTitle.userPreferred ||
-        animeTitle.native
-      )
-        ?.toString()
-        .toLowerCase();
+      const animeId = toAnimeTitle(animeTitle)?.toString().toLowerCase();
       const data = await fetch(`/api/gogo/searchAnime?anime=${animeId}`);
       const res = await data.json();
 
       dispatch(setCurrentAnime(anime));
       if (res.success && res.result) {
-        const resResult = res.result[0]
+        const resResult = res.result[0];
         const animeId = resResult.id;
         nav.push("/anime/" + animeId + "-" + anime.id);
       } else {

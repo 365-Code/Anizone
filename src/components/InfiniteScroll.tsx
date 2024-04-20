@@ -49,9 +49,11 @@ const InfiniteScroll = ({
   return (
     <>
       {loading && (
-        <div className="w-screen h-screen flex flex-col justify-center items-center bg-opacity-25 bg-black/40 top-0 left-0 fixed z-10">
+        <div className="fixed left-0 top-0 z-10 flex h-screen w-screen flex-col items-center justify-center bg-black/40 bg-opacity-25">
           <Loader />
-          <h3 className="text-[#09f] text-2xl font-bold py-2">Please Wait for a few...</h3>
+          <h3 className="py-2 text-2xl font-bold text-[#09f]">
+            Please Wait for a few...
+          </h3>
         </div>
       )}
     </>

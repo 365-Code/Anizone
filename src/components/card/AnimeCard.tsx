@@ -1,7 +1,7 @@
 "use client";
 import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch } from "@/redux/store";
-import { toAnimeId } from "@/utils";
+import { toAnimeId, toAnimeTitle } from "@/utils";
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -15,14 +15,7 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
   const nav = useRouter();
   const searchAnimeInfo = async () => {
     try {
-      const animeId = (
-        animeTitle.romaji ||
-        animeTitle.english ||
-        animeTitle.userPreferred ||
-        animeTitle.native
-      )
-        ?.toString()
-        .toLowerCase();
+      const animeId = toAnimeTitle(animeTitle)?.toString().toLowerCase();
       const data = await fetch(`/api/gogo/searchAnime?anime=${animeId}`);
       const res = await data.json();
       // dispatch(setCurrentAnime(anime));

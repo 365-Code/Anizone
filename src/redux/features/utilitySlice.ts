@@ -2,8 +2,12 @@ import { IEpisodeCard, ISearchResults } from "@/utils";
 import { IAnimeInfo, IAnimeResult, ISearch } from "@consumet/extensions";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
+export interface IAnimeInfo2 extends IAnimeInfo {
+  currentEpisode?: number;
+}
+
 type utilites = {
-  currentAnime: IAnimeInfo;
+  currentAnime: IAnimeInfo2;
   recentSearches: string[];
   recentEpisodes: IEpisodeCard[];
   homeAnime: ISearch<IAnimeResult>;
@@ -23,7 +27,7 @@ const utilitySlice = createSlice({
   name: "utilites",
   initialState,
   reducers: {
-    setCurrentAnime: (state, action: PayloadAction<IAnimeInfo>) => {
+    setCurrentAnime: (state, action: PayloadAction<IAnimeInfo2>) => {
       state.value.currentAnime = action.payload;
     },
     setRecentSearches: (state) => {

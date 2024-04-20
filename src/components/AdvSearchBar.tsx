@@ -8,39 +8,19 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const AdvSearchBar = () => {
+  // React
   const nav = useRouter();
+
+  // Redux
+  const dispatch = useDispatch<AppDispatch>();
+
+  // UseState
   const [search, setSearch] = useState("");
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
-
-  const handleSearch = (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSearch("")
-    setAdvResults([])
-    const recSearches = recentSearches;
-    if (!recSearches.find((s) => s.toLowerCase() == search.toLowerCase())) {
-      localStorage.setItem(
-        "recentSearches",
-        JSON.stringify([search, ...recentSearches]),
-      );
-      setRecentSearches((preVal) => [search, ...preVal]);
-    }
-    nav.push("/search/results?query=" + search);
-  };
-
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
-
-  useEffect(() => {
-    const data = localStorage.getItem("recentSearches");
-    if (data) {
-      setRecentSearches(JSON.parse(data));
-    }
-  }, []);
-
   const [loading, setLoading] = useState(false);
   const [advResults, setAdvResults] = useState<IAnimeResult[]>([]);
 
+  // Fetch
   const fetchAdvResults = async () => {
     try {
       const sort = ["TRENDING_DESC"];
@@ -57,33 +37,17 @@ const AdvSearchBar = () => {
     }
   };
 
-  useEffect(() => {
-    const debounce = setTimeout(() => {
-      search ? fetchAdvResults() : setSearch("");
-    }, 300);
-    return () => clearTimeout(debounce);
-  }, [search]);
-
-  const dispatch = useDispatch<AppDispatch>();
-
-  const searchAnimeInfo = async (anime: IAnimeInfo) => {
+  const searchAnimeInfo = async (anime: IAnimeResult) => {
     try {
       const animeTitle = anime.title as ITitle;
-      const animeId = (
-        animeTitle.romaji ||
-        animeTitle.english ||
-        animeTitle.userPreferred ||
-        animeTitle.native
-      )
-        ?.toString()
-        .toLowerCase();
+      const animeId = toAnimeTitle(animeTitle)?.toString().toLowerCase();
       const data = await fetch(`/api/gogo/searchAnime?anime=${animeId}`);
       const res = await data.json();
 
-      dispatch(setCurrentAnime(anime));
       if (res.success && res.result) {
         const resResult = res.result[0];
         const animeId = resResult.id;
+        dispatch(setCurrentAnime(resResult));
         nav.push("/anime/" + animeId + "-" + anime.id);
       } else {
         nav.push("/anime/" + toAnimeId(animeTitle) + "-" + anime.id);
@@ -92,6 +56,41 @@ const AdvSearchBar = () => {
       console.log(error);
     }
   };
+
+  // handles
+  const handleSearch = (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSearch("");
+    setAdvResults([]);
+    const recSearches = recentSearches;
+    if (!recSearches.find((s) => s.toLowerCase() == search.toLowerCase())) {
+      localStorage.setItem(
+        "recentSearches",
+        JSON.stringify([search, ...recentSearches]),
+      );
+      setRecentSearches((preVal) => [search, ...preVal]);
+    }
+    nav.push("/search/results?query=" + search);
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  // UseEffect
+  useEffect(() => {
+    const data = localStorage.getItem("recentSearches");
+    if (data) {
+      setRecentSearches(JSON.parse(data));
+    }
+  }, []);
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      search ? fetchAdvResults() : setSearch("");
+    }, 300);
+    return () => clearTimeout(debounce);
+  }, [search]);
 
   return (
     <form
@@ -113,12 +112,12 @@ const AdvSearchBar = () => {
       >
         <i className="fi fi-sr-search px-2 py-1" />
       </Link>
-      <div className="bg-black no-scrollbar absolute left-0 top-full z-10 flex max-h-[140px] w-full flex-col overflow-y-scroll">
+      <div className="no-scrollbar absolute left-0 top-full z-10 flex max-h-[140px] w-full flex-col overflow-y-scroll bg-black">
         {advResults.map((anime, i) => (
           <div
             onClick={() => searchAnimeInfo(anime)}
             key={anime.id}
-            className="flex h-fit mb-1 w-full cursor-pointer items-center gap-2 bg-white/30 hover:bg-white/50 transition-all"
+            className="mb-1 flex h-fit w-full cursor-pointer items-center gap-2 bg-white/30 transition-all hover:bg-white/50"
           >
             <div className="w-[72px]">
               <img

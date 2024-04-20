@@ -83,8 +83,8 @@ const Watch = () => {
           if (element.id == animeId + "-dub") {
             setIsDubbed(true);
             handleEpBackup();
-          } else{
-            setIsDubbed(false)
+          } else {
+            setIsDubbed(false);
           }
         });
       }
@@ -108,7 +108,7 @@ const Watch = () => {
         }
         // setEp((animeEp[animId] as number) || 1);
         setEp((animeEp[animId]?.episode as number) || 1);
-        setSubDub(animeEp[animId]?.subDub as boolean || false);
+        setSubDub((animeEp[animId]?.subDub as boolean) || false);
         nav.push(
           epRoute +
             Number(animeEp[animId]?.episode || 1) +

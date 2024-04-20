@@ -2,7 +2,7 @@ import { IAnimeInfo, IAnimeResult, ITitle } from "@consumet/extensions";
 
 export interface charInfo {
   character: {
-    mal_id:  number,
+    mal_id: number;
     images: {
       jpg: {
         image_url: string;
@@ -57,7 +57,12 @@ export const removeChars = (aName: string, characters: string[]) => {
 };
 
 export const toAnimeTitle = (animeTitle: ITitle) => {
-  return animeTitle?.romaji || animeTitle?.english || animeTitle?.userPreferred;
+  return (
+    animeTitle?.romaji ||
+    animeTitle?.english ||
+    animeTitle?.userPreferred ||
+    animeTitle?.native
+  );
 };
 
 export const toAnimeId = (animeTitle: ITitle) => {
@@ -116,4 +121,68 @@ export const alphabets = [
   "X",
   "Y",
   "Z",
+];
+
+export const genreList = [
+  "Action",
+  "Adventure",
+  "Cars",
+  "Comedy",
+  "Drama",
+  "Fantasy",
+  "Horror",
+  "Mahou Shoujo",
+  "Mecha",
+  "Music",
+  "Mystery",
+  "Psychological",
+  "Romance",
+  "Sci-Fi",
+  "Slice of Life",
+  "Sports",
+  "Supernatural",
+  "Thriller",
+];
+
+export const genreMap: { [index: string]: number } = {
+  Action: 0,
+  Adventure: 1,
+  Cars: 2,
+  Comedy: 3,
+  Drama: 4,
+  Fantasy: 5,
+  Horror: 6,
+  "Mahou Shoujo": 7,
+  Mecha: 8,
+  Music: 9,
+  Mystery: 10,
+  Psychological: 11,
+  Romance: 12,
+  "Sci-Fi": 13,
+  "Slice of Life": 14,
+  Sports: 15,
+  Supernatural: 16,
+  Thriller: 17,
+};
+
+export const seasons = ["All", "WINTER", "SPRING", "SUMMER", "FALL"];
+
+export const types = [
+  "All",
+  "TV",
+  "TV_SHORT",
+  "OVA",
+  "ONA",
+  "MOVIE",
+  "SPECIAL",
+  "MUSIC",
+];
+
+export const stauses = [
+  "All",
+  "RELEASING",
+  "NOT_YET_RELEASED",
+  "FINISHED",
+  "CANCELLED",
+  "HIATUS",
 ];

@@ -9,7 +9,11 @@ const DisplayAnime = ({
   animeList: IAnimeResult[];
   title?: string;
 }) => {
+
+  // React
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // handles
   const handleScroll = (dir: number) => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({

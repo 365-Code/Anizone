@@ -1,6 +1,6 @@
 "use client";
 import { charDetails } from "@/utils";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const CharacterCard = ({ character }: { character: charDetails }) => {
   const [about, setAbout] = useState("");
@@ -54,14 +54,14 @@ const CharacterCard = ({ character }: { character: charDetails }) => {
           onClick={() => setShow(false)}
           className="fixed left-0 top-0 z-40 flex h-full w-full items-center justify-center bg-black/50 backdrop-blur-sm"
         >
-          <div className="mx-auto flex max-h-[95vh] md:max-h-[300px] w-fit max-w-full flex-col items-center justify-center gap-4 rounded-lg text-white sm:max-w-[80%] sm:flex-row">
+          <div className="mx-auto flex max-h-[95vh] w-fit max-w-full flex-col items-center justify-center gap-4 rounded-lg text-white sm:max-w-[80%] sm:flex-row md:max-h-[300px]">
             <div className="w-[250px]">
               <img
                 src={character.image}
                 className="h-full w-full object-cover object-center"
               />
             </div>
-            <div className="max-w-[60%] text-start flex-1 max-h-full">
+            <div className="max-h-full max-w-[60%] flex-1 text-start">
               <p className="text-lg">
                 <span>Name:</span>
                 <span className="font-medium">{character.name}</span>
@@ -70,7 +70,9 @@ const CharacterCard = ({ character }: { character: charDetails }) => {
                 <span>Role:</span>
                 <span className="font-normal">{character.role}</span>
               </p>
-              <p className="max-h-[150px] md:max-h-[300px] sm:h-auto overflow-y-scroll no-scrollbar">{about}</p>
+              <p className="no-scrollbar max-h-[150px] overflow-y-scroll sm:h-auto md:max-h-[300px]">
+                {about}
+              </p>
             </div>
           </div>
         </div>

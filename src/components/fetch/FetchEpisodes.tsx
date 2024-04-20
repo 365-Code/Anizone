@@ -1,5 +1,5 @@
 "use client";
-import { setCurrentAnime } from "@/redux/features/utilitySlice";
+import { IAnimeInfo2, setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { IAnimeInfo, ITitle } from "@consumet/extensions";
 import Link from "next/link";
@@ -46,13 +46,15 @@ const FetchEpisodes = ({
 
   const currentAnime = useAppSelector(
     (state) => state.utilityReducer.value.currentAnime,
-  ) as IAnimeInfo;
+  ) as IAnimeInfo2;
 
   const [episodes, setEpisodes] = useState(0);
 
   useEffect(() => {
     currentAnime
-      ? setEpisodes(currentAnime.currentEpisode || currentAnime.totalEpisodes)
+      ? setEpisodes(
+          currentAnime.currentEpisode || currentAnime.totalEpisodes || 0,
+        )
       : fetchEpisodeInfo();
   }, []);
 
@@ -64,7 +66,11 @@ const FetchEpisodes = ({
   };
 
   const handleEpisode = (leap: number) => {
-    if (ep + leap > 0 && ep + leap <= Number(currentAnime?.totalEpisodes)) {
+    if (
+      ep + leap > 0 &&
+      ep + leap <=
+        Number(currentAnime?.currentEpisode || currentAnime?.totalEpisodes)
+    ) {
       handleEpPush(Number(ep) + leap);
     }
   };
@@ -76,13 +82,11 @@ const FetchEpisodes = ({
   };
 
   return (
-    <section className="flex items-center justify-between bg-black/30 p-2 gap-2">
+    <section className="flex items-center justify-between gap-2 bg-black/30 p-2">
       {isDubbed == true && (
         <div className=" group/subDub relative">
           <p className=" flex w-fit items-center justify-center gap-2 rounded-t-xl bg-black/40 px-4 py-2">
-            <span>
-              {subDub ? "Dub" : "Sub"}
-            </span>
+            <span>{subDub ? "Dub" : "Sub"}</span>
             <i className="fi fi-sr-angle-small-down" />
           </p>
           <div className="no-scrollbar absolute right-0 flex h-0 max-h-[95px] w-full flex-col overflow-hidden overflow-y-scroll bg-black/40 text-sm transition-all focus:h-0 group-hover/subDub:z-10 group-hover/subDub:h-auto">

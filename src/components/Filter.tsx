@@ -1,79 +1,34 @@
 "use client";
 import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import { AppDispatch } from "@/redux/store";
-import { toAnimeId } from "@/utils";
+import {
+  genreList,
+  genreMap,
+  seasons,
+  stauses,
+  toAnimeId,
+  types,
+} from "@/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Loader2 from "./Loader2";
 const Filter = () => {
-  const genreList = [
-    "Action",
-    "Adventure",
-    "Cars",
-    "Comedy",
-    "Drama",
-    "Fantasy",
-    "Horror",
-    "Mahou Shoujo",
-    "Mecha",
-    "Music",
-    "Mystery",
-    "Psychological",
-    "Romance",
-    "Sci-Fi",
-    "Slice of Life",
-    "Sports",
-    "Supernatural",
-    "Thriller",
-  ];
+  // React
+  const nav = useRouter();
+  const searchParams = useSearchParams();
 
-  const genreMap: { [index: string]: number } = {
-    Action: 0,
-    Adventure: 1,
-    Cars: 2,
-    Comedy: 3,
-    Drama: 4,
-    Fantasy: 5,
-    Horror: 6,
-    "Mahou Shoujo": 7,
-    Mecha: 8,
-    Music: 9,
-    Mystery: 10,
-    Psychological: 11,
-    Romance: 12,
-    "Sci-Fi": 13,
-    "Slice of Life": 14,
-    Sports: 15,
-    Supernatural: 16,
-    Thriller: 17,
-  };
+  const genreParams = searchParams.get("genres")
+    ? ((searchParams.get("genres") as string).split(",") as string[])
+    : [];
 
+  // Redux
+  const dispatch = useDispatch<AppDispatch>();
+
+  // UseState
   const [selectedGenres, setSelectedGenres] = useState<boolean[]>(
     genreList.map(() => false),
   );
-
-  const seasons = ["All", "WINTER", "SPRING", "SUMMER", "FALL"];
-
-  const types = [
-    "All",
-    "TV",
-    "TV_SHORT",
-    "OVA",
-    "ONA",
-    "MOVIE",
-    "SPECIAL",
-    "MUSIC",
-  ];
-
-  const stauses = [
-    "All",
-    "RELEASING",
-    "NOT_YET_RELEASED",
-    "FINISHED",
-    "CANCELLED",
-    "HIATUS",
-  ];
 
   const [filter, setFilter] = useState({
     type: "All",
@@ -82,15 +37,14 @@ const Filter = () => {
     season: "All",
   });
 
-  const nav = useRouter();
+  const [rLoading, setRLoading] = useState(false);
 
+  // handles
   const handleFilter = () => {
     const route = `type=${filter.type}&status=${filter.status}&season=${filter.season}&genres=${filter.genres}`;
     nav.push("/search/results?" + route);
   };
 
-  const dispatch = useDispatch<AppDispatch>();
-  const [rLoading, setRLoading] = useState(false);
   const handleRandom = async () => {
     setRLoading(true);
     try {
@@ -123,11 +77,7 @@ const Filter = () => {
     setSelectedGenres(nGr);
   };
 
-  const searchParams = useSearchParams();
-  const genreParams = searchParams.get("genres") ? (searchParams.get("genres") as string).split(
-    ",",
-  ) as string[] : [];
-
+  // UseEffect
   useEffect(() => {
     let selGenres = selectedGenres;
     genreParams.forEach((gen: string) => {
@@ -153,7 +103,7 @@ const Filter = () => {
                   onClick={() => handleGenre(g, i)}
                   className={`${
                     selectedGenres[i] ? "" : "border-transparent"
-                  } border-b hover:border-white transition-all`}
+                  } border-b transition-all hover:border-white`}
                 >
                   {g}
                 </button>
