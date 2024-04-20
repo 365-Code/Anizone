@@ -16,7 +16,6 @@ const Watch = () => {
   const searchParams = useSearchParams();
   const paramsEpId = (searchParams.get("episode") || 0) as number;
   const paramsSubDub = (searchParams.get("subDub") || false) as boolean;
-  
 
   // UseStates Variables
   const [ep, setEp] = useState<number>(0);
@@ -61,7 +60,11 @@ const Watch = () => {
         setEpSources(res.sources);
         const epHeader = res.headers;
       } else {
-        setEpFailed(true);
+        if (subDub == true) {
+          setSubDub(false);
+        } else {
+          setEpFailed(true);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -92,7 +95,7 @@ const Watch = () => {
   useEffect(() => {
     if (paramsEpId) {
       setEp(Number(paramsEpId));
-      setSubDub(Boolean(paramsSubDub))
+      setSubDub(paramsSubDub == false ? false : true);
     } else {
       const data = localStorage.getItem("animeEp");
       const epRoute = "/anime/" + (params["animeId"] as string) + "?episode=";
@@ -102,9 +105,14 @@ const Watch = () => {
           handleEpBackup();
         }
         // setEp((animeEp[animId] as number) || 1);
-        setEp((animeEp[animId].episode as number) || 1);
-        setSubDub((animeEp[animId].subDub as boolean))
-        nav.push(epRoute + Number(animeEp[animId].episode || 1) + "&subDub=" + animeEp[animId].subDub );
+        setEp((animeEp[animId]?.episode as number) || 1);
+        setSubDub(animeEp[animId].subDub as boolean);
+        nav.push(
+          epRoute +
+            Number(animeEp[animId]?.episode || 1) +
+            "&subDub=" +
+            animeEp[animId]?.subDub,
+        );
       } else {
         // localStorage.setItem("animeEp", JSON.stringify({ [animId]: 1 }));
         localStorage.setItem(
@@ -134,7 +142,7 @@ const Watch = () => {
   }, [epId, animeId]);
 
   useEffect(() => {
-    checkDubbed()
+    checkDubbed();
   }, []);
 
   return (

@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import NavSearch from "./NavSearch";
 import Image from "next/image";
+import AdvSearchBar from "./AdvSearchBar";
 
 const Header = () => {
   const pathname = usePathname();
@@ -80,7 +81,8 @@ const Header = () => {
         </ul>
 
         <div className="min-w-[100px] flex-1 min-[1100px]:max-w-[300px]">
-          <NavSearch />
+          {/* <NavSearch /> */}
+          <AdvSearchBar />
         </div>
       </nav>
     </header>

@@ -14,6 +14,7 @@ import { AppDispatch, useAppSelector } from "@/redux/store";
 import { setCurrentAnime } from "@/redux/features/utilitySlice";
 import Watch from "../Watch";
 import FetchAnimeInfoSkeleton from "../skeleton/FetchAnimeInfoSkeleton";
+import FetchAnimeCharacters from "./FetchAnimeCharacters";
 
 const FetchAnimeInfo = () => {
 
@@ -150,6 +151,8 @@ const FetchAnimeInfo = () => {
               </button>
             </p>
           </div>
+
+          <FetchAnimeCharacters />
 
           <div className="absolute left-0 top-0 -z-10 flex h-full w-full flex-col">
             <div className="basis-2/5 bg-[#1c073f]" />
