@@ -80,7 +80,7 @@ const FetchEpisodes = ({
       {isDubbed == true && (
         <div className=" group/subDub relative">
           <p className=" flex w-fit items-center justify-center gap-2 rounded-t-xl bg-black/40 px-4 py-2">
-            <span className="hidden sm:inline-block">
+            <span>
               {subDub ? "Dub" : "Sub"}
             </span>
             <i className="fi fi-sr-angle-small-down" />
