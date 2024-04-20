@@ -16,6 +16,8 @@ const AdvSearchBar = () => {
 
   const handleSearch = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSearch("")
+    setAdvResults([])
     const recSearches = recentSearches;
     if (!recSearches.find((s) => s.toLowerCase() == search.toLowerCase())) {
       localStorage.setItem(

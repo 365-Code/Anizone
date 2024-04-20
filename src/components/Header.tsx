@@ -81,8 +81,8 @@ const Header = () => {
         </ul>
 
         <div className="min-w-[100px] flex-1 min-[1100px]:max-w-[300px]">
-          {/* <NavSearch /> */}
-          <AdvSearchBar />
+          <NavSearch />
+          {/* <AdvSearchBar /> */}
         </div>
       </nav>
     </header>
