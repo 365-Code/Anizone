@@ -32,7 +32,7 @@ const DisplayAnime = ({
         <div className="basis-1/2 bg-[#230149]" />
         <div className="gradient-bg basis-1/2 py-10" />
       </div>
-      {title && <h2 className="text-5xl capitalize text-white">{title}</h2>}
+      {title && <h2 className="text-3xl sm:text-4xl md:text-5xl capitalize text-white">{title}</h2>}
 
       <button className=" absolute right-4 top-4 block text-right text-xl text-slate-400 transition-all sm:hidden">
         <i className="fi fi-rr-arrow-right bounceH transition-all" />
