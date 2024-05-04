@@ -23,9 +23,9 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo2 }) => {
       if (res.success && res.result) {
         const resResult = res.result[0];
         const animeId = resResult.id;
-        nav.push("/anime/" + animeId + "-" + anime.id);
+        nav.push("/anime/" + animeId + "-" + anime?.id);
       } else {
-        nav.push("/anime/" + toAnimeId(animeTitle) + "-" + anime.id);
+        nav.push("/anime/" + toAnimeId(animeTitle) + "-" + anime?.id);
       }
     } catch (error) {
       console.log(error);
