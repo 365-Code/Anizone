@@ -1,6 +1,6 @@
 "use client";
 import { IAnimeResult } from "@consumet/extensions";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StAnimeCard from "./card/StAnimeCard";
 import Background from "./Background";
 import StAnimeCardSkeleton from "./skeleton/StAnimeCardSkeleton";
@@ -16,6 +16,12 @@ const ListAnime = ({
 }) => {
   const anime = animeList;
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 7000)
+
   return (
     <section className="my-container gbg flex flex-col gap-4 py-4 text-white">
       {title && <h2 className="text-5xl">{title}</h2>}
@@ -26,7 +32,7 @@ const ListAnime = ({
         >
           {anime?.map((anim) => <StAnimeCard key={anim.id} animeId={anim} />)}
           {
-            animeList.length == 0 &&
+            animeList.length == 0 && isLoading &&
             [...Array(20)].map((v,i)=>
               <StAnimeCardSkeleton key={i} />
             )

@@ -41,7 +41,7 @@ const EpisodeCard = ({ anime }: { anime: IEpisodeCard }) => {
     <div onClick={searchAnimeInfo} className="cursor-pointer">
       <div className="group/epCard st-anime-card relative transition-all">
         <div className="st-anime-card-image">
-          <img
+          <Image
             width={600}
             height={600}
             src={anime.image || ""}

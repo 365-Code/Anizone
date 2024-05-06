@@ -36,7 +36,7 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
   return (
     <div className="snap-start pl-3 pt-3">
       <div className="anime-card">
-        <img
+        <Image
           width={400}
           height={400}
           src={anime?.image || ""}
@@ -104,7 +104,7 @@ const AnimeCard = ({ anime }: { anime: IAnimeInfo }) => {
           </div>
         </div>
         <div className="anime-card-img ">
-          <img
+          <Image
             width={500}
             height={500}
             src={anime.image || ""}

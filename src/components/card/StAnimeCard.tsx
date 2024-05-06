@@ -22,8 +22,8 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo2 }) => {
       dispatch(setCurrentAnime(anime));
       if (res.success && res.result) {
         const resResult = res.result[0];
-        const animeId = resResult.id;
-        nav.push("/anime/" + animeId + "-" + anime?.id);
+        const unimeId = resResult.id;
+        nav.push("/anime/" + unimeId + "-" + anime?.id);
       } else {
         nav.push("/anime/" + toAnimeId(animeTitle) + "-" + anime?.id);
       }
@@ -37,7 +37,7 @@ const StAnimeCard = ({ animeId: anime }: { animeId: IAnimeInfo2 }) => {
       {anime && (
         <div onClick={searchAnimeInfo} className="st-anime-card cursor-pointer">
           <div className="st-anime-card-image">
-            <img
+            <Image
               width={600}
               height={600}
               src={anime.image || ""}

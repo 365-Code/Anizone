@@ -13,7 +13,7 @@ const PlayNowCard = ({
 
   return (
     <div className="play-now-card">
-        <img
+        <Image
           width={600}
           height={600}
           src={animeInfo.image || ""}
@@ -59,7 +59,7 @@ const PlayNowCard = ({
         </div>
       </div>
       <div className="play-now-card-img ">
-        <img
+        <Image
           width={600}
           height={600}
           src={animeInfo.image || ""}
